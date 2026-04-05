@@ -1,0 +1,41 @@
+import type { FC, ReactNode } from 'react';
+import { ProgressTracker } from './ProgressTracker';
+import { GuideAvatar } from './GuideAvatar';
+import { useJourney } from '../state/JourneyProvider';
+import { getGuideName } from '../state/journey';
+
+interface LayoutProps {
+  children: ReactNode;
+  showProgress?: boolean;
+  currentStep?: number | null;
+}
+
+export const Layout: FC<LayoutProps> = ({
+  children,
+  showProgress = false,
+  currentStep = null,
+}) => {
+  const { state } = useJourney();
+
+  return (
+    <div className="layout">
+      <header className="layout-header">
+        <span className="layout-brand">GVO</span>
+        {state.guide && (
+          <div className="layout-guide-indicator">
+            <GuideAvatar guide={state.guide} size="sm" />
+            <span className="layout-guide-name">{getGuideName(state.guide)}</span>
+          </div>
+        )}
+      </header>
+
+      {showProgress && (
+        <div className="layout-progress">
+          <ProgressTracker currentStep={currentStep} />
+        </div>
+      )}
+
+      <main className="layout-main">{children}</main>
+    </div>
+  );
+};

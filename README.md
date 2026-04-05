@@ -164,8 +164,16 @@ El frontend lee la URL base del servidor desde la variable de entorno `VITE_API_
 Crea `apps/web/.env.local` a partir del ejemplo:
 
 ```bash
+# Git Bash / macOS / Linux
 cp apps/web/.env.example apps/web/.env.local
 ```
+
+```powershell
+# PowerShell (Windows)
+Copy-Item apps/web/.env.example apps/web/.env.local
+```
+
+O duplica manualmente el archivo `apps/web/.env.example` y renómbralo `.env.local`.
 
 | Escenario | Valor recomendado |
 | --- | --- |

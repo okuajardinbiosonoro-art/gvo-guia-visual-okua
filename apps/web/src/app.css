@@ -5,28 +5,32 @@
   padding: 0;
 }
 
-/* Variables */
+/* ─── Variables de diseño ─────────────────────────────────────── */
 :root {
-  --color-bg: #0d0d0d;
-  --color-surface: #161616;
-  --color-border: #2a2a2a;
-  --color-text: #e8e8e8;
-  --color-text-muted: #888;
-  --color-accent: #c8a96e;
-  --color-ok: #5a9e6f;
-  --color-pending: #555;
+  --color-bg:           #0d0d0d;
+  --color-surface:      #161616;
+  --color-border:       #2a2a2a;
+  --color-text:         #e8e8e8;
+  --color-text-muted:   #888;
+  --color-accent:       #c8a96e;
+  --color-ok:           #5a9e6f;
+  --color-blocked:      #666;
 
-  --space-xs: 0.5rem;
-  --space-sm: 0.75rem;
-  --space-md: 1.25rem;
-  --space-lg: 2rem;
-  --space-xl: 3rem;
+  --space-xs:  0.5rem;
+  --space-sm:  0.75rem;
+  --space-md:  1.25rem;
+  --space-lg:  2rem;
+  --space-xl:  3rem;
 
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: 'Courier New', Courier, monospace;
 
-  --radius: 4px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
   --max-width: 480px;
+
+  --header-height: 52px;
+  --progress-height: 52px;
 }
 
 html {
@@ -42,120 +46,450 @@ body {
   min-height: 100dvh;
 }
 
-/* Shell principal */
-.shell {
+/* ─── Layout con cabecera ─────────────────────────────────────── */
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: var(--space-lg) var(--space-md);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xl);
-  min-height: 100dvh;
 }
 
-/* Cabecera */
-.shell-header {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
-  padding-bottom: var(--space-lg);
-  border-bottom: 1px solid var(--color-border);
-}
-
-.shell-tag {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--color-text-muted);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.shell-title {
-  font-size: 3rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--color-accent);
-  line-height: 1;
-}
-
-.shell-subtitle {
-  font-size: 1.1rem;
-  color: var(--color-text-muted);
-  font-weight: 400;
-}
-
-/* Secciones */
-.shell-section {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-}
-
-.section-title {
-  font-size: 0.7rem;
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--color-text-muted);
-  border-bottom: 1px solid var(--color-border);
-  padding-bottom: var(--space-xs);
-}
-
-/* Lista de restricciones */
-.constraint-list,
-.status-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
-}
-
-.constraint-list li,
-.status-list li {
+.layout-header {
+  height: var(--header-height);
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
-  font-size: 0.9rem;
-  padding: var(--space-xs) 0;
-}
-
-/* Marcadores de estado */
-.mark {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
+  justify-content: space-between;
+  padding: 0 var(--space-md);
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-bg);
+  position: sticky;
+  top: 0;
+  z-index: 10;
   flex-shrink: 0;
 }
 
-.mark--ok {
+.layout-brand {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+}
+
+.layout-guide-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.layout-guide-name {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  letter-spacing: 0.06em;
+}
+
+.layout-progress {
+  height: var(--progress-height);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-md);
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  flex-shrink: 0;
+}
+
+.layout-main {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* ─── Tracker de progreso ─────────────────────────────────────── */
+.progress-track {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.progress-connector {
+  flex: 1;
+  height: 1px;
+  background-color: var(--color-border);
+  min-width: 4px;
+  transition: background-color 0.3s;
+}
+
+.progress-connector--done {
   background-color: var(--color-ok);
 }
 
-.mark--done {
+.progress-step {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.progress-step-label {
+  font-size: 0.58rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.progress-step--visited {
   background-color: var(--color-ok);
+  color: #fff;
 }
 
-.mark--pending {
-  background-color: var(--color-pending);
-  border: 1px solid #666;
+.progress-step--current {
+  background-color: var(--color-accent);
+  color: #0d0d0d;
+  box-shadow: 0 0 0 3px rgba(200, 169, 110, 0.22);
 }
 
-.status-list li.pending {
+.progress-step--locked {
+  background-color: transparent;
+  border: 1px solid var(--color-border);
   color: var(--color-text-muted);
 }
 
-.status-list li.done {
+/* ─── Avatar de guía ─────────────────────────────────────────── */
+.guide-avatar {
+  background-color: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent);
+  flex-shrink: 0;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.guide-avatar--sm  { width: 32px;  height: 32px; }
+.guide-avatar--md  { width: 64px;  height: 64px; }
+.guide-avatar--lg  { width: 88px;  height: 88px; }
+
+.guide-avatar--selected {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(200, 169, 110, 0.18);
+}
+
+.guide-avatar-svg {
+  width: 62%;
+  height: 62%;
+}
+
+/* ─── Pantallas base ─────────────────────────────────────────── */
+.screen {
+  padding: var(--space-lg) var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Pantallas dentro del Layout: ocupan toda la altura disponible */
+.layout-main > .screen {
+  min-height: calc(100dvh - var(--header-height));
+}
+
+.layout-main > .screen.screen--with-progress {
+  min-height: calc(100dvh - var(--header-height) - var(--progress-height));
+}
+
+/* Pantallas independientes (sin Layout): altura completa de viewport */
+.screen--standalone {
+  min-height: 100dvh;
+}
+
+/* Pantalla centrada verticalmente */
+.screen--centered {
+  justify-content: center;
+  text-align: center;
+}
+
+.screen-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.screen-label {
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-accent);
+}
+
+.screen-title {
+  font-size: clamp(1.8rem, 7vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
   color: var(--color-text);
 }
 
-/* Pie */
-.shell-footer {
+.screen-subtitle {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+}
+
+.screen-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  flex: 1;
+}
+
+.screen-text {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--color-text);
+}
+
+.screen-text--muted {
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.screen-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
   margin-top: auto;
-  padding-top: var(--space-lg);
-  border-top: 1px solid var(--color-border);
-  font-size: 0.8rem;
+  padding-top: var(--space-md);
+}
+
+.screen-note {
+  font-size: 0.72rem;
+  text-align: center;
   color: var(--color-text-muted);
   font-family: var(--font-mono);
-  line-height: 1.5;
+  letter-spacing: 0.04em;
+}
+
+/* ─── Botones ────────────────────────────────────────────────── */
+.btn {
+  display: block;
+  width: 100%;
+  padding: 0.9rem var(--space-md);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+  text-align: center;
+  -webkit-tap-highlight-color: transparent;
+  letter-spacing: 0.01em;
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background-color: var(--color-accent);
+  color: #0d0d0d;
+  font-weight: 600;
+}
+
+.btn-primary:hover:not(:disabled) {
+  opacity: 0.88;
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  border-color: var(--color-text-muted);
+  color: var(--color-text);
+}
+
+/* ─── Pantalla de bienvenida ─────────────────────────────────── */
+.screen--welcome {
+  justify-content: space-between;
+}
+
+.welcome-identity {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding-top: var(--space-xl);
+}
+
+.welcome-project {
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+}
+
+.welcome-title {
+  font-size: clamp(4rem, 16vw, 5.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.88;
+  color: var(--color-text);
+}
+
+.welcome-tagline {
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  max-width: 260px;
+  line-height: 1.6;
+  margin-top: var(--space-sm);
+}
+
+/* ─── Selección de guía ──────────────────────────────────────── */
+.guide-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-sm);
+}
+
+.guide-card {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-xs);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  transition: border-color 0.15s, background-color 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.guide-card:active {
+  transform: scale(0.97);
+}
+
+.guide-card--selected {
+  border-color: var(--color-accent);
+  background-color: rgba(200, 169, 110, 0.06);
+}
+
+.guide-card-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.guide-card-desc {
+  font-size: 0.62rem;
+  color: var(--color-text-muted);
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* ─── Pantalla de estación ───────────────────────────────────── */
+.station-placeholder {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+/* ─── Pantalla bloqueada ─────────────────────────────────────── */
+.blocked-icon {
+  width: 56px;
+  height: 56px;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  position: relative;
+  margin: 0 auto;
+  flex-shrink: 0;
+}
+
+.blocked-icon::after {
+  content: '';
+  position: absolute;
+  width: 68%;
+  height: 2px;
+  background: var(--color-text-muted);
+  top: 50%;
+  left: 16%;
+  transform: translateY(-50%) rotate(-40deg);
+}
+
+/* ─── Pantalla de cierre ─────────────────────────────────────── */
+.final-guide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.final-guide-name {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
+}
+
+.final-station-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.final-station-link {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-sm) var(--space-md);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  transition: border-color 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  width: 100%;
+  text-align: left;
+}
+
+.final-station-link:hover {
+  border-color: var(--color-text-muted);
+}
+
+.final-station-label {
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  color: var(--color-accent);
+  letter-spacing: 0.1em;
+  flex-shrink: 0;
+  min-width: 72px;
+}
+
+.final-station-title {
+  font-size: 0.88rem;
+  color: var(--color-text);
 }
