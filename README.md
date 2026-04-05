@@ -111,7 +111,7 @@ git commit -m "chore: initialize GVO repository structure and project governance
 | Capa | Tecnología |
 |---|---|
 | Frontend | React 18 + TypeScript + Vite 5 |
-| Backend | Node.js + TypeScript + Fastify 4 |
+| Backend | Node.js + TypeScript + Fastify 5 |
 | Workspace | npm workspaces (monorepo) |
 | Tipos compartidos | `packages/shared` (`@gvo/shared`) |
 
@@ -157,13 +157,33 @@ GET http://localhost:3001/health
 GET http://localhost:3001/api/meta
 ```
 
+### Configuración de URL del backend
+
+El frontend lee la URL base del servidor desde la variable de entorno `VITE_API_BASE_URL`.
+
+Crea `apps/web/.env.local` a partir del ejemplo:
+
+```bash
+cp apps/web/.env.example apps/web/.env.local
+```
+
+| Escenario | Valor recomendado |
+| --- | --- |
+| Desarrollo local (proxy Vite activo) | dejar vacío — el proxy reenvía `/api/*` a `:3001` |
+| Red local directa (sin proxy) | `http://192.168.X.X:3001` |
+
+El archivo `apps/web/.env.local` está ignorado por `.gitignore`. El ejemplo documentado es `apps/web/.env.example`.
+
+> Esta configuración no implementa consumo funcional del backend todavía. Sesiones, QR y lógica de secuencia se integran en Ticket 0.3.
+
 ### Qué incluye este scaffold (Ticket 0.1)
 
 - Workspace npm con `apps/web`, `apps/server`, `packages/shared`.
 - Landing técnica mínima en el frontend (no es el MVP final).
-- Servidor Fastify con `/health` y `/api/meta`.
+- Servidor Fastify 5 con `/health` y `/api/meta`.
 - CORS configurado para acceso desde red local.
 - Proxy de Vite hacia el servidor en desarrollo.
+- Variable `VITE_API_BASE_URL` disponible via `import.meta.env` en el frontend.
 
 ### Qué NO incluye todavía
 
