@@ -1,0 +1,20 @@
+{
+  "name": "@gvo/server",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "fastify": "^5.8.4",
+    "@fastify/cors": "^11.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "tsx": "^4.7.3",
+    "typescript": "^5.4.5"
+  }
+}

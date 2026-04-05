@@ -101,3 +101,74 @@ Sugerencia de mensaje:
 git add .
 git commit -m "chore: initialize GVO repository structure and project governance"
 ```
+
+---
+
+## 9. Arranque técnico (scaffold v0.1)
+
+### Stack
+
+| Capa | Tecnología |
+|---|---|
+| Frontend | React 18 + TypeScript + Vite 5 |
+| Backend | Node.js + TypeScript + Fastify 4 |
+| Workspace | npm workspaces (monorepo) |
+| Tipos compartidos | `packages/shared` (`@gvo/shared`) |
+
+### Requisitos previos
+
+- Node.js >= 18
+- npm >= 8
+
+### Instalación
+
+```bash
+# Desde la raíz del repo
+npm install
+```
+
+### Desarrollo
+
+```bash
+# Frontend (http://localhost:5173)
+npm run dev:web
+
+# Backend (http://localhost:3001)
+npm run dev:server
+```
+
+### Build
+
+```bash
+# Compila shared → web → server
+npm run build
+```
+
+### Typecheck
+
+```bash
+npm run typecheck
+```
+
+### Verificar que el servidor está vivo
+
+```
+GET http://localhost:3001/health
+GET http://localhost:3001/api/meta
+```
+
+### Qué incluye este scaffold (Ticket 0.1)
+
+- Workspace npm con `apps/web`, `apps/server`, `packages/shared`.
+- Landing técnica mínima en el frontend (no es el MVP final).
+- Servidor Fastify con `/health` y `/api/meta`.
+- CORS configurado para acceso desde red local.
+- Proxy de Vite hacia el servidor en desarrollo.
+
+### Qué NO incluye todavía
+
+- Sesiones, QR, gating, secuencia (Ticket 0.3).
+- Estaciones con contenido real (Ticket 0.2+).
+- Avatar y pantalla de bienvenida (Ticket 0.2).
+- Base de datos, autenticación, panel administrativo.
+- Docker, despliegue en producción.
