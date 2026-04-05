@@ -1,0 +1,22 @@
+# CLAUDE.local.md.example
+
+Este archivo es un ejemplo de configuración local opcional para contexto personal no versionable.
+
+No debe incluir secretos reales.
+
+Ejemplos de contenido permitido:
+
+- rutas locales de trabajo;
+- notas de entorno local;
+- comandos personales de desarrollo;
+- preferencias temporales.
+
+Ejemplo:
+
+```md
+## Entorno local
+- Node instalado por nvm
+- pnpm disponible
+- VS Code en Windows
+- pruebas locales sobre red de laboratorio
+```

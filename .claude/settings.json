@@ -1,0 +1,11 @@
+{
+  "projectName": "GVO - Guia Visual OKUA",
+  "preferredWorkflow": "small-verified-changes",
+  "notes": [
+    "single developer project",
+    "no mandatory pull requests",
+    "mobile-first local web app",
+    "no audio",
+    "sequential station gating"
+  ]
+}
