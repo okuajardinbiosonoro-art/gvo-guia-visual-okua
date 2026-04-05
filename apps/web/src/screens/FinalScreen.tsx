@@ -2,7 +2,7 @@ import { type FC, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Layout } from '../components/Layout';
 import { GuideAvatar } from '../components/GuideAvatar';
-import { canAccessStep, STATIONS, getGuideName } from '../state/journey';
+import { canAccessFinal, STATIONS, getGuideName } from '../state/journey';
 import { useJourney } from '../state/JourneyProvider';
 
 export const FinalScreen: FC = () => {
@@ -10,7 +10,7 @@ export const FinalScreen: FC = () => {
   const { state, dispatch } = useJourney();
 
   useEffect(() => {
-    if (!canAccessStep(state, 5)) {
+    if (!canAccessFinal(state)) {
       navigate('/blocked', { replace: true });
       return;
     }

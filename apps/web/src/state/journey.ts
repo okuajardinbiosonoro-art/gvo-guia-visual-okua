@@ -72,14 +72,32 @@ export function journeyReducer(
 
 // Gating del shell (solo frontend — sin QR ni sesión real)
 // TODO (Ticket 0.3): reemplazar con validación desde backend + sesión + QR
+
+/** Intro (paso 0) requiere guía seleccionada. */
+export function canAccessIntro(state: JourneyState): boolean {
+  return state.guide !== null;
+}
+
+/**
+ * Estación N (1..5) requiere intro (paso 0) y todas las estaciones previas (1..N-1).
+ * En modo libre (completed) toda estación queda accesible.
+ */
 export function canAccessStep(state: JourneyState, step: number): boolean {
-  if (state.completed) return true; // modo libre post-finalización
-  if (step === 0) return state.guide !== null; // intro requiere guía seleccionada
-  // Estación N requiere intro (0) + todas las estaciones previas (1..N-1)
+  if (state.completed) return true;
+  if (step === 0) return canAccessIntro(state);
   for (let i = 0; i < step; i++) {
     if (!state.visitedSteps.includes(i)) return false;
   }
   return true;
+}
+
+/**
+ * El cierre final requiere que la estación 5 haya sido visitada.
+ * En modo libre (completed) el cierre sigue accesible.
+ */
+export function canAccessFinal(state: JourneyState): boolean {
+  if (state.completed) return true;
+  return state.visitedSteps.includes(5);
 }
 
 export function getGuideName(id: GuideId): string {
