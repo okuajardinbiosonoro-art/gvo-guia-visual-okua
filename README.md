@@ -183,12 +183,13 @@ O duplica manualmente el archivo `apps/web/.env.example` y renómbralo `.env.loc
 
 El archivo `apps/web/.env.local` está ignorado por `.gitignore`. El ejemplo documentado es `apps/web/.env.example`.
 
-### API del recorrido (Tickets 0.3 – 0.4)
+### API del recorrido (Tickets 0.3 – 0.5)
 
 El servidor expone los siguientes endpoints:
 
 | Método | Ruta | Descripción |
 | ------ | ---- | ----------- |
+| `POST` | `/api/journey/entry/:token` | Valida token de acceso inicial al recorrido |
 | `POST` | `/api/journey/session` | Crea una nueva sesión temporal |
 | `GET` | `/api/journey/session/:id` | Recupera sesión si no ha expirado (TTL: 4h) |
 | `POST` | `/api/journey/session/:id/guide` | Selecciona guía visual |
@@ -199,7 +200,21 @@ El servidor expone los siguientes endpoints:
 
 El TTL de sesión es configurable con la variable de entorno `SESSION_TTL_MS` (por defecto 4 horas).
 
-### Tokens QR disponibles
+### Token de acceso inicial
+
+El QR de entrada del espacio apunta a la ruta `/entry/<token>`:
+
+```text
+http://<ip-servidor>:5173/entry/okua-entry
+```
+
+- Token válido: redirige al punto correcto del recorrido (guía, intro o próxima estación pendiente).
+- Sesión reanudada automáticamente si existe y está vigente.
+- Token inválido: pantalla "Código no reconocido".
+
+El token de entrada es distinto de los tokens por estación — no desbloquea ninguna estación.
+
+### Tokens QR por estación
 
 Los tokens están definidos en `packages/shared/src/qr.ts` y pueden cambiarse sin tocar la lógica:
 
@@ -211,11 +226,31 @@ Los tokens están definidos en `packages/shared/src/qr.ts` y pueden cambiarse si
 | `okua-e4` | 4 — Operación técnica |
 | `okua-e5` | 5 — Estado actual |
 
-La URL de QR completa para imprimir en laboratorio es: `http://<ip-servidor>:5173/qr/<token>`
+La URL de QR completa para imprimir en el espacio es: `http://<ip-servidor>:5173/qr/<token>`
 
-### Prueba de QR sin cámara (laboratorio)
+### Modo de operación: laboratorio vs campo
 
-Abre directamente en el navegador cualquiera de estas URLs:
+Configurable en `apps/web/.env.local` mediante `VITE_APP_MODE`:
+
+| Valor | Comportamiento |
+| ----- | -------------- |
+| `lab` (por defecto) | El botón "Continuar sin QR" es visible en estaciones — permite navegar sin escanear QR físico |
+| `field` | El bypass manual queda oculto — el visitante debe escanear el QR de cada estación para avanzar |
+
+```bash
+# apps/web/.env.local
+VITE_APP_MODE=lab    # desarrollo
+VITE_APP_MODE=field  # uso real en el espacio
+```
+
+### Prueba de acceso inicial (laboratorio)
+
+```text
+http://localhost:5173/entry/okua-entry  → acceso válido, redirige al punto del recorrido
+http://localhost:5173/entry/invalido    → pantalla "Código no reconocido"
+```
+
+### Prueba de QR de estación sin cámara (laboratorio)
 
 ```text
 http://localhost:5173/qr/okua-e1   → desbloquea estación 1 (si la sesión está en orden)
@@ -234,19 +269,21 @@ Para probar la recuperación tras refresh:
 3. El frontend recupera la sesión del backend automáticamente.
 4. Si la sesión expiró o no existe en el backend, se crea una nueva sesión limpia.
 
-### Qué incluye el estado actual (Tickets 0.1 – 0.4)
+### Qué incluye el estado actual (Tickets 0.1 – 0.5)
 
 - Workspace npm con `apps/web`, `apps/server`, `packages/shared`.
 - Shell funcional del recorrido (bienvenida, guía, intro, 5 estaciones, cierre).
 - Sesión temporal en memoria del servidor con TTL de 4 horas.
 - Validación de secuencia en backend (intro → estaciones 1–5 → finalización).
+- Token de acceso inicial (`okua-entry`) con ruta `/entry/:token` y redirección inteligente.
 - Tokens QR por estación; flujo `/qr/:token` resuelve y registra avance real.
+- Modo de operación `lab`/`field` configurable vía `VITE_APP_MODE`; bypass visible solo en lab.
 - Frontend integrado con API real; sin URLs dispersas (todas pasan por `api.ts`).
-- `VITE_API_BASE_URL` consumido activamente desde `config.ts`.
+- `VITE_API_BASE_URL` y `VITE_APP_MODE` consumidos activamente desde `config.ts`.
 - Rehidratación básica de sesión tras refresh de página.
-- Estaciones en primera pasada muestran hint de QR; botón de fallback para laboratorio.
 - `typecheck` y `dev:server` ya no compilan shared (server tsconfig resuelve desde source via paths).
 - Contrato de errores mutadores uniforme: todas las respuestas de error incluyen `ok: false`.
+- Versionado alineado en todos los paquetes: `0.5.0`.
 
 ### Qué NO incluye todavía
 

@@ -1,6 +1,6 @@
 import type { FastifyPluginAsync } from 'fastify';
 import * as sessions from '../sessions';
-import { resolveQrToken } from '@gvo/shared';
+import { isValidEntryToken, resolveQrToken } from '@gvo/shared';
 
 const VALID_GUIDES = new Set(['masculine', 'feminine', 'flower']);
 
@@ -86,6 +86,21 @@ export const journeyRoutes: FastifyPluginAsync = async (fastify) => {
           .send(result);
       }
       return result;
+    },
+  );
+
+  // POST /api/journey/entry/:token
+  // Valida el token de acceso inicial al recorrido.
+  // El frontend lo llama al procesar el QR de entrada; la gestión de sesión
+  // permanece en el cliente (JourneyProvider).
+  fastify.post<{ Params: { token: string } }>(
+    '/api/journey/entry/:token',
+    async (req, reply) => {
+      const { token } = req.params;
+      if (!isValidEntryToken(token)) {
+        return reply.status(400).send({ ok: false, error: 'invalid_entry_token' });
+      }
+      return { ok: true };
     },
   );
 

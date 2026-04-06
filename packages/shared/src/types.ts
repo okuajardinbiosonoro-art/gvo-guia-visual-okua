@@ -36,3 +36,9 @@ export interface QrScanResponse {
   error?: string;
   session?: JourneySession;
 }
+
+/** Respuesta del endpoint de validación de token de acceso inicial */
+export interface EntryResponse {
+  ok: boolean;
+  error?: string;
+}

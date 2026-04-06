@@ -2,6 +2,20 @@
 // Cambiar tokens aquí sin tocar lógica de backend o frontend.
 
 /**
+ * Token QR de acceso inicial al recorrido.
+ * Imprime este token en el QR de la entrada del espacio:
+ *   http://<ip-servidor>:5173/entry/<ENTRY_TOKEN>
+ */
+export const ENTRY_TOKEN = 'okua-entry';
+
+/**
+ * Valida si un token es el token de acceso inicial.
+ */
+export function isValidEntryToken(token: string): boolean {
+  return token === ENTRY_TOKEN;
+}
+
+/**
  * Mapa de token/slug → ID de estación (1–5).
  * Los tokens son identificadores de laboratorio; no contienen secretos.
  * Para producción, imprimir QR con la URL completa:

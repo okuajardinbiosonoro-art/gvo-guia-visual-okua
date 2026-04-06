@@ -1,6 +1,6 @@
 export const GVO_META = {
   name: 'GVO — Guía Visual OKÚA',
-  version: '0.1.0',
+  version: '0.5.0',
   description: 'Experiencia guiada local para visitantes del proyecto de bionosificación OKÚA',
   constraints: {
     audio: false,

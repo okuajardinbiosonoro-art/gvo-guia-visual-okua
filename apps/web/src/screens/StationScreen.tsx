@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Layout } from '../components/Layout';
 import { STATIONS } from '../state/journey';
 import { useJourney } from '../state/JourneyProvider';
+import { APP_MODE } from '../config';
 
 export const StationScreen: FC = () => {
   const navigate = useNavigate();
@@ -84,12 +85,14 @@ export const StationScreen: FC = () => {
               <p className="screen-text screen-text--muted">
                 Escanea el código QR de la siguiente estación para continuar.
               </p>
-              <button
-                className="btn btn-secondary"
-                onClick={() => navigate(nextPath)}
-              >
-                Continuar sin QR
-              </button>
+              {APP_MODE === 'lab' && (
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => navigate(nextPath)}
+                >
+                  Continuar sin QR
+                </button>
+              )}
             </>
           ) : (
             <button className="btn btn-primary" onClick={() => navigate(nextPath)}>

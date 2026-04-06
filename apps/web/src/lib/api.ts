@@ -1,5 +1,5 @@
 import { API_BASE_URL } from '../config';
-import type { GuideId, QrScanResponse, SessionResponse, StepResponse } from '@gvo/shared';
+import type { EntryResponse, GuideId, QrScanResponse, SessionResponse, StepResponse } from '@gvo/shared';
 
 interface ApiError extends Error {
   status: number;
@@ -56,4 +56,7 @@ export const journeyApi = {
 
   scanQr: (id: string, token: string) =>
     request<QrScanResponse>(`/api/journey/session/${id}/scan/${token}`, { method: 'POST' }),
+
+  validateEntry: (token: string) =>
+    request<EntryResponse>(`/api/journey/entry/${token}`, { method: 'POST' }),
 };

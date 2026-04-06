@@ -25,6 +25,8 @@ interface JourneyActions {
   visitStation: (stationId: number) => Promise<ActionResult>;
   finalize: () => Promise<ActionResult>;
   scanQr: (token: string) => Promise<ActionResult>;
+  /** Valida el token de acceso inicial contra el backend. No modifica la sesión. */
+  validateEntry: (token: string) => Promise<ActionResult>;
 }
 
 export interface JourneyContextValue {
@@ -105,6 +107,15 @@ export function JourneyProvider({ children }: { children: ReactNode }) {
           return { ok: true, stationId: result.stationId };
         }
         return { ok: false, error: result.error ?? 'unknown_error' };
+      } catch (err: unknown) {
+        const e = err as { code?: string };
+        return { ok: false, error: e.code ?? 'network_error' };
+      }
+    },
+    validateEntry: async (token) => {
+      try {
+        const result = await journeyApi.validateEntry(token);
+        return result.ok ? { ok: true } : { ok: false, error: result.error ?? 'invalid_entry_token' };
       } catch (err: unknown) {
         const e = err as { code?: string };
         return { ok: false, error: e.code ?? 'network_error' };
