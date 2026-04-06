@@ -15,16 +15,16 @@ export const Layout: FC<LayoutProps> = ({
   showProgress = false,
   currentStep = null,
 }) => {
-  const { state } = useJourney();
+  const { session } = useJourney();
 
   return (
     <div className="layout">
       <header className="layout-header">
         <span className="layout-brand">GVO</span>
-        {state.guide && (
+        {session?.guide && (
           <div className="layout-guide-indicator">
-            <GuideAvatar guide={state.guide} size="sm" />
-            <span className="layout-guide-name">{getGuideName(state.guide)}</span>
+            <GuideAvatar guide={session.guide} size="sm" />
+            <span className="layout-guide-name">{getGuideName(session.guide)}</span>
           </div>
         )}
       </header>

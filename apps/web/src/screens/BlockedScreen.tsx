@@ -4,15 +4,15 @@ import { useJourney } from '../state/JourneyProvider';
 
 export const BlockedScreen: FC = () => {
   const navigate = useNavigate();
-  const { state } = useJourney();
+  const { session } = useJourney();
 
-  // Determinar el último punto válido del recorrido para el botón de retorno
   const getReturnPath = (): string => {
-    if (!state.guide) return '/guide';
-    if (!state.visitedSteps.includes(0)) return '/intro';
-    const lastStation = Math.max(0, ...state.visitedSteps.filter((s) => s > 0));
+    if (!session?.guide) return '/guide';
+    if (!session.visitedSteps.includes(0)) return '/intro';
+    const stationVisits = session.visitedSteps.filter((s) => s > 0);
+    const lastStation = stationVisits.length > 0 ? Math.max(...stationVisits) : 0;
     if (lastStation === 0) return '/intro';
-    if (state.completed) return '/final';
+    if (session.completed) return '/final';
     return `/station/${lastStation}`;
   };
 
@@ -32,7 +32,6 @@ export const BlockedScreen: FC = () => {
           En la primera pasada, el recorrido debe hacerse en secuencia.
           Al finalizar, podrás revisitar cualquier estación libremente.
         </p>
-        {/* TODO (Ticket 0.3): este bloqueo se validará por QR + sesión real */}
       </div>
 
       <div className="screen-actions">

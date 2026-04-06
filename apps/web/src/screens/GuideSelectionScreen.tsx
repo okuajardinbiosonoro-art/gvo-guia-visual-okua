@@ -6,12 +6,22 @@ import { useJourney } from '../state/JourneyProvider';
 
 export const GuideSelectionScreen: FC = () => {
   const navigate = useNavigate();
-  const { state, dispatch } = useJourney();
-  const [selected, setSelected] = useState<GuideId | null>(state.guide);
+  const { session, actions } = useJourney();
+  const [selected, setSelected] = useState<GuideId | null>(session?.guide ?? null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSelect = (id: GuideId) => {
-    setSelected(id);
-    dispatch({ type: 'SELECT_GUIDE', guide: id });
+  const handleContinue = async () => {
+    if (!selected) return;
+    setLoading(true);
+    setError(null);
+    const result = await actions.selectGuide(selected);
+    setLoading(false);
+    if (result.ok) {
+      navigate('/intro');
+    } else {
+      setError('No se pudo registrar la selección. Intenta de nuevo.');
+    }
   };
 
   return (
@@ -28,7 +38,7 @@ export const GuideSelectionScreen: FC = () => {
           <button
             key={guide.id}
             className={`guide-card${selected === guide.id ? ' guide-card--selected' : ''}`}
-            onClick={() => handleSelect(guide.id)}
+            onClick={() => setSelected(guide.id)}
             aria-pressed={selected === guide.id}
           >
             <GuideAvatar guide={guide.id} size="lg" selected={selected === guide.id} />
@@ -38,13 +48,15 @@ export const GuideSelectionScreen: FC = () => {
         ))}
       </div>
 
+      {error && <p className="screen-error">{error}</p>}
+
       <div className="screen-actions">
         <button
           className="btn btn-primary"
-          onClick={() => navigate('/intro')}
-          disabled={!selected}
+          onClick={handleContinue}
+          disabled={!selected || loading}
         >
-          Continuar
+          {loading ? 'Registrando…' : 'Continuar'}
         </button>
       </div>
     </div>

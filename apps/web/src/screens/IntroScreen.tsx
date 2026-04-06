@@ -5,17 +5,16 @@ import { useJourney } from '../state/JourneyProvider';
 
 export const IntroScreen: FC = () => {
   const navigate = useNavigate();
-  const { state, dispatch } = useJourney();
+  const { session, actions } = useJourney();
 
   useEffect(() => {
-    // Guardia de entrada: sin guía seleccionada, volver a selección
-    if (!state.guide) {
+    if (!session?.guide) {
       navigate('/guide', { replace: true });
       return;
     }
-    dispatch({ type: 'VISIT_STEP', step: 0 });
-    // Dependencias omitidas intencionalmente: este efecto actúa como guardia de
-    // entrada en el montaje, no como efecto reactivo. (Ticket 0.3 reemplaza con sesión real.)
+    // Registrar visita al intro; no bloqueamos la pantalla en este paso
+    void actions.visitIntro();
+    // Dependencias omitidas intencionalmente: guardia de entrada en montaje.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -38,7 +37,7 @@ export const IntroScreen: FC = () => {
           </p>
           <p className="screen-text screen-text--muted">
             Sigue el orden de las estaciones en tu primera pasada. Al terminar,
-            podrás revisitar cualquiera de ellas libremente.
+            podrás revisitar cualquier estación libremente.
           </p>
           {/* TODO (Ticket 0.2+): reemplazar con contenido narrativo real de introducción */}
         </div>

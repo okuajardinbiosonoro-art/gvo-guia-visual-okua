@@ -1,18 +1,30 @@
-// Tipos compartidos de GVO — Guía Visual OKÚA
-// Este archivo crece con los tickets siguientes (sesiones, QR, estaciones).
+// Tipos compartidos — GVO Guía Visual OKÚA
 
-export type StationId = 0 | 1 | 2 | 3 | 4 | 5;
+/** Identificador de guía visual */
+export type GuideId = 'masculine' | 'feminine' | 'flower';
 
-export interface Station {
-  id: StationId;
-  slug: string;
-  title: string;
+/** Sesión temporal del recorrido almacenada en backend */
+export interface JourneySession {
+  sessionId: string;
+  /** Guía visual elegida; null si aún no se seleccionó */
+  guide: GuideId | null;
+  /** Pasos visitados: 0 = introducción, 1–5 = estaciones */
+  visitedSteps: number[];
+  /** true tras la finalización explícita del recorrido */
+  completed: boolean;
+  createdAt: number;
+  updatedAt: number;
+  /** Expiración con ventana deslizante */
+  expiresAt: number;
 }
 
-// Placeholder — se expande en Ticket 0.3 (sesiones + gating)
-export interface SessionState {
-  sessionId: string;
-  currentStation: StationId;
-  completedStations: StationId[];
-  startedAt: number;
+/** Respuesta de creación o recuperación de sesión */
+export interface SessionResponse {
+  session: JourneySession;
+}
+
+/** Respuesta de endpoints de acción del recorrido */
+export interface StepResponse {
+  ok: boolean;
+  session: JourneySession;
 }

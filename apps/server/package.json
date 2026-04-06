@@ -9,6 +9,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@gvo/shared": "*",
     "fastify": "^5.8.4",
     "@fastify/cors": "^11.2.0"
   },

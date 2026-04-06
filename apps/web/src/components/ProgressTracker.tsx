@@ -12,12 +12,13 @@ const ALL_STEPS = [
 ];
 
 export const ProgressTracker: FC<ProgressTrackerProps> = ({ currentStep }) => {
-  const { state } = useJourney();
+  const { session } = useJourney();
+  const visitedSteps = session?.visitedSteps ?? [];
 
   return (
     <nav className="progress-track" aria-label="Progreso del recorrido">
       {ALL_STEPS.map((step, index) => {
-        const isVisited = state.visitedSteps.includes(step.id);
+        const isVisited = visitedSteps.includes(step.id);
         const isCurrent = step.id === currentStep;
 
         const stepClass = [

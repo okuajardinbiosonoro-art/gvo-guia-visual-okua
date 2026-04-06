@@ -159,7 +159,8 @@ GET http://localhost:3001/api/meta
 
 ### Configuración de URL del backend
 
-El frontend lee la URL base del servidor desde la variable de entorno `VITE_API_BASE_URL`.
+El frontend lee la URL base del servidor desde la variable de entorno `VITE_API_BASE_URL`
+(definida en `apps/web/src/config.ts`).
 
 Crea `apps/web/.env.local` a partir del ejemplo:
 
@@ -182,21 +183,47 @@ O duplica manualmente el archivo `apps/web/.env.example` y renómbralo `.env.loc
 
 El archivo `apps/web/.env.local` está ignorado por `.gitignore`. El ejemplo documentado es `apps/web/.env.example`.
 
-> Esta configuración no implementa consumo funcional del backend todavía. Sesiones, QR y lógica de secuencia se integran en Ticket 0.3.
+### API del recorrido (Ticket 0.3)
 
-### Qué incluye este scaffold (Ticket 0.1)
+El servidor expone los siguientes endpoints de sesión:
+
+| Método | Ruta | Descripción |
+| ------ | ---- | ----------- |
+| `POST` | `/api/journey/session` | Crea una nueva sesión temporal |
+| `GET` | `/api/journey/session/:id` | Recupera sesión si no ha expirado (TTL: 4h) |
+| `POST` | `/api/journey/session/:id/guide` | Selecciona guía visual |
+| `POST` | `/api/journey/session/:id/intro` | Registra visita a la introducción |
+| `POST` | `/api/journey/session/:id/station/:n` | Registra visita a estación 1–5 (valida secuencia) |
+| `POST` | `/api/journey/session/:id/finalize` | Finaliza recorrido (requiere estación 5 visitada) |
+
+El TTL de sesión es configurable con la variable de entorno `SESSION_TTL_MS` (por defecto 4 horas).
+
+### Persistencia de sesión y prueba de refresh
+
+La sesión del visitante se guarda en `sessionStorage` bajo la clave `gvo_session_id`.
+
+Para probar la recuperación tras refresh:
+
+1. Inicia el recorrido y avanza algunas estaciones.
+2. Recarga la página (`F5` / pull-to-refresh).
+3. El frontend recupera la sesión del backend automáticamente.
+4. Si la sesión expiró o no existe en el backend, se crea una nueva sesión limpia.
+
+### Qué incluye el estado actual (Tickets 0.1 – 0.3)
 
 - Workspace npm con `apps/web`, `apps/server`, `packages/shared`.
-- Landing técnica mínima en el frontend (no es el MVP final).
-- Servidor Fastify 5 con `/health` y `/api/meta`.
-- CORS configurado para acceso desde red local.
-- Proxy de Vite hacia el servidor en desarrollo.
-- Variable `VITE_API_BASE_URL` disponible via `import.meta.env` en el frontend.
+- Shell funcional del recorrido (bienvenida, guía, intro, 5 estaciones, cierre).
+- Sesión temporal en memoria del servidor con TTL de 4 horas.
+- Validación de secuencia en backend (intro → estaciones 1–5 → finalización).
+- Frontend integrado con API real; sin URLs dispersas (todas pasan por `api.ts`).
+- `VITE_API_BASE_URL` consumido activamente desde `config.ts`.
+- Rehidratación básica de sesión tras refresh de página.
+- Estados de carga y error visibles en la UI.
 
 ### Qué NO incluye todavía
 
-- Sesiones, QR, gating, secuencia (Ticket 0.3).
-- Estaciones con contenido real (Ticket 0.2+).
-- Avatar y pantalla de bienvenida (Ticket 0.2).
+- Escaneo real de QR por cámara (Ticket 0.4).
+- Estaciones con contenido narrativo y visual final.
+- Avatar y guías con ilustraciones finales.
 - Base de datos, autenticación, panel administrativo.
 - Docker, despliegue en producción.

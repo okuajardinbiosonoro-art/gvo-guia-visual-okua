@@ -1,5 +1,6 @@
 import Fastify from 'fastify';
 import cors from '@fastify/cors';
+import { journeyRoutes } from './routes/journey';
 
 const PORT = Number(process.env.PORT) || 3001;
 const HOST = process.env.HOST || '0.0.0.0';
@@ -10,32 +11,24 @@ async function bootstrap(): Promise<void> {
   // CORS — permisivo para acceso desde red local (móvil del visitante)
   await server.register(cors, { origin: true });
 
-  // --- Rutas ---
+  // Rutas del recorrido (sesión + secuencia)
+  await server.register(journeyRoutes);
 
   // Salud del servidor
-  server.get('/health', async () => {
-    return { status: 'ok', timestamp: Date.now() };
-  });
+  server.get('/health', async () => ({ status: 'ok', timestamp: Date.now() }));
 
-  // Metadatos del proyecto — útil para depuración y futuros clientes
-  server.get('/api/meta', async () => {
-    return {
-      name: 'GVO — Guía Visual OKÚA',
-      version: '0.1.0',
-      status: 'scaffold',
-      // Los siguientes módulos se activan en tickets posteriores:
-      features: {
-        sessions: false,   // Ticket 0.3 — sesión temporal + gating
-        qr: false,         // Ticket 0.3 — validación por QR
-        sequence: false,   // Ticket 0.3 — control de secuencia
-        stations: false,   // Ticket 0.2+ — estaciones reales
-      },
-    };
-  });
-
-  // TODO (Ticket 0.3): registrar plugin de sesiones aquí
-  // TODO (Ticket 0.3): registrar rutas de QR aquí
-  // TODO (Ticket 0.2+): registrar rutas de estaciones aquí
+  // Metadatos del proyecto
+  server.get('/api/meta', async () => ({
+    name: 'GVO — Guía Visual OKÚA',
+    version: '0.3.0',
+    status: 'session-backed',
+    features: {
+      sessions: true,
+      qr: false,       // Ticket 0.4 — validación por QR
+      sequence: true,
+      stations: false, // Ticket 0.2+ — estaciones reales
+    },
+  }));
 
   try {
     await server.listen({ port: PORT, host: HOST });
