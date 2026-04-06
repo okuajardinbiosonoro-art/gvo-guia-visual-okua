@@ -1,5 +1,6 @@
 import type { FastifyPluginAsync } from 'fastify';
 import * as sessions from '../sessions';
+import { resolveQrToken } from '@gvo/shared';
 
 const VALID_GUIDES = new Set(['masculine', 'feminine', 'flower']);
 
@@ -26,7 +27,8 @@ export const journeyRoutes: FastifyPluginAsync = async (fastify) => {
     async (req, reply) => {
       const { guide } = req.body;
       if (typeof guide !== 'string' || !VALID_GUIDES.has(guide)) {
-        return reply.status(400).send({ error: 'invalid_guide' });
+        // Contrato uniforme: { ok: false, error }
+        return reply.status(400).send({ ok: false, error: 'invalid_guide' });
       }
       const result = sessions.setGuide(
         req.params.sessionId,
@@ -61,7 +63,7 @@ export const journeyRoutes: FastifyPluginAsync = async (fastify) => {
     async (req, reply) => {
       const stationId = Number(req.params.stationId);
       if (!Number.isInteger(stationId)) {
-        return reply.status(400).send({ error: 'invalid_station' });
+        return reply.status(400).send({ ok: false, error: 'invalid_station' });
       }
       const result = sessions.visitStation(req.params.sessionId, stationId);
       if (!result.ok) {
@@ -84,6 +86,29 @@ export const journeyRoutes: FastifyPluginAsync = async (fastify) => {
           .send(result);
       }
       return result;
+    },
+  );
+
+  // POST /api/journey/session/:sessionId/scan/:token
+  // Resuelve un token QR a una estación y registra el avance si la secuencia lo permite.
+  fastify.post<{ Params: { sessionId: string; token: string } }>(
+    '/api/journey/session/:sessionId/scan/:token',
+    async (req, reply) => {
+      const { sessionId, token } = req.params;
+
+      const stationId = resolveQrToken(token);
+      if (stationId === null) {
+        return reply.status(400).send({ ok: false, error: 'invalid_token' });
+      }
+
+      const result = sessions.visitStation(sessionId, stationId);
+      if (!result.ok) {
+        return reply
+          .status(result.error === 'session_not_found' ? 404 : 400)
+          .send({ ok: false, error: result.error, session: result.session });
+      }
+
+      return { ok: true, stationId, session: result.session };
     },
   );
 };

@@ -7,7 +7,7 @@ import { useJourney } from '../state/JourneyProvider';
 export const StationScreen: FC = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const { actions } = useJourney();
+  const { session, actions } = useJourney();
   const [ready, setReady] = useState(false);
 
   const stationId = Number(id);
@@ -43,7 +43,7 @@ export const StationScreen: FC = () => {
 
   const isLast = stationId === 5;
   const nextPath = isLast ? '/final' : `/station/${stationId + 1}`;
-  const nextLabel = isLast ? 'Ver el cierre' : 'Siguiente estación';
+  const isFirstPass = !session?.completed;
 
   if (!station || !ready) {
     return (
@@ -79,9 +79,23 @@ export const StationScreen: FC = () => {
         </div>
 
         <div className="screen-actions">
-          <button className="btn btn-primary" onClick={() => navigate(nextPath)}>
-            {nextLabel}
-          </button>
+          {isFirstPass && !isLast ? (
+            <>
+              <p className="screen-text screen-text--muted">
+                Escanea el código QR de la siguiente estación para continuar.
+              </p>
+              <button
+                className="btn btn-secondary"
+                onClick={() => navigate(nextPath)}
+              >
+                Continuar sin QR
+              </button>
+            </>
+          ) : (
+            <button className="btn btn-primary" onClick={() => navigate(nextPath)}>
+              {isLast ? 'Ver el cierre' : 'Siguiente estación'}
+            </button>
+          )}
           {stationId > 1 && (
             <button
               className="btn btn-secondary"

@@ -20,11 +20,11 @@ async function bootstrap(): Promise<void> {
   // Metadatos del proyecto
   server.get('/api/meta', async () => ({
     name: 'GVO — Guía Visual OKÚA',
-    version: '0.3.0',
+    version: '0.4.0',
     status: 'session-backed',
     features: {
       sessions: true,
-      qr: false,       // Ticket 0.4 — validación por QR
+      qr: true,
       sequence: true,
       stations: false, // Ticket 0.2+ — estaciones reales
     },

@@ -183,9 +183,9 @@ O duplica manualmente el archivo `apps/web/.env.example` y renómbralo `.env.loc
 
 El archivo `apps/web/.env.local` está ignorado por `.gitignore`. El ejemplo documentado es `apps/web/.env.example`.
 
-### API del recorrido (Ticket 0.3)
+### API del recorrido (Tickets 0.3 – 0.4)
 
-El servidor expone los siguientes endpoints de sesión:
+El servidor expone los siguientes endpoints:
 
 | Método | Ruta | Descripción |
 | ------ | ---- | ----------- |
@@ -195,8 +195,33 @@ El servidor expone los siguientes endpoints de sesión:
 | `POST` | `/api/journey/session/:id/intro` | Registra visita a la introducción |
 | `POST` | `/api/journey/session/:id/station/:n` | Registra visita a estación 1–5 (valida secuencia) |
 | `POST` | `/api/journey/session/:id/finalize` | Finaliza recorrido (requiere estación 5 visitada) |
+| `POST` | `/api/journey/session/:id/scan/:token` | Resuelve token QR → estación y registra avance |
 
 El TTL de sesión es configurable con la variable de entorno `SESSION_TTL_MS` (por defecto 4 horas).
+
+### Tokens QR disponibles
+
+Los tokens están definidos en `packages/shared/src/qr.ts` y pueden cambiarse sin tocar la lógica:
+
+| Token | Estación |
+| ----- | -------- |
+| `okua-e1` | 1 — Origen y propósito |
+| `okua-e2` | 2 — Señales bioeléctricas |
+| `okua-e3` | 3 — Prototipos y evolución |
+| `okua-e4` | 4 — Operación técnica |
+| `okua-e5` | 5 — Estado actual |
+
+La URL de QR completa para imprimir en laboratorio es: `http://<ip-servidor>:5173/qr/<token>`
+
+### Prueba de QR sin cámara (laboratorio)
+
+Abre directamente en el navegador cualquiera de estas URLs:
+
+```text
+http://localhost:5173/qr/okua-e1   → desbloquea estación 1 (si la sesión está en orden)
+http://localhost:5173/qr/okua-e3   → sequence_violation si no se visitaron 1 y 2 antes
+http://localhost:5173/qr/invalido  → pantalla "Código no reconocido"
+```
 
 ### Persistencia de sesión y prueba de refresh
 
@@ -209,20 +234,23 @@ Para probar la recuperación tras refresh:
 3. El frontend recupera la sesión del backend automáticamente.
 4. Si la sesión expiró o no existe en el backend, se crea una nueva sesión limpia.
 
-### Qué incluye el estado actual (Tickets 0.1 – 0.3)
+### Qué incluye el estado actual (Tickets 0.1 – 0.4)
 
 - Workspace npm con `apps/web`, `apps/server`, `packages/shared`.
 - Shell funcional del recorrido (bienvenida, guía, intro, 5 estaciones, cierre).
 - Sesión temporal en memoria del servidor con TTL de 4 horas.
 - Validación de secuencia en backend (intro → estaciones 1–5 → finalización).
+- Tokens QR por estación; flujo `/qr/:token` resuelve y registra avance real.
 - Frontend integrado con API real; sin URLs dispersas (todas pasan por `api.ts`).
 - `VITE_API_BASE_URL` consumido activamente desde `config.ts`.
 - Rehidratación básica de sesión tras refresh de página.
-- Estados de carga y error visibles en la UI.
+- Estaciones en primera pasada muestran hint de QR; botón de fallback para laboratorio.
+- `typecheck` y `dev:server` ya no compilan shared (server tsconfig resuelve desde source via paths).
+- Contrato de errores mutadores uniforme: todas las respuestas de error incluyen `ok: false`.
 
 ### Qué NO incluye todavía
 
-- Escaneo real de QR por cámara (Ticket 0.4).
+- Escaneo de QR por cámara dentro del navegador.
 - Estaciones con contenido narrativo y visual final.
 - Avatar y guías con ilustraciones finales.
 - Base de datos, autenticación, panel administrativo.

@@ -6,6 +6,7 @@ import { IntroScreen } from './screens/IntroScreen';
 import { StationScreen } from './screens/StationScreen';
 import { BlockedScreen } from './screens/BlockedScreen';
 import { FinalScreen } from './screens/FinalScreen';
+import { QrScreen } from './screens/QrScreen';
 
 export default function App() {
   const { status, errorMessage } = useJourney();
@@ -35,6 +36,7 @@ export default function App() {
       <Route path="/guide"       element={<GuideSelectionScreen />} />
       <Route path="/intro"       element={<IntroScreen />} />
       <Route path="/station/:id" element={<StationScreen />} />
+      <Route path="/qr/:token"   element={<QrScreen />} />
       <Route path="/blocked"     element={<BlockedScreen />} />
       <Route path="/final"       element={<FinalScreen />} />
       <Route path="*"            element={<Navigate to="/" replace />} />

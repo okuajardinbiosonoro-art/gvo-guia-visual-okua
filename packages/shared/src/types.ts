@@ -28,3 +28,11 @@ export interface StepResponse {
   ok: boolean;
   session: JourneySession;
 }
+
+/** Respuesta del endpoint de desbloqueo por QR/token */
+export interface QrScanResponse {
+  ok: boolean;
+  stationId?: number;
+  error?: string;
+  session?: JourneySession;
+}

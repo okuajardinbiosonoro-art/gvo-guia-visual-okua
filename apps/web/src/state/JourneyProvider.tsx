@@ -15,6 +15,8 @@ export type SessionStatus = 'loading' | 'ready' | 'error';
 export interface ActionResult {
   ok: boolean;
   error?: string;
+  /** Solo presente en la acción scanQr cuando ok === true */
+  stationId?: number;
 }
 
 interface JourneyActions {
@@ -22,6 +24,7 @@ interface JourneyActions {
   visitIntro: () => Promise<ActionResult>;
   visitStation: (stationId: number) => Promise<ActionResult>;
   finalize: () => Promise<ActionResult>;
+  scanQr: (token: string) => Promise<ActionResult>;
 }
 
 export interface JourneyContextValue {
@@ -93,6 +96,20 @@ export function JourneyProvider({ children }: { children: ReactNode }) {
     visitStation: (stationId) =>
       callAction((id) => journeyApi.visitStation(id, stationId)),
     finalize: () => callAction((id) => journeyApi.finalize(id)),
+    scanQr: async (token) => {
+      if (!session) return { ok: false, error: 'no_session' };
+      try {
+        const result = await journeyApi.scanQr(session.sessionId, token);
+        if (result.session) setSession(result.session);
+        if (result.ok && result.stationId !== undefined) {
+          return { ok: true, stationId: result.stationId };
+        }
+        return { ok: false, error: result.error ?? 'unknown_error' };
+      } catch (err: unknown) {
+        const e = err as { code?: string };
+        return { ok: false, error: e.code ?? 'network_error' };
+      }
+    },
   };
 
   return (
