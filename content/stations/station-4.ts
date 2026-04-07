@@ -25,4 +25,12 @@ export const station4: StationContent = {
   ],
   cta: 'Siguiente estación',
   qrHint: 'Escanea el código QR de la estación V para continuar.',
+  visual: {
+    hero: {
+      type: 'placeholder',
+      label: '[ Operación técnica ]',
+      caption: 'Cómo funciona el sistema actual',
+    },
+    tone: 'cold',
+  },
 };

@@ -2,6 +2,7 @@ import { type FC, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Layout } from '../components/Layout';
 import { ContentRenderer } from '../components/ContentRenderer';
+import { StationHero } from '../components/StationHero';
 import { getStationContent } from '../lib/content';
 import { useJourney } from '../state/JourneyProvider';
 import { APP_MODE } from '../config';
@@ -69,6 +70,8 @@ export const StationScreen: FC = () => {
             <p className="screen-subtitle">{content.subtitle}</p>
           )}
         </div>
+
+        {content.visual && <StationHero visual={content.visual} />}
 
         <div className="screen-body">
           <ContentRenderer blocks={content.blocks} />

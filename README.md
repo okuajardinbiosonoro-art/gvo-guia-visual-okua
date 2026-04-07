@@ -32,7 +32,7 @@ La versión inicial debe cubrir como mínimo:
 
 - acceso inicial por QR;
 - pantalla de bienvenida;
-- selección de avatar;
+- selección de guía visual;
 - introducción + 5 estaciones;
 - control de secuencia;
 - advertencia ante saltos;
@@ -302,7 +302,39 @@ content/stations/
 └── station-5.ts   ← Estado actual
 ```
 
-**Para editar el guion:** modifica el archivo de la estación correspondiente. Cada archivo exporta un objeto `StationContent` (tipos en `packages/shared/src/content.ts`) con campos: `title`, `subtitle`, `blocks`, `cta`, `qrHint`.
+**Para editar el guion:** modifica el archivo de la estación correspondiente. Cada archivo exporta un objeto `StationContent` (tipos en `packages/shared/src/content.ts`) con campos: `title`, `subtitle`, `blocks`, `cta`, `qrHint`, `visual`.
+
+### Assets visuales por estación (Ticket 0.7)
+
+Los assets estáticos (ilustraciones, diagramas, imágenes) se organizan por estación bajo `assets/stations/`:
+
+```
+assets/stations/
+├── intro/         ← assets de la introducción
+├── station-1/     ← assets de Estación I
+├── station-2/     ← assets de Estación II
+├── station-3/     ← assets de Estación III
+├── station-4/     ← assets de Estación IV
+└── station-5/     ← assets de Estación V
+```
+
+Actualmente todos los directorios contienen `.gitkeep` — son **estructura preparada, sin assets de producción todavía**.
+
+Cada estación puede declarar un hero visual en su campo `visual` dentro de `content/stations/station-N.ts`:
+
+```typescript
+visual: {
+  hero: {
+    type: 'placeholder',   // 'placeholder' | 'image'
+    label: '[ Señales bioeléctricas ]',
+    caption: 'Lo que el sistema registra',
+    // src: 'stations/station-2/diagram.png'  ← cuando type='image'
+  },
+  tone: 'cool',   // 'default' | 'warm' | 'cool' | 'cold' | 'neutral'
+}
+```
+
+Para conectar una imagen real: coloca el archivo en `assets/stations/station-N/`, cambia `type` a `'image'` y añade `src` con la ruta relativa al directorio `assets/`. El componente `StationHero` en `apps/web/src/components/StationHero.tsx` maneja ambos modos sin cambios al código.
 
 **Bloques de contenido (`ContentBlock`):**
 - `paragraph` — texto normal
@@ -328,12 +360,15 @@ El frontend carga el contenido desde `apps/web/src/lib/content.ts` vía el alias
 - Rehidratación básica de sesión tras refresh de página.
 - `typecheck` y `dev:server` ya no compilan shared (server tsconfig resuelve desde source via paths).
 - Contrato de errores mutadores uniforme: todas las respuestas de error incluyen `ok: false`.
-- Versionado alineado en todos los paquetes: `0.5.0`.
+- Contenido narrativo centralizado en `content/stations/` con tipos en `packages/shared/src/content.ts`.
+- Capa visual por estación: `StationHero` + modelo `StationVisual` + tono por estación.
+- Assets scaffolded en `assets/stations/` (estructura lista; imágenes/diagramas en tickets siguientes).
+- Versionado alineado en todos los paquetes: `0.7.0`.
 
 ### Qué NO incluye todavía
 
 - Escaneo de QR por cámara dentro del navegador.
 - Estaciones con contenido narrativo y visual final.
-- Avatar y guías con ilustraciones finales.
+- Guías visuales con ilustraciones finales (actualmente SVG placeholder).
 - Base de datos, autenticación, panel administrativo.
 - Docker, despliegue en producción.

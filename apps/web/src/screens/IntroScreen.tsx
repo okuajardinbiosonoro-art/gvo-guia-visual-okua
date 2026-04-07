@@ -2,6 +2,7 @@ import { type FC, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Layout } from '../components/Layout';
 import { ContentRenderer } from '../components/ContentRenderer';
+import { StationHero } from '../components/StationHero';
 import { getIntroContent } from '../lib/content';
 import { useJourney } from '../state/JourneyProvider';
 
@@ -28,6 +29,8 @@ export const IntroScreen: FC = () => {
           <p className="screen-label">{content.subtitle}</p>
           <h2 className="screen-title">{content.title}</h2>
         </div>
+
+        {content.visual && <StationHero visual={content.visual} />}
 
         <div className="screen-body">
           <ContentRenderer blocks={content.blocks} />

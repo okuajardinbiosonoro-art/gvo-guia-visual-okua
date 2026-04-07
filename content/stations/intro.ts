@@ -22,4 +22,12 @@ export const intro: IntroContent = {
     },
   ],
   cta: 'Ir a la primera estación',
+  visual: {
+    hero: {
+      type: 'placeholder',
+      label: '[ Introducción al proyecto ]',
+      caption: 'Mediación entre señal viva y sentido',
+    },
+    tone: 'default',
+  },
 };

@@ -447,6 +447,53 @@ body {
   line-height: 1.4;
 }
 
+/* ─── Hero visual de estación ────────────────────────────────── */
+.station-hero {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.station-hero--placeholder .station-hero-inner {
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-surface);
+}
+
+.station-hero--image .station-hero-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.station-hero-label {
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+  text-align: center;
+  padding: 0 var(--space-md);
+}
+
+.station-hero-caption {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  text-align: center;
+  padding: var(--space-xs) var(--space-md);
+  border-top: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+}
+
+/* Tono visual: borde superior de color por estación */
+.station-hero--tone-default { border-top: 3px solid #c8a96e; }
+.station-hero--tone-warm    { border-top: 3px solid #c8856e; }
+.station-hero--tone-cool    { border-top: 3px solid #6e9ec8; }
+.station-hero--tone-neutral { border-top: 3px solid #8e9e8e; }
+.station-hero--tone-cold    { border-top: 3px solid #7ab0c8; }
+
 /* ─── Pantalla de estación ───────────────────────────────────── */
 .station-placeholder {
   background-color: var(--color-surface);

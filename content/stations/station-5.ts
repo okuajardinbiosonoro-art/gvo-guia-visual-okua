@@ -24,4 +24,12 @@ export const station5: StationContent = {
     },
   ],
   cta: 'Ver el cierre',
+  visual: {
+    hero: {
+      type: 'placeholder',
+      label: '[ Estado actual ]',
+      caption: 'Dónde está el proyecto hoy',
+    },
+    tone: 'default',
+  },
 };

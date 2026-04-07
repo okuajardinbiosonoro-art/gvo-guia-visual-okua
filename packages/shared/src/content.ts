@@ -7,6 +7,27 @@ export interface ContentBlock {
   text: string;
 }
 
+/** Tono visual de la estación — afecta el color de acento del hero */
+export type VisualTone = 'default' | 'warm' | 'cool' | 'cold' | 'neutral';
+
+/** Hero visual de una estación o de la introducción */
+export interface VisualHero {
+  /** 'placeholder' = panel CSS; 'image' = imagen desde /assets */
+  type: 'placeholder' | 'image';
+  /** Texto visible en el placeholder o alt text de la imagen */
+  label: string;
+  /** Ruta relativa al directorio /assets cuando type='image' */
+  src?: string;
+  /** Leyenda opcional bajo el hero */
+  caption?: string;
+}
+
+/** Metadatos visuales de una estación o de la introducción */
+export interface StationVisual {
+  hero?: VisualHero;
+  tone?: VisualTone;
+}
+
 /** Contenido de la pantalla de introducción (paso 0) */
 export interface IntroContent {
   title: string;
@@ -15,6 +36,8 @@ export interface IntroContent {
   blocks: readonly ContentBlock[];
   /** Texto del botón de acción principal */
   cta: string;
+  /** Metadatos visuales opcionales */
+  visual?: StationVisual;
 }
 
 /** Contenido de una estación del recorrido (pasos 1–5) */
@@ -30,4 +53,6 @@ export interface StationContent {
   cta: string;
   /** Pista contextual de QR para primera pasada (opcional) */
   qrHint?: string;
+  /** Metadatos visuales opcionales */
+  visual?: StationVisual;
 }

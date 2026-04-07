@@ -25,4 +25,12 @@ export const station3: StationContent = {
   ],
   cta: 'Siguiente estación',
   qrHint: 'Escanea el código QR de la estación IV para continuar.',
+  visual: {
+    hero: {
+      type: 'placeholder',
+      label: '[ Evolución de prototipos ]',
+      caption: 'Lo que no funcionó, y por qué importa',
+    },
+    tone: 'neutral',
+  },
 };

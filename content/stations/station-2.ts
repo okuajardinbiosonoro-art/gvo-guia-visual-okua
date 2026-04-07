@@ -25,4 +25,12 @@ export const station2: StationContent = {
   ],
   cta: 'Siguiente estación',
   qrHint: 'Escanea el código QR de la estación III para continuar.',
+  visual: {
+    hero: {
+      type: 'placeholder',
+      label: '[ Señales bioeléctricas ]',
+      caption: 'Lo que el sistema registra',
+    },
+    tone: 'cool',
+  },
 };
