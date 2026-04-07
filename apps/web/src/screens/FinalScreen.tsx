@@ -2,7 +2,8 @@ import { type FC, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Layout } from '../components/Layout';
 import { GuideAvatar } from '../components/GuideAvatar';
-import { STATIONS, getGuideName } from '../state/journey';
+import { STATIONS } from '../lib/content';
+import { getGuideName } from '../state/journey';
 import { useJourney } from '../state/JourneyProvider';
 
 export const FinalScreen: FC = () => {

@@ -13,6 +13,9 @@ export default defineConfig(({ mode }) => {
         '@gvo/shared': fileURLToPath(
           new URL('../../packages/shared/src/index.ts', import.meta.url),
         ),
+        '@content': fileURLToPath(
+          new URL('../../content', import.meta.url),
+        ),
       },
     },
     server: {

@@ -1,5 +1,5 @@
 import { Fragment, type FC } from 'react';
-import { STATIONS } from '../state/journey';
+import { STATIONS } from '../lib/content';
 import { useJourney } from '../state/JourneyProvider';
 
 interface ProgressTrackerProps {

@@ -1,7 +1,8 @@
 import { type FC, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Layout } from '../components/Layout';
-import { STATIONS } from '../state/journey';
+import { ContentRenderer } from '../components/ContentRenderer';
+import { getStationContent } from '../lib/content';
 import { useJourney } from '../state/JourneyProvider';
 import { APP_MODE } from '../config';
 
@@ -12,12 +13,12 @@ export const StationScreen: FC = () => {
   const [ready, setReady] = useState(false);
 
   const stationId = Number(id);
-  const station = STATIONS.find((s) => s.id === stationId);
+  const content = getStationContent(stationId);
 
   useEffect(() => {
     setReady(false);
 
-    if (!station || stationId < 1 || stationId > 5) {
+    if (!content || stationId < 1 || stationId > 5) {
       navigate('/', { replace: true });
       return;
     }
@@ -46,7 +47,7 @@ export const StationScreen: FC = () => {
   const nextPath = isLast ? '/final' : `/station/${stationId + 1}`;
   const isFirstPass = !session?.completed;
 
-  if (!station || !ready) {
+  if (!content || !ready) {
     return (
       <Layout showProgress currentStep={stationId}>
         <div className="screen screen--station">
@@ -62,29 +63,23 @@ export const StationScreen: FC = () => {
     <Layout showProgress currentStep={stationId}>
       <div className="screen screen--station">
         <div className="screen-header">
-          <p className="screen-label">Estación {station.label}</p>
-          <h2 className="screen-title">{station.title}</h2>
+          <p className="screen-label">Estación {content.label}</p>
+          <h2 className="screen-title">{content.title}</h2>
+          {content.subtitle && (
+            <p className="screen-subtitle">{content.subtitle}</p>
+          )}
         </div>
 
         <div className="screen-body">
-          {/* TODO (Ticket 0.2+): reemplazar con contenido real de la estación */}
-          <div className="station-placeholder">
-            <p className="screen-text">
-              Contenido de la estación <strong>{station.title}</strong>.
-            </p>
-            <p className="screen-text screen-text--muted">
-              El contenido narrativo, visual e interactivo de esta estación
-              se integra en tickets posteriores.
-            </p>
-          </div>
+          <ContentRenderer blocks={content.blocks} />
         </div>
 
         <div className="screen-actions">
           {isFirstPass && !isLast ? (
             <>
-              <p className="screen-text screen-text--muted">
-                Escanea el código QR de la siguiente estación para continuar.
-              </p>
+              {content.qrHint && (
+                <p className="screen-text screen-text--muted">{content.qrHint}</p>
+              )}
               {APP_MODE === 'lab' && (
                 <button
                   className="btn btn-secondary"
@@ -96,7 +91,7 @@ export const StationScreen: FC = () => {
             </>
           ) : (
             <button className="btn btn-primary" onClick={() => navigate(nextPath)}>
-              {isLast ? 'Ver el cierre' : 'Siguiente estación'}
+              {isLast ? content.cta : 'Siguiente estación'}
             </button>
           )}
           {stationId > 1 && (

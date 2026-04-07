@@ -287,6 +287,33 @@ Para probar la recuperación tras refresh:
 3. El frontend recupera la sesión del backend automáticamente.
 4. Si la sesión expiró o no existe en el backend, se crea una nueva sesión limpia.
 
+### Contenido narrativo de estaciones (Ticket 0.6)
+
+El contenido de la introducción y las cinco estaciones vive en `content/stations/`:
+
+```
+content/stations/
+├── index.ts       ← punto de entrada; re-exporta todo
+├── intro.ts       ← introducción (paso 0)
+├── station-1.ts   ← Origen y propósito
+├── station-2.ts   ← Señales bioeléctricas
+├── station-3.ts   ← Prototipos y evolución
+├── station-4.ts   ← Operación técnica
+└── station-5.ts   ← Estado actual
+```
+
+**Para editar el guion:** modifica el archivo de la estación correspondiente. Cada archivo exporta un objeto `StationContent` (tipos en `packages/shared/src/content.ts`) con campos: `title`, `subtitle`, `blocks`, `cta`, `qrHint`.
+
+**Bloques de contenido (`ContentBlock`):**
+- `paragraph` — texto normal
+- `note` — observación destacada (borde acento)
+- `hint` — instrucción contextual (texto muted)
+- `heading` — encabezado dentro de la estación
+
+El contenido de esta versión es **semilla funcional**, alineado con la narrativa base del proyecto. El guion final se afina en tickets posteriores sin tocar la lógica de sesión o QR.
+
+El frontend carga el contenido desde `apps/web/src/lib/content.ts` vía el alias `@content` (configurado en `vite.config.ts` y `tsconfig.json`). La lógica de sesión y secuencia no toca este módulo.
+
 ### Qué incluye el estado actual (Tickets 0.1 – 0.5)
 
 - Workspace npm con `apps/web`, `apps/server`, `packages/shared`.
