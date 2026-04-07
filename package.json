@@ -7,12 +7,17 @@
     "packages/*"
   ],
   "scripts": {
+    "dev": "concurrently -n server,web -c cyan,green \"npm run dev:server\" \"npm run dev:web\"",
     "dev:web": "npm run dev --workspace=apps/web",
     "dev:server": "npm run dev --workspace=apps/server",
     "build": "npm run build --workspace=packages/shared && npm run build --workspace=apps/web && npm run build --workspace=apps/server",
-    "typecheck": "npm run typecheck --workspace=packages/shared && npm run typecheck --workspace=apps/web && npm run typecheck --workspace=apps/server"
+    "typecheck": "npm run typecheck --workspace=packages/shared && npm run typecheck --workspace=apps/web && npm run typecheck --workspace=apps/server",
+    "smoke:journey": "node scripts/smoke-journey.mjs"
   },
   "engines": {
     "node": ">=18"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
   }
 }

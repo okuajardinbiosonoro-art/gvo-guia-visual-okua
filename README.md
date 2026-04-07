@@ -130,11 +130,12 @@ npm install
 ### Desarrollo
 
 ```bash
-# Frontend (http://localhost:5173)
-npm run dev:web
+# Backend + Frontend en paralelo (recomendado)
+npm run dev
 
-# Backend (http://localhost:3001)
-npm run dev:server
+# O por separado:
+npm run dev:server   # Backend  — http://localhost:3001
+npm run dev:web      # Frontend — http://localhost:5173
 ```
 
 ### Build
@@ -149,6 +150,23 @@ npm run build
 ```bash
 npm run typecheck
 ```
+
+### Smoke test del flujo de recorrido
+
+Verifica que los contratos de la API estén operativos. Requiere el backend corriendo.
+
+```bash
+npm run dev:server   # en una terminal
+npm run smoke:journey  # en otra terminal
+```
+
+O con ambos corriendo:
+
+```bash
+npm run smoke:journey
+```
+
+El script verifica 10 puntos del flujo: health, meta, entry token válido e inválido, creación de sesión, selección de guía, visita intro, QR en secuencia, QR fuera de secuencia y contratos de error uniformes. Sale con código distinto de 0 si algo falla.
 
 ### Verificar que el servidor está vivo
 

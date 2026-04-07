@@ -16,7 +16,7 @@ export const journeyRoutes: FastifyPluginAsync = async (fastify) => {
     '/api/journey/session/:sessionId',
     async (req, reply) => {
       const session = sessions.getSession(req.params.sessionId);
-      if (!session) return reply.status(404).send({ error: 'session_not_found' });
+      if (!session) return reply.status(404).send({ ok: false, error: 'session_not_found' });
       return { session };
     },
   );

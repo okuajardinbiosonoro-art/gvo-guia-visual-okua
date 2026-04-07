@@ -1,6 +1,7 @@
 import Fastify from 'fastify';
 import cors from '@fastify/cors';
 import { journeyRoutes } from './routes/journey';
+import { GVO_META } from '@gvo/shared';
 
 const PORT = Number(process.env.PORT) || 3001;
 const HOST = process.env.HOST || '0.0.0.0';
@@ -19,8 +20,8 @@ async function bootstrap(): Promise<void> {
 
   // Metadatos del proyecto
   server.get('/api/meta', async () => ({
-    name: 'GVO — Guía Visual OKÚA',
-    version: '0.5.0',
+    name: GVO_META.name,
+    version: GVO_META.version,
     status: 'entry-and-modes',
     features: {
       sessions: true,
