@@ -22,7 +22,6 @@ Para red local, varios dispositivos, tiempos de carga y coexistencia básica con
 
 - entrar por URL/QR inicial;
 - completar intro;
-- elegir avatar;
 - intentar saltar estación;
 - avanzar estación correcta;
 - cerrar y reabrir sesión dentro del tiempo válido;

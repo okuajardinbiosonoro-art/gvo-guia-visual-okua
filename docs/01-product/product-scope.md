@@ -3,7 +3,7 @@
 ## En alcance para v1
 
 - acceso local por navegador móvil;
-- intro + selección de avatar;
+- intro (guía visual Lía Andina asignada automáticamente);
 - recorrido de 5 estaciones;
 - control secuencial de primera pasada;
 - persistencia temporal de sesión;

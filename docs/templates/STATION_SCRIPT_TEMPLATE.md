@@ -17,7 +17,7 @@
 ## 5. Error interpretativo a evitar
 ...
 
-## 6. Rol del avatar
+## 6. Rol de Lía Andina
 ...
 
 ## 7. Interacción principal

@@ -1,7 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { useJourney } from './state/JourneyProvider';
 import { WelcomeScreen } from './screens/WelcomeScreen';
-import { GuideSelectionScreen } from './screens/GuideSelectionScreen';
 import { IntroScreen } from './screens/IntroScreen';
 import { StationScreen } from './screens/StationScreen';
 import { BlockedScreen } from './screens/BlockedScreen';
@@ -34,7 +33,6 @@ export default function App() {
   return (
     <Routes>
       <Route path="/"            element={<WelcomeScreen />} />
-      <Route path="/guide"       element={<GuideSelectionScreen />} />
       <Route path="/intro"       element={<IntroScreen />} />
       <Route path="/station/:id" element={<StationScreen />} />
       <Route path="/entry/:token" element={<EntryScreen />} />

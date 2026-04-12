@@ -38,7 +38,7 @@ El espacio necesita una mediación más consistente, profunda y atractiva que la
 
 - acceso por QR;
 - pantalla de bienvenida;
-- selección de avatar;
+- guía visual Lía Andina (asignada automáticamente);
 - secuencia obligatoria;
 - validación de estación;
 - persistencia temporal de sesión;

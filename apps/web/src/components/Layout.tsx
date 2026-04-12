@@ -1,7 +1,6 @@
 import type { FC, ReactNode } from 'react';
 import { ProgressTracker } from './ProgressTracker';
 import { GuideAvatar } from './GuideAvatar';
-import { useJourney } from '../state/JourneyProvider';
 import { getGuideName } from '../state/journey';
 
 interface LayoutProps {
@@ -15,18 +14,14 @@ export const Layout: FC<LayoutProps> = ({
   showProgress = false,
   currentStep = null,
 }) => {
-  const { session } = useJourney();
-
   return (
     <div className="layout">
       <header className="layout-header">
         <span className="layout-brand">GVO</span>
-        {session?.guide && (
-          <div className="layout-guide-indicator">
-            <GuideAvatar guide={session.guide} size="sm" />
-            <span className="layout-guide-name">{getGuideName(session.guide)}</span>
-          </div>
-        )}
+        <div className="layout-guide-indicator">
+          <GuideAvatar size="sm" />
+          <span className="layout-guide-name">{getGuideName()}</span>
+        </div>
       </header>
 
       {showProgress && (

@@ -1,13 +1,13 @@
 // Tipos compartidos — GVO Guía Visual OKÚA
 
-/** Identificador de guía visual */
-export type GuideId = 'masculine' | 'feminine' | 'flower';
+/** Identificador de guía visual — actualmente solo Lía Andina */
+export type GuideId = 'flower';
 
 /** Sesión temporal del recorrido almacenada en backend */
 export interface JourneySession {
   sessionId: string;
-  /** Guía visual elegida; null si aún no se seleccionó */
-  guide: GuideId | null;
+  /** Guía visual — siempre Lía Andina ('flower') */
+  guide: GuideId;
   /** Pasos visitados: 0 = introducción, 1–5 = estaciones */
   visitedSteps: number[];
   /** true tras la finalización explícita del recorrido */

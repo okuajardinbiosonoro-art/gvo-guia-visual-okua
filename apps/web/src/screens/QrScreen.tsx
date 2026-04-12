@@ -6,8 +6,7 @@ type QrState =
   | { phase: 'resolving' }
   | { phase: 'invalid_token' }
   | { phase: 'session_error' }
-  | { phase: 'intro_required' }
-  | { phase: 'guide_required' };
+  | { phase: 'intro_required' };
 
 export const QrScreen: FC = () => {
   const navigate = useNavigate();
@@ -37,10 +36,6 @@ export const QrScreen: FC = () => {
 
       if (error === 'invalid_token') {
         setQrState({ phase: 'invalid_token' });
-        return;
-      }
-      if (error === 'guide_required') {
-        setQrState({ phase: 'guide_required' });
         return;
       }
       if (error === 'intro_required') {
@@ -83,24 +78,6 @@ export const QrScreen: FC = () => {
         <div className="screen-actions">
           <button className="btn btn-primary" onClick={() => navigate('/')}>
             Ir al inicio
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  if (qrState.phase === 'guide_required') {
-    return (
-      <div className="screen screen--standalone screen--centered">
-        <div className="screen-header">
-          <h2 className="screen-title">Primero elige tu guía</h2>
-          <p className="screen-subtitle">
-            Antes de acceder a una estación necesitas seleccionar tu guía visual.
-          </p>
-        </div>
-        <div className="screen-actions">
-          <button className="btn btn-primary" onClick={() => navigate('/guide')}>
-            Elegir guía
           </button>
         </div>
       </div>

@@ -1,21 +1,14 @@
 // Datos de UI del recorrido GVO — helpers y constantes de frontend.
-// La validación de secuencia reside en el backend desde Ticket 0.3.
-// El contenido narrativo de estaciones reside en content/stations/ desde Ticket 0.6.
+// Avatar único: Lía Andina (flower). Sin selección.
 
 export type { GuideId } from '@gvo/shared';
 
-export interface Guide {
-  id: 'masculine' | 'feminine' | 'flower';
-  name: string;
-  description: string;
-}
+/** Nombre visible del avatar-guía */
+export const GUIDE_NAME = 'Lía';
 
-export const GUIDES: readonly Guide[] = [
-  { id: 'masculine', name: 'Raíz',  description: 'Figura humana' },
-  { id: 'feminine',  name: 'Hoja',  description: 'Figura humana' },
-  { id: 'flower',    name: 'Flor',  description: 'Figura vegetal' },
-];
+/** Descripción corta del avatar-guía */
+export const GUIDE_DESCRIPTION = 'Tu compañera de recorrido';
 
-export function getGuideName(id: 'masculine' | 'feminine' | 'flower'): string {
-  return GUIDES.find((g) => g.id === id)?.name ?? id;
+export function getGuideName(): string {
+  return GUIDE_NAME;
 }

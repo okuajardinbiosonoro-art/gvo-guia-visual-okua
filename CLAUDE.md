@@ -33,7 +33,7 @@ Construir una aplicación web local para visitantes, accesible desde móvil por 
 ## Entregables por fases
 
 1. Base documental y gobierno del repo.
-2. MVP shell: acceso, bienvenida, avatar, navegación base.
+2. MVP shell: acceso, bienvenida, navegación base.
 3. Sesión temporal + secuencia + gating por QR.
 4. Cierre final + revisión libre.
 5. UX diferenciada por estación.

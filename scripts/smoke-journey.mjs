@@ -130,17 +130,7 @@ let sessionId;
   sessionId = body.session.sessionId;
 }
 
-// 6. POST …/guide
-{
-  const { status, body } = await POST(`/api/journey/session/${sessionId}/guide`, { guide: 'masculine' });
-  check(
-    'POST …/guide (masculine) → 200, ok:true',
-    status === 200 && body.ok === true,
-    `status=${status} body=${JSON.stringify(body)}`,
-  );
-}
-
-// 7. POST …/intro
+// 6. POST …/intro
 {
   const { status, body } = await POST(`/api/journey/session/${sessionId}/intro`);
   check(
@@ -150,7 +140,7 @@ let sessionId;
   );
 }
 
-// 8. POST …/scan/okua-e1 (en secuencia)
+// 7. POST …/scan/okua-e1 (en secuencia)
 {
   const { status, body } = await POST(`/api/journey/session/${sessionId}/scan/okua-e1`);
   check(
@@ -160,7 +150,7 @@ let sessionId;
   );
 }
 
-// 9. POST …/scan/okua-e3 fuera de secuencia (estación 2 no visitada)
+// 8. POST …/scan/okua-e3 fuera de secuencia (estación 2 no visitada)
 {
   const { status, body } = await POST(`/api/journey/session/${sessionId}/scan/okua-e3`);
   check(
@@ -170,23 +160,21 @@ let sessionId;
   );
 }
 
-// 10. Contratos de error — ok:false + error string en respuestas de error
+// 9. Contratos de error — ok:false + error string en respuestas de error
 {
-  const [r1, r2, r3] = await Promise.all([
+  const [r1, r2] = await Promise.all([
     POST('/api/journey/entry/x'),
     GET('/api/journey/session/session-inexistente'),
-    POST(`/api/journey/session/${sessionId}/guide`, { guide: 'invalido' }),
   ]);
-  const allValid = [r1, r2, r3].every(
+  const allValid = [r1, r2].every(
     ({ body }) => body.ok === false && typeof body.error === 'string',
   );
   check(
-    'Contratos de error → ok:false + error string en entry/session/guide',
+    'Contratos de error → ok:false + error string en entry/session',
     allValid,
     [
       `entry/x: ${JSON.stringify(r1.body)}`,
       `session/inexistente: ${JSON.stringify(r2.body)}`,
-      `guide/invalido: ${JSON.stringify(r3.body)}`,
     ].join(' | '),
   );
 }

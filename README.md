@@ -32,7 +32,7 @@ La versión inicial debe cubrir como mínimo:
 
 - acceso inicial por QR;
 - pantalla de bienvenida;
-- selección de guía visual;
+- guía visual Lía Andina (fija);
 - introducción + 5 estaciones;
 - control de secuencia;
 - advertencia ante saltos;
@@ -57,7 +57,7 @@ La versión inicial debe cubrir como mínimo:
 │  └─ shared/
 ├─ content/
 │  ├─ stations/
-│  ├─ avatars/
+│  ├─ avatars/          ← solo Lía Andina
 │  └─ qr/
 ├─ assets/
 ├─ scripts/
@@ -166,7 +166,7 @@ O con ambos corriendo:
 npm run smoke:journey
 ```
 
-El script verifica 10 puntos del flujo: health, meta, entry token válido e inválido, creación de sesión, selección de guía, visita intro, QR en secuencia, QR fuera de secuencia y contratos de error uniformes. Sale con código distinto de 0 si algo falla.
+El script verifica 9 puntos del flujo: health, meta, entry token válido e inválido, creación de sesión, visita intro, QR en secuencia, QR fuera de secuencia y contratos de error uniformes. Sale con código distinto de 0 si algo falla.
 
 ### Verificar que el servidor está vivo
 
@@ -210,7 +210,6 @@ El servidor expone los siguientes endpoints:
 | `POST` | `/api/journey/entry/:token` | Valida token de acceso inicial al recorrido |
 | `POST` | `/api/journey/session` | Crea una nueva sesión temporal |
 | `GET` | `/api/journey/session/:id` | Recupera sesión si no ha expirado (TTL: 4h) |
-| `POST` | `/api/journey/session/:id/guide` | Selecciona guía visual |
 | `POST` | `/api/journey/session/:id/intro` | Registra visita a la introducción |
 | `POST` | `/api/journey/session/:id/station/:n` | Registra visita a estación 1–5 (valida secuencia) |
 | `POST` | `/api/journey/session/:id/finalize` | Finaliza recorrido (requiere estación 5 visitada) |
@@ -226,7 +225,7 @@ El QR de entrada del espacio apunta a la ruta `/entry/<token>`:
 http://<ip-servidor>:5173/entry/okua-entry
 ```
 
-- Token válido: redirige al punto correcto del recorrido (guía, intro o próxima estación pendiente).
+- Token válido: redirige al punto correcto del recorrido (intro o próxima estación pendiente).
 - Sesión reanudada automáticamente si existe y está vigente.
 - Token inválido: pantalla "Código no reconocido".
 
@@ -349,7 +348,7 @@ El frontend carga el contenido desde `apps/web/src/lib/content.ts` vía el alias
 ### Qué incluye el estado actual (Tickets 0.1 – 0.5)
 
 - Workspace npm con `apps/web`, `apps/server`, `packages/shared`.
-- Shell funcional del recorrido (bienvenida, guía, intro, 5 estaciones, cierre).
+- Shell funcional del recorrido (bienvenida, intro, 5 estaciones, cierre) con Lía Andina como guía visual fija.
 - Sesión temporal en memoria del servidor con TTL de 4 horas.
 - Validación de secuencia en backend (intro → estaciones 1–5 → finalización).
 - Token de acceso inicial (`okua-entry`) con ruta `/entry/:token` y redirección inteligente.

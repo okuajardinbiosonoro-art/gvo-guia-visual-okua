@@ -19,7 +19,7 @@ export const WelcomeScreen: FC = () => {
       <div className="screen-actions">
         <button
           className="btn btn-primary"
-          onClick={() => navigate('/guide')}
+          onClick={() => navigate('/intro')}
         >
           Comenzar recorrido
         </button>

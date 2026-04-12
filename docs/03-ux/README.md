@@ -8,5 +8,5 @@ Aquí deben registrarse wireframes, flujos, criterios de interacción móvil y d
 - layout base móvil;
 - estados de pantalla;
 - criterios de progresión;
-- comportamiento del avatar;
+- comportamiento de Lía Andina (avatar-guía);
 - interacción diferenciada por estación.

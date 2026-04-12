@@ -5,13 +5,11 @@ import { useJourney } from '../state/JourneyProvider';
 
 /**
  * Calcula en qué punto del flujo debe continuar una sesión existente.
- * - Sin guía → selección de guía
  * - Sin intro → pantalla de introducción
  * - Estaciones pendientes → próxima estación no visitada
  * - Recorrido completo o finalizado → pantalla de bienvenida (revisión libre)
  */
 function resumeRoute(session: JourneySession): string {
-  if (!session.guide) return '/guide';
   if (!session.visitedSteps.includes(0)) return '/intro';
   const nextStation = ([1, 2, 3, 4, 5] as const).find(
     (n) => !session.visitedSteps.includes(n),

@@ -8,14 +8,10 @@ import { useJourney } from '../state/JourneyProvider';
 
 export const IntroScreen: FC = () => {
   const navigate = useNavigate();
-  const { session, actions } = useJourney();
+  const { actions } = useJourney();
   const content = getIntroContent();
 
   useEffect(() => {
-    if (!session?.guide) {
-      navigate('/guide', { replace: true });
-      return;
-    }
     // Registrar visita al intro; no bloqueamos la pantalla en este paso
     void actions.visitIntro();
     // Dependencias omitidas intencionalmente: guardia de entrada en montaje.

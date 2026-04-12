@@ -2,8 +2,6 @@ import type { FastifyPluginAsync } from 'fastify';
 import * as sessions from '../sessions';
 import { isValidEntryToken, resolveQrToken } from '@gvo/shared';
 
-const VALID_GUIDES = new Set(['masculine', 'feminine', 'flower']);
-
 export const journeyRoutes: FastifyPluginAsync = async (fastify) => {
   // POST /api/journey/session — nueva sesión
   fastify.post('/api/journey/session', async (_req, reply) => {
@@ -18,28 +16,6 @@ export const journeyRoutes: FastifyPluginAsync = async (fastify) => {
       const session = sessions.getSession(req.params.sessionId);
       if (!session) return reply.status(404).send({ ok: false, error: 'session_not_found' });
       return { session };
-    },
-  );
-
-  // POST /api/journey/session/:sessionId/guide
-  fastify.post<{ Params: { sessionId: string }; Body: { guide?: unknown } }>(
-    '/api/journey/session/:sessionId/guide',
-    async (req, reply) => {
-      const { guide } = req.body;
-      if (typeof guide !== 'string' || !VALID_GUIDES.has(guide)) {
-        // Contrato uniforme: { ok: false, error }
-        return reply.status(400).send({ ok: false, error: 'invalid_guide' });
-      }
-      const result = sessions.setGuide(
-        req.params.sessionId,
-        guide as 'masculine' | 'feminine' | 'flower',
-      );
-      if (!result.ok) {
-        return reply
-          .status(result.error === 'session_not_found' ? 404 : 400)
-          .send(result);
-      }
-      return result;
     },
   );
 

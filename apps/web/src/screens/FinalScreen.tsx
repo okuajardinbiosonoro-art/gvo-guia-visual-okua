@@ -8,7 +8,7 @@ import { useJourney } from '../state/JourneyProvider';
 
 export const FinalScreen: FC = () => {
   const navigate = useNavigate();
-  const { session, actions } = useJourney();
+  const { actions } = useJourney();
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -38,12 +38,10 @@ export const FinalScreen: FC = () => {
   return (
     <Layout showProgress={false}>
       <div className="screen screen--final">
-        {session?.guide && (
-          <div className="final-guide">
-            <GuideAvatar guide={session.guide} size="lg" />
-            <p className="final-guide-name">{getGuideName(session.guide)}</p>
-          </div>
-        )}
+        <div className="final-guide">
+          <GuideAvatar size="lg" />
+          <p className="final-guide-name">{getGuideName()}</p>
+        </div>
 
         <div className="screen-header">
           <h2 className="screen-title">Recorrido completado</h2>

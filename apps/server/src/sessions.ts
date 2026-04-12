@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto';
-import type { JourneySession, GuideId } from '@gvo/shared';
+import type { JourneySession } from '@gvo/shared';
 
 const SESSION_TTL_MS =
   Number(process.env.SESSION_TTL_MS) || 4 * 60 * 60 * 1000; // 4 horas por defecto
@@ -35,7 +35,7 @@ export function createSession(): JourneySession {
   const now = Date.now();
   const session: JourneySession = {
     sessionId: randomUUID(),
-    guide: null,
+    guide: 'flower',
     visitedSteps: [],
     completed: false,
     createdAt: now,
@@ -56,23 +56,10 @@ export function getSession(sessionId: string): JourneySession | null {
   return snapshot(session);
 }
 
-export function setGuide(sessionId: string, guide: GuideId): StepResult {
-  const session = store.get(sessionId);
-  if (!session || session.expiresAt < Date.now()) {
-    return { ok: false, error: 'session_not_found' };
-  }
-  session.guide = guide;
-  touch(session);
-  return { ok: true, session: snapshot(session) };
-}
-
 export function visitIntro(sessionId: string): StepResult {
   const session = store.get(sessionId);
   if (!session || session.expiresAt < Date.now()) {
     return { ok: false, error: 'session_not_found' };
-  }
-  if (!session.guide) {
-    return { ok: false, error: 'guide_required', session: snapshot(session) };
   }
   if (!session.visitedSteps.includes(0)) {
     session.visitedSteps = [...session.visitedSteps, 0];
@@ -91,9 +78,6 @@ export function visitStation(sessionId: string, stationId: number): StepResult {
   }
   if (!session.completed) {
     // Validación de secuencia — solo en primera pasada
-    if (!session.guide) {
-      return { ok: false, error: 'guide_required', session: snapshot(session) };
-    }
     if (!session.visitedSteps.includes(0)) {
       return { ok: false, error: 'intro_required', session: snapshot(session) };
     }

@@ -5,7 +5,7 @@ import {
   useState,
   type ReactNode,
 } from 'react';
-import type { GuideId, JourneySession } from '@gvo/shared';
+import type { JourneySession } from '@gvo/shared';
 import { journeyApi } from '../lib/api';
 
 const SESSION_STORAGE_KEY = 'gvo_session_id';
@@ -20,7 +20,6 @@ export interface ActionResult {
 }
 
 interface JourneyActions {
-  selectGuide: (guide: GuideId) => Promise<ActionResult>;
   visitIntro: () => Promise<ActionResult>;
   visitStation: (stationId: number) => Promise<ActionResult>;
   finalize: () => Promise<ActionResult>;
@@ -93,7 +92,6 @@ export function JourneyProvider({ children }: { children: ReactNode }) {
   };
 
   const actions: JourneyActions = {
-    selectGuide: (guide) => callAction((id) => journeyApi.selectGuide(id, guide)),
     visitIntro:  ()      => callAction((id) => journeyApi.visitIntro(id)),
     visitStation: (stationId) =>
       callAction((id) => journeyApi.visitStation(id, stationId)),
