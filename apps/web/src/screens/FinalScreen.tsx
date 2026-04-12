@@ -39,7 +39,7 @@ export const FinalScreen: FC = () => {
     <Layout showProgress={false}>
       <div className="screen screen--final">
         <div className="final-guide">
-          <GuideAvatar size="lg" />
+          <GuideAvatar size="lg" state="calm" />
           <p className="final-guide-name">{getGuideName()}</p>
         </div>
 

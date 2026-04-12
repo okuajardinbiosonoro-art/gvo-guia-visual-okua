@@ -1,6 +1,7 @@
 import { type FC, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Layout } from '../components/Layout';
+import { GuideAvatar } from '../components/GuideAvatar';
 import { ContentRenderer } from '../components/ContentRenderer';
 import { StationHero } from '../components/StationHero';
 import { getIntroContent } from '../lib/content';
@@ -24,6 +25,10 @@ export const IntroScreen: FC = () => {
         <div className="screen-header">
           <p className="screen-label">{content.subtitle}</p>
           <h2 className="screen-title">{content.title}</h2>
+        </div>
+
+        <div className="intro-avatar">
+          <GuideAvatar size="lg" state="curious" />
         </div>
 
         {content.visual && <StationHero visual={content.visual} />}

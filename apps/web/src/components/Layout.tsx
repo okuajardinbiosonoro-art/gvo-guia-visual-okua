@@ -19,7 +19,7 @@ export const Layout: FC<LayoutProps> = ({
       <header className="layout-header">
         <span className="layout-brand">GVO</span>
         <div className="layout-guide-indicator">
-          <GuideAvatar size="sm" />
+          <GuideAvatar size="sm" state="idle" />
           <span className="layout-guide-name">{getGuideName()}</span>
         </div>
       </header>

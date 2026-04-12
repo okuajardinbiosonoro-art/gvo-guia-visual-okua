@@ -7,15 +7,36 @@
 
 /* ─── Variables de diseño ─────────────────────────────────────── */
 :root {
-  --color-bg:           #0d0d0d;
-  --color-surface:      #161616;
-  --color-border:       #2a2a2a;
-  --color-text:         #e8e8e8;
-  --color-text-muted:   #888;
-  --color-accent:       #c8a96e;
-  --color-ok:           #5a9e6f;
-  --color-blocked:      #666;
+  /* Paleta GVO — basada en identidad visual de Lía Andina */
+  /* Neutros base (ambiente) */
+  --color-bg:           #F4EBD9;  /* Papel marfil — fondo principal */
+  --color-surface:      #EADFC8;  /* Crema cálida — superficies elevadas */
+  --color-surface-alt:  #E4D6BC;  /* Crema más profunda para contraste sutil */
+  --color-border:       #D4C5A8;  /* Borde cálido suave */
+  --color-border-strong:#B8A684;  /* Borde más marcado para énfasis */
 
+  /* Texto (oscuros sobre claro, contraste WCAG AA+) */
+  --color-text:         #2E2A24;  /* Texto principal — marrón oscuro cálido */
+  --color-text-muted:   #6B6354;  /* Texto secundario */
+  --color-text-soft:    #8A8070;  /* Texto terciario / placeholder */
+
+  /* Acentos (firma Lía) */
+  --color-accent:       #B896C4;  /* Lavanda orquídea — acento principal */
+  --color-accent-strong:#6B5478;  /* Orquídea profunda — hover/pressed */
+  --color-amber:        #E8C78A;  /* Ámbar suave — calidez */
+  --color-amber-glow:   #F2D48A;  /* Ámbar brillo — luminosidad */
+
+  /* Estados funcionales */
+  --color-ok:           #7A8B6A;  /* Verde musgo — éxito/progreso */
+  --color-blocked:      #B8A684;  /* Borde cálido — bloqueado */
+  --color-error:        #9E5A5A;  /* Rojo apagado cálido — errores */
+
+  /* Sombras (sutiles, cálidas) */
+  --shadow-sm:          0 1px 2px rgba(46, 42, 36, 0.06);
+  --shadow-md:          0 4px 12px rgba(46, 42, 36, 0.08);
+  --shadow-lg:          0 8px 24px rgba(46, 42, 36, 0.10);
+
+  /* Spacing / tipografía / layout — sin cambios */
   --space-xs:  0.5rem;
   --space-sm:  0.75rem;
   --space-md:  1.25rem;
@@ -27,6 +48,7 @@
 
   --radius-sm: 4px;
   --radius-md: 8px;
+  --radius-lg: 16px;
   --max-width: 480px;
 
   --header-height: 52px;
@@ -149,8 +171,8 @@ body {
 
 .progress-step--current {
   background-color: var(--color-accent);
-  color: #0d0d0d;
-  box-shadow: 0 0 0 3px rgba(200, 169, 110, 0.22);
+  color: var(--color-text);
+  box-shadow: 0 0 0 3px rgba(184, 150, 196, 0.22);
 }
 
 .progress-step--locked {
@@ -159,26 +181,26 @@ body {
   color: var(--color-text-muted);
 }
 
-/* ─── Avatar de guía ─────────────────────────────────────────── */
+/* ─── Avatar de Lía ─────────────────────────────────────────── */
 .guide-avatar {
-  background-color: var(--color-surface);
-  border: 2px solid var(--color-border);
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-accent);
   flex-shrink: 0;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  overflow: hidden;
+  background-color: transparent;
+  border: none;
 }
 
-.guide-avatar--sm  { width: 32px;  height: 32px; }
-.guide-avatar--md  { width: 64px;  height: 64px; }
-.guide-avatar--lg  { width: 88px;  height: 88px; }
+.guide-avatar--sm  { width: 36px;  height: 36px; }
+.guide-avatar--md  { width: 72px;  height: 72px; }
+.guide-avatar--lg  { width: 120px; height: 120px; }
 
-.guide-avatar-svg {
-  width: 62%;
-  height: 62%;
+.guide-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
 }
 
 /* ─── Pantallas base ─────────────────────────────────────────── */
@@ -306,9 +328,9 @@ body {
 
 .screen-error {
   font-size: 0.82rem;
-  color: #c0533a;
-  background-color: rgba(192, 83, 58, 0.08);
-  border: 1px solid rgba(192, 83, 58, 0.22);
+  color: var(--color-error);
+  background-color: rgba(158, 90, 90, 0.08);
+  border: 1px solid rgba(158, 90, 90, 0.22);
   border-radius: var(--radius-sm);
   padding: var(--space-xs) var(--space-sm);
   text-align: center;
@@ -342,12 +364,13 @@ body {
 
 .btn-primary {
   background-color: var(--color-accent);
-  color: #0d0d0d;
+  color: var(--color-text);
   font-weight: 600;
 }
 
 .btn-primary:hover:not(:disabled) {
-  opacity: 0.88;
+  background-color: var(--color-accent-strong);
+  color: #fff;
 }
 
 .btn-secondary {
@@ -440,7 +463,7 @@ body {
 }
 
 /* Tono visual: borde superior de color por estación */
-.station-hero--tone-default { border-top: 3px solid #c8a96e; }
+.station-hero--tone-default { border-top: 3px solid var(--color-accent); }
 .station-hero--tone-warm    { border-top: 3px solid #c8856e; }
 .station-hero--tone-cool    { border-top: 3px solid #6e9ec8; }
 .station-hero--tone-neutral { border-top: 3px solid #8e9e8e; }
@@ -531,4 +554,11 @@ body {
 .final-station-title {
   font-size: 0.88rem;
   color: var(--color-text);
+}
+
+/* ─── Avatar en IntroScreen ──────────────────────────────────── */
+.intro-avatar {
+  display: flex;
+  justify-content: center;
+  margin: var(--space-md) 0;
 }
