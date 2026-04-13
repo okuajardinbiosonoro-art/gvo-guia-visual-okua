@@ -8,19 +8,35 @@ export const station4: StationContent = {
   blocks: [
     {
       type: 'paragraph',
-      text: 'El sistema actual combina electrónica de adquisición de señal, procesamiento en tiempo real y síntesis sonora. Cada capa opera a su propio ritmo.',
+      text: 'Ahora quiero mostrarte, con precisión, cómo opera hoy el sistema completo.',
     },
     {
       type: 'paragraph',
-      text: 'La señal bioeléctrica entra como voltaje analógico. Se convierte a datos digitales, se filtra y se mapea a parámetros de síntesis: frecuencia, amplitud, timbre.',
+      text: 'Todo empieza en el bionosificador: los electrodos capturan la señal de la planta, y ahí mismo se realiza el filtrado y la amplificación para acondicionarla.',
     },
     {
       type: 'paragraph',
-      text: 'No hay inteligencia artificial ni aprendizaje automático. El mapeo es determinista: la misma señal produce la misma respuesta sonora. Lo que varía es la planta.',
+      text: 'Después, esa señal acondicionada llega al microcontrolador (ESP32), donde se interpreta y se mapea en eventos musicales.',
+    },
+    {
+      type: 'paragraph',
+      text: 'El formato principal de esos eventos es MIDI. Esa capa es clave porque permite traducir variaciones biológicas a información musical utilizable.',
+    },
+    {
+      type: 'paragraph',
+      text: 'Luego, los eventos se envían por la red local: viajan por Wi-Fi, pasan por el router y se transportan por UDP hasta el software central.',
+    },
+    {
+      type: 'paragraph',
+      text: 'En el sistema central, esa información se transforma en resultado sonoro y sale por los parlantes en tiempo real.',
     },
     {
       type: 'note',
-      text: 'La variabilidad viene del organismo vivo, no del algoritmo.',
+      text: 'La cadena es clara: señal de la planta → captura y acondicionamiento → ESP32 → MIDI → red local → sistema central → sonido.',
+    },
+    {
+      type: 'hint',
+      text: 'En la última estación vamos a integrar todo esto en el estado actual del montaje y su sentido hoy.',
     },
   ],
   cta: 'Siguiente estación',
