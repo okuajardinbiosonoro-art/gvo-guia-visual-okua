@@ -4,23 +4,31 @@ export const station2: StationContent = {
   id: 2,
   title: 'Señales bioeléctricas',
   label: 'II',
-  subtitle: 'Lo que el sistema mide',
+  subtitle: 'Qué señal está en juego',
   blocks: [
     {
       type: 'paragraph',
-      text: 'Las plantas generan diferencias de potencial eléctrico a través de sus tejidos. Estas variaciones de voltaje responden a estímulos externos e internos.',
+      text: 'En esta estación quiero mostrarte con claridad qué señal está en juego antes de llegar al resultado musical.',
     },
     {
       type: 'paragraph',
-      text: 'En OKÚA, sensores de contacto registran esas variaciones en tiempo real. La señal cruda es débil, irregular e intermitente. No sigue un patrón musical predefinido.',
+      text: 'Una planta viva presenta actividad bioeléctrica: variaciones reales que cambian con su estado y con el entorno.',
     },
     {
       type: 'paragraph',
-      text: 'El sistema captura, amplifica y procesa esa señal antes de traducirla. Lo que escuchas es una representación del estado eléctrico de la planta en ese momento.',
+      text: 'Por sí sola, esa señal no equivale a música. Para volverla perceptible, necesitamos una mediación técnica.',
     },
     {
       type: 'note',
-      text: 'Fiel no significa idéntica. Hay mediación técnica entre la señal y el sonido. Pero no hay invención.',
+      text: 'En OKÚA la secuencia es esta: planta viva → señal bioeléctrica → captura → acondicionamiento → interpretación/mapeo → resultado musical.',
+    },
+    {
+      type: 'paragraph',
+      text: 'Esa cadena no inventa una historia ajena a la planta: traduce una señal existente para que podamos percibirla sin perder su origen.',
+    },
+    {
+      type: 'hint',
+      text: 'En la siguiente estación te mostraré cómo esta mediación se fue ajustando con prototipos, errores y decisiones reales de evolución.',
     },
   ],
   cta: 'Siguiente estación',
