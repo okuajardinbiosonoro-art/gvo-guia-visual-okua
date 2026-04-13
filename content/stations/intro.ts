@@ -1,36 +1,36 @@
 import type { IntroContent } from '../../packages/shared/src/content';
 
 export const intro: IntroContent = {
-  title: 'Bienvenida al recorrido OKÚA',
-  subtitle: 'Te acompaño en cinco etapas de mediación viva',
+  title: 'Proyecto OKÚA',
+  subtitle: 'Bionosificación — una señal viva, una mediación real',
   blocks: [
     {
       type: 'paragraph',
-      text: 'Soy Lía Andina. Te doy la bienvenida a este recorrido: vamos a mirar, paso a paso, cómo una señal viva se vuelve perceptible.',
+      text: 'Soy Lía Andina, y voy a acompañarte en este recorrido. Antes de seguir, quiero ordenar una idea importante: aquí no vas a ver plantas “haciendo música” por sí solas.',
     },
     {
       type: 'paragraph',
-      text: 'Aquí retomo lo esencial para que avancemos con claridad: la mediación presencial abre la experiencia y esta guía la ordena y la profundiza.',
-    },
-    {
-      type: 'paragraph',
-      text: 'Las plantas no hacen música por sí solas. Lo que percibimos nace de sus señales bioeléctricas y de una mediación tecnológica real.',
+      text: 'Lo que existe en OKÚA es una mediación real. Las plantas vivas presentan señales bioeléctricas, el sistema las registra y luego las traduce en algo que podemos percibir.',
     },
     {
       type: 'note',
-      text: 'Este recorrido tiene cinco estaciones. En cada una verás una capa distinta del proceso: origen, fundamento, evolución y estado actual.',
+      text: 'Tal vez ya escuchaste una explicación breve al entrar. Ahora vamos a retomarla con calma, paso a paso, para entender qué ocurre realmente y por qué este proyecto no es un truco.',
+    },
+    {
+      type: 'paragraph',
+      text: 'Este recorrido tiene cinco estaciones. En la primera vamos a mirar por qué nació el proyecto. Después veremos qué tipo de señal está en juego, cómo evolucionó el sistema y cómo opera hoy.',
     },
     {
       type: 'hint',
-      text: 'Sigue el orden en tu primera pasada. Al terminar, podrás volver libremente a cualquier estación.',
+      text: 'Sigue el orden en tu primera pasada. Cuando termines, podrás volver libremente a cualquier estación.',
     },
   ],
-  cta: 'Comenzar con la estación I',
+  cta: 'Ir a la primera estación',
   visual: {
     hero: {
       type: 'placeholder',
-      label: '[ Bienvenida al recorrido ]',
-      caption: 'Señal viva, mediación real y comprensión por etapas',
+      label: '[ Introducción al proyecto ]',
+      caption: 'Una señal viva, una mediación real',
     },
     tone: 'default',
   },

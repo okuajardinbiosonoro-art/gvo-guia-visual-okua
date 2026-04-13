@@ -4,37 +4,33 @@ export const station1: StationContent = {
   id: 1,
   title: 'Origen y propósito',
   label: 'I',
-  subtitle: 'De dónde nace este proyecto',
+  subtitle: 'Por qué empezó este proyecto',
   blocks: [
     {
       type: 'paragraph',
-      text: 'Empiezo por el origen: OKÚA nació de una intención sensible y concreta, no de una curiosidad técnica aislada.',
+      text: 'Quiero empezar por el origen. OKÚA no nació para producir un efecto llamativo, sino para abrir otra forma de relación con la vida vegetal.',
     },
     {
       type: 'paragraph',
-      text: 'Quisimos abrir una forma de atención hacia la vida vegetal: percibir que las plantas responden, cambian y sostienen señales reales.',
+      text: 'Muchas veces pasamos junto a una planta sin pensar en ella como un sistema vivo, activo y sensible. Este proyecto surge de esa distancia: de la necesidad de volver perceptible algo que normalmente no vemos ni escuchamos de forma directa.',
     },
     {
       type: 'paragraph',
-      text: 'Mi papel en este recorrido es orientarte en esa mediación: no hacemos hablar a las plantas; traducimos lo que ya está ocurriendo en ellas.',
-    },
-    {
-      type: 'paragraph',
-      text: 'Por eso trabajamos con señales bioeléctricas medibles y con una traducción cuidadosa: traducir no es inventar.',
+      text: 'La intención nunca fue “hacer hablar” a las plantas. La intención fue construir una mediación honesta para registrar señales reales y traducirlas sin falsear su origen.',
     },
     {
       type: 'note',
-      text: 'En la siguiente estación te mostraré qué mide el sistema y por qué esa señal necesita mediación.',
+      text: 'Traducir no es inventar. En OKÚA, la experiencia artística aparece después de una captura y una interpretación técnica de datos reales.',
+    },
+    {
+      type: 'paragraph',
+      text: 'Por eso esta primera estación no trata todavía de explicarte toda la cadena técnica. Primero necesitábamos responder algo más básico: por qué valía la pena construirla.',
+    },
+    {
+      type: 'hint',
+      text: 'En la siguiente estación vamos a mirar qué tipo de señal está presente en una planta viva y por qué esa señal no equivale, por sí sola, a música.',
     },
   ],
   cta: 'Siguiente estación',
   qrHint: 'Escanea el código QR de la estación II para continuar.',
-  visual: {
-    hero: {
-      type: 'placeholder',
-      label: '[ Origen y propósito ]',
-      caption: '¿Por qué construir algo así?',
-    },
-    tone: 'warm',
-  },
 };
