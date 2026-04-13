@@ -368,6 +368,6 @@ El frontend carga el contenido desde `apps/web/src/lib/content.ts` vía el alias
 
 - Escaneo de QR por cámara dentro del navegador.
 - Estaciones con contenido narrativo y visual final.
-- Avatar-guía Lía Andina con ilustraciones finales (actualmente SVG placeholder).
+- Avatar-guía Lía Andina con producción visual definitiva y sistema animado por estación (actualmente integrada con PNG de transición mientras se implementa el pipeline 3D).
 - Base de datos, autenticación, panel administrativo.
 - Docker, despliegue en producción.
