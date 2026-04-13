@@ -1,32 +1,36 @@
 import type { IntroContent } from '../../packages/shared/src/content';
 
 export const intro: IntroContent = {
-  title: 'Proyecto OKÚA',
-  subtitle: 'Bionosificación — mediación entre señal viva y sentido',
+  title: 'Bienvenida al recorrido OKÚA',
+  subtitle: 'Te acompaño en cinco etapas de mediación viva',
   blocks: [
     {
       type: 'paragraph',
-      text: 'OKÚA es un sistema de bionosificación. Registra señales bioeléctricas de plantas vivas y las traduce en información que podemos observar y escuchar.',
+      text: 'Soy Lía Andina. Te doy la bienvenida a este recorrido: vamos a mirar, paso a paso, cómo una señal viva se vuelve perceptible.',
     },
     {
       type: 'paragraph',
-      text: 'No son las plantas quienes producen la música. Son sus señales biológicas las que, mediante mediación tecnológica, se convierten en algo perceptible.',
+      text: 'Aquí retomo lo esencial para que avancemos con claridad: la mediación presencial abre la experiencia y esta guía la ordena y la profundiza.',
+    },
+    {
+      type: 'paragraph',
+      text: 'Las plantas no hacen música por sí solas. Lo que percibimos nace de sus señales bioeléctricas y de una mediación tecnológica real.',
     },
     {
       type: 'note',
-      text: 'Este recorrido tiene cinco estaciones. Cada una explora una capa del proceso: su origen, su fundamento técnico, su historia de errores y su estado actual.',
+      text: 'Este recorrido tiene cinco estaciones. En cada una verás una capa distinta del proceso: origen, fundamento, evolución y estado actual.',
     },
     {
       type: 'hint',
-      text: 'Sigue el orden en tu primera pasada. Al terminar, puedes revisitar cualquier estación libremente.',
+      text: 'Sigue el orden en tu primera pasada. Al terminar, podrás volver libremente a cualquier estación.',
     },
   ],
-  cta: 'Ir a la primera estación',
+  cta: 'Comenzar con la estación I',
   visual: {
     hero: {
       type: 'placeholder',
-      label: '[ Introducción al proyecto ]',
-      caption: 'Mediación entre señal viva y sentido',
+      label: '[ Bienvenida al recorrido ]',
+      caption: 'Señal viva, mediación real y comprensión por etapas',
     },
     tone: 'default',
   },
