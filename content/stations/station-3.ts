@@ -4,23 +4,31 @@ export const station3: StationContent = {
   id: 3,
   title: 'Prototipos y evolución',
   label: 'III',
-  subtitle: 'Lo que no funcionó y por qué importa',
+  subtitle: 'Cómo fuimos ajustando el sistema',
   blocks: [
     {
       type: 'paragraph',
-      text: 'El primer prototipo era ruidoso. Las lecturas eran inestables. La interfaz confundía más de lo que revelaba.',
+      text: 'Quiero ser directa: este sistema no apareció resuelto desde el inicio. Lo fuimos construyendo con pruebas, fallos y decisiones concretas.',
     },
     {
       type: 'paragraph',
-      text: 'Cada iteración respondió a fallas concretas: ruido electromagnético, pérdida de señal, deriva del sensor, latencia en la síntesis.',
+      text: 'Los primeros prototipos eran cableados y seriales. Funcionaban para empezar, pero también nos mostraban límites de lectura y de operación en el montaje real.',
     },
     {
       type: 'paragraph',
-      text: 'Esa historia de ajustes no es un error del proyecto. Es su argumento más fuerte: un sistema que evolucionó en respuesta a datos reales tiene más credibilidad que uno que solo funciona en condiciones ideales.',
+      text: 'Después pasamos a una arquitectura inalámbrica para sostener mejor la captura en condiciones reales, sin depender de una instalación rígida.',
+    },
+    {
+      type: 'paragraph',
+      text: 'En ese camino aparecieron problemas de ruido e interferencia. También tuvimos que ajustar el acondicionamiento para ganar estabilidad de lectura.',
     },
     {
       type: 'note',
-      text: 'Un prototipo que falla enseña más que uno que no se prueba.',
+      text: 'El cambio más visible fue físico: modificamos partes del montaje porque la técnica lo exigía. No fue solo software; cambió también cómo se disponía el sistema en el espacio.',
+    },
+    {
+      type: 'hint',
+      text: 'En la siguiente estación te mostraré cómo opera hoy esa versión ya estabilizada del sistema.',
     },
   ],
   cta: 'Siguiente estación',
