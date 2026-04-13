@@ -32,7 +32,7 @@ La versión inicial debe cubrir como mínimo:
 
 - acceso inicial por QR;
 - pantalla de bienvenida;
-- guía visual Lía Andina (fija);
+- integración de Lía Andina como avatar-guía único;
 - introducción + 5 estaciones;
 - control de secuencia;
 - advertencia ante saltos;
@@ -348,7 +348,7 @@ El frontend carga el contenido desde `apps/web/src/lib/content.ts` vía el alias
 ### Qué incluye el estado actual (Tickets 0.1 – 0.5)
 
 - Workspace npm con `apps/web`, `apps/server`, `packages/shared`.
-- Shell funcional del recorrido (bienvenida, intro, 5 estaciones, cierre) con Lía Andina como guía visual fija.
+- Shell funcional del recorrido (bienvenida, intro, 5 estaciones, cierre) con Lía Andina como avatar-guía único.
 - Sesión temporal en memoria del servidor con TTL de 4 horas.
 - Validación de secuencia en backend (intro → estaciones 1–5 → finalización).
 - Token de acceso inicial (`okua-entry`) con ruta `/entry/:token` y redirección inteligente.
@@ -368,6 +368,6 @@ El frontend carga el contenido desde `apps/web/src/lib/content.ts` vía el alias
 
 - Escaneo de QR por cámara dentro del navegador.
 - Estaciones con contenido narrativo y visual final.
-- Guías visuales con ilustraciones finales (actualmente SVG placeholder).
+- Avatar-guía Lía Andina con ilustraciones finales (actualmente SVG placeholder).
 - Base de datos, autenticación, panel administrativo.
 - Docker, despliegue en producción.
