@@ -225,7 +225,7 @@ El QR de entrada del espacio apunta a la ruta `/entry/<token>`:
 http://<ip-servidor>:5173/entry/okua-entry
 ```
 
-- Token válido: redirige al punto correcto del recorrido (intro o próxima estación pendiente).
+- Token válido: redirige al siguiente paso pendiente del recorrido.
 - Sesión reanudada automáticamente si existe y está vigente.
 - Token inválido: pantalla "Código no reconocido".
 
