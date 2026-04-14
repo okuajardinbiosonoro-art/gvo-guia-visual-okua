@@ -28,10 +28,10 @@ export const station5: StationContent = {
     },
     {
       type: 'hint',
-      text: 'En el cierre podrás volver libremente a las estaciones y recorrerlas otra vez con esta idea completa en mente.',
+      text: 'En el cierre podrás revisar libremente las estaciones y recorrerlas otra vez con esta idea completa en mente.',
     },
   ],
-  cta: 'Ver el cierre',
+  cta: 'Ir al cierre',
   visual: {
     hero: {
       type: 'placeholder',

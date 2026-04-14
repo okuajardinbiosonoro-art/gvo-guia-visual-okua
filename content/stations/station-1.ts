@@ -28,9 +28,9 @@ export const station1: StationContent = {
     },
     {
       type: 'hint',
-      text: 'En la siguiente estación vamos a mirar qué tipo de señal está presente en una planta viva y por qué esa señal no equivale, por sí sola, a música.',
+      text: 'En la estación II vamos a mirar qué señal aparece en una planta viva y por qué esa señal, por sí sola, no equivale a música.',
     },
   ],
-  cta: 'Siguiente estación',
-  qrHint: 'Escanea el código QR de la estación II para continuar.',
+  cta: 'Continuar',
+  qrHint: 'Escanea el QR de la estación II para continuar.',
 };

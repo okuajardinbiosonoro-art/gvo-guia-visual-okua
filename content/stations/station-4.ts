@@ -36,11 +36,11 @@ export const station4: StationContent = {
     },
     {
       type: 'hint',
-      text: 'En la última estación vamos a integrar todo esto en el estado actual del montaje y su sentido hoy.',
+      text: 'En la estación V vamos a integrar todo esto en el estado actual del montaje y su sentido hoy.',
     },
   ],
-  cta: 'Siguiente estación',
-  qrHint: 'Escanea el código QR de la estación V para continuar.',
+  cta: 'Continuar',
+  qrHint: 'Escanea el QR de la estación V para continuar.',
   visual: {
     hero: {
       type: 'placeholder',

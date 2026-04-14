@@ -25,7 +25,7 @@ export const intro: IntroContent = {
       text: 'Sigue el orden en tu primera pasada. Cuando termines, podrás volver libremente a cualquier estación.',
     },
   ],
-  cta: 'Ir a la primera estación',
+  cta: 'Comenzar recorrido',
   visual: {
     hero: {
       type: 'placeholder',

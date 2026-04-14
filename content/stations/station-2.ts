@@ -28,11 +28,11 @@ export const station2: StationContent = {
     },
     {
       type: 'hint',
-      text: 'En la siguiente estación te mostraré cómo esta mediación se fue ajustando con prototipos, errores y decisiones reales de evolución.',
+      text: 'En la estación III te mostraré cómo esta mediación se ajustó con prototipos, errores y decisiones reales.',
     },
   ],
-  cta: 'Siguiente estación',
-  qrHint: 'Escanea el código QR de la estación III para continuar.',
+  cta: 'Continuar',
+  qrHint: 'Escanea el QR de la estación III para continuar.',
   visual: {
     hero: {
       type: 'placeholder',

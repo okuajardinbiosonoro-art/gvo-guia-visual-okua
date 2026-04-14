@@ -28,11 +28,11 @@ export const station3: StationContent = {
     },
     {
       type: 'hint',
-      text: 'En la siguiente estación te mostraré cómo opera hoy esa versión ya estabilizada del sistema.',
+      text: 'En la estación IV te mostraré cómo opera hoy esa versión ya estabilizada del sistema.',
     },
   ],
-  cta: 'Siguiente estación',
-  qrHint: 'Escanea el código QR de la estación IV para continuar.',
+  cta: 'Continuar',
+  qrHint: 'Escanea el QR de la estación IV para continuar.',
   visual: {
     hero: {
       type: 'placeholder',
