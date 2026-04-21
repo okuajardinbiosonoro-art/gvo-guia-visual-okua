@@ -1,7 +1,11 @@
 import type { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export const WelcomeScreen: FC = () => {
+type WelcomeScreenProps = {
+  mode: 'lab' | 'field';
+};
+
+export const WelcomeScreen: FC<WelcomeScreenProps> = ({ mode }) => {
   const navigate = useNavigate();
 
   return (
@@ -17,12 +21,18 @@ export const WelcomeScreen: FC = () => {
       </div>
 
       <div className="screen-actions">
-        <button
-          className="btn btn-primary"
-          onClick={() => navigate('/intro')}
-        >
-          Comenzar recorrido
-        </button>
+        {mode === 'lab' ? (
+          <button
+            className="btn btn-primary"
+            onClick={() => navigate('/intro')}
+          >
+            Comenzar recorrido
+          </button>
+        ) : (
+          <p className="screen-text screen-text--muted">
+            Escanea el código QR de entrada para comenzar tu recorrido.
+          </p>
+        )}
         <p className="screen-note">Sin audio · Sin Internet · Solo tu presencia</p>
       </div>
     </div>

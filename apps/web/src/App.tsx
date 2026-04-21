@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
+import { APP_MODE } from './config';
 import { useJourney } from './state/JourneyProvider';
 import { WelcomeScreen } from './screens/WelcomeScreen';
 import { IntroScreen } from './screens/IntroScreen';
@@ -32,7 +33,7 @@ export default function App() {
 
   return (
     <Routes>
-      <Route path="/"            element={<WelcomeScreen />} />
+      <Route path="/"            element={<WelcomeScreen mode={APP_MODE} />} />
       <Route path="/intro"       element={<IntroScreen />} />
       <Route path="/station/:id" element={<StationScreen />} />
       <Route path="/entry/:token" element={<EntryScreen />} />

@@ -22,13 +22,13 @@ async function bootstrap(): Promise<void> {
   server.get('/api/meta', async () => ({
     name: GVO_META.name,
     version: GVO_META.version,
-    status: 'entry-and-modes',
+    status: 'journey-core-live',
     features: {
       sessions: true,
       qr: true,
       sequence: true,
       entry: true,
-      stations: false, // Ticket 0.2+ — estaciones reales
+      stations: true,
     },
   }));
 

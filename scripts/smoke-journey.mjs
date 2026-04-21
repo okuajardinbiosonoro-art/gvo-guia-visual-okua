@@ -87,8 +87,11 @@ try {
 {
   const { status, body } = await GET('/api/meta');
   check(
-    'GET /api/meta → 200, tiene version',
-    status === 200 && typeof body.version === 'string',
+    'GET /api/meta → 200, version + meta de estaciones reales',
+    status === 200 &&
+      typeof body.version === 'string' &&
+      body.status === 'journey-core-live' &&
+      body.features?.stations === true,
     `status=${status} body=${JSON.stringify(body)}`,
   );
 }

@@ -1,48 +1,46 @@
-# Arquitectura general — visión inicial
+# Arquitectura general — estado actual
 
-## Capas principales
+## Stack
 
-### 1. Capa visitante
-Aplicación web móvil local.
+- Frontend: React 18 + TypeScript + Vite 5.
+- Backend: Node.js + TypeScript + Fastify 5.
+- Shared: `packages/shared` (`@gvo/shared`) con tipos, meta y tokens QR.
+- Contenido editorial: `content/stations/` para la introducción y las 5 estaciones.
+- Assets del cliente: `apps/web/src/assets/` para recursos visuales usados hoy en la web.
 
-Responsabilidades:
-- render de experiencia;
-- navegación;
-- validación de flujo;
-- consulta de progreso;
-- interacción por estación.
+## Estructura del monorepo
 
-### 2. Capa servidor local
-Servicio local alojado en PC Windows.
+- `apps/web` - cliente React mobile-first.
+- `apps/server` - servidor Fastify con sesiones temporales en memoria.
+- `packages/shared` - contratos compartidos, utilidades QR y `GVO_META`.
+- `content/` - contenido narrativo del recorrido.
+- `docs/` - producto, arquitectura, operación y pruebas.
+- `scripts/` - smoke tests y utilidades del repo.
 
-Responsabilidades:
-- creación y mantenimiento de sesión temporal;
-- validación de QR / estaciones;
-- control de secuencia;
-- persistencia temporal;
-- entrega de contenido y estado.
+## Flujo de sesión
 
-### 3. Capa de red local
-Router MikroTik y red de visitantes.
+- Entrada por QR: `/entry/:token` valida el acceso inicial y habilita la sesión.
+- Inicio del recorrido: `/intro` registra la introducción en la sesión.
+- QR por estación: `/qr/:token` resuelve el token y ejecuta `visitStation`.
+- Primera pasada secuencial: el backend bloquea saltos y el frontend muestra `BlockedScreen`.
+- Cierre: completar la estación 5 habilita `/final` y marca la sesión como finalizada.
+- Revisita libre: después de completar el recorrido, las estaciones pueden revisitarse sin restricción de secuencia.
 
-Responsabilidades:
-- acceso local controlado;
-- aislamiento básico respecto al sistema principal;
-- disponibilidad del servicio al visitante.
+## Modos de operación
 
-## Reglas arquitectónicas iniciales
+- `lab`: desarrollo local, atajos visibles en la interfaz y bypass manual permitido solo como apoyo de prueba.
+- `field`: operación real en el espacio, sin bypass visible desde la bienvenida ni desde las estaciones.
 
-- separar frontend y backend;
-- no acoplar contenido narrativo al código más de lo necesario;
-- no exponer rutas administrativas al visitante;
-- mantener estado temporal simple y reemplazable;
-- preferir soluciones mantenibles por una sola persona.
+## Límites actuales conocidos
 
-## Pendientes a fijar
+- Sesiones en memoria, sin persistencia entre reinicios del servidor.
+- Sin rate limiting.
+- Sin logging persistente de sesiones.
+- Sin script de arranque automático en Windows.
 
-- stack frontend;
-- stack backend;
-- formato de contenido de estaciones;
-- estrategia concreta de sesión;
-- diseño de QR y validación;
-- mecanismo de arranque del servicio en Windows.
+## Próximo hardening
+
+- Script de arranque en Windows.
+- Logging básico de sesiones y errores del flujo.
+- Rate limiting local.
+

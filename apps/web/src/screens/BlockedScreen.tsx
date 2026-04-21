@@ -7,13 +7,15 @@ export const BlockedScreen: FC = () => {
   const { session } = useJourney();
 
   const getReturnPath = (): string => {
-    if (!session?.guide) return '/guide';
-    if (!session.visitedSteps.includes(0)) return '/intro';
-    const stationVisits = session.visitedSteps.filter((s) => s > 0);
-    const lastStation = stationVisits.length > 0 ? Math.max(...stationVisits) : 0;
-    if (lastStation === 0) return '/intro';
+    if (!session) return '/intro';
     if (session.completed) return '/final';
-    return `/station/${lastStation}`;
+    if (!session.visitedSteps.includes(0)) return '/intro';
+
+    const stationVisits = session.visitedSteps.filter((step) => step > 0);
+    const lastStation = stationVisits.length > 0 ? Math.max(...stationVisits) : 0;
+    if (lastStation > 0) return `/station/${lastStation}`;
+
+    return '/intro';
   };
 
   return (

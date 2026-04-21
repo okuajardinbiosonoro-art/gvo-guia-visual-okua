@@ -29,7 +29,6 @@ export const StationScreen: FC = () => {
         const sequenceErrors = new Set([
           'sequence_violation',
           'intro_required',
-          'guide_required',
         ]);
         navigate(
           sequenceErrors.has(result.error ?? '') ? '/blocked' : '/',

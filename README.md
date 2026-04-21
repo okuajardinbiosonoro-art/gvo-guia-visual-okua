@@ -26,9 +26,9 @@ Su función no es reemplazar al guía humano. Su función es aportar una segunda
 - **Acceso:** QR inicial + QR por estación.
 - **Cliente:** navegador móvil del visitante.
 
-## 4. Meta de la versión inicial
+## 4. Funcionalidades incluidas en la versión inicial
 
-La versión inicial debe cubrir como mínimo:
+La versión inicial incluye:
 
 - acceso inicial por QR;
 - pantalla de bienvenida;
@@ -46,25 +46,18 @@ La versión inicial debe cubrir como mínimo:
 
 ```text
 .
-├─ README.md
-├─ AGENTS.md
-├─ CLAUDE.md
-├─ docs/
 ├─ apps/
 │  ├─ web/
 │  └─ server/
 ├─ packages/
 │  └─ shared/
 ├─ content/
-│  ├─ stations/
-│  ├─ avatars/          ← solo Lía Andina
-│  └─ qr/
-├─ assets/
+│  └─ stations/
+├─ docs/
 ├─ scripts/
-├─ tests/
-└─ .claude/
-   ├─ settings.json
-   └─ skills/
+├─ README.md
+├─ AGENTS.md
+└─ CLAUDE.md
 ```
 
 ## 6. Flujo de trabajo
@@ -78,33 +71,16 @@ Este proyecto usa un flujo **solo-dev**:
 - No se mezcla en un solo ticket una refactorización grande con una funcionalidad nueva.
 - Toda decisión relevante debe dejar huella en `docs/`.
 
-## 7. Orden recomendado de ejecución
+## 7. Flujo actual
 
-1. consolidar documentación base;
-2. fijar stack del MVP;
-3. scaffold de `apps/web` y `apps/server`;
-4. implementar shell funcional del MVP;
-5. implementar secuencia y sesiones;
-6. integrar QR y validaciones;
-7. enriquecer UX/interacciones por estación;
-8. pruebas controladas;
-9. piloto;
-10. estabilización.
+1. El visitante abre el QR inicial o la ruta `/entry/okua-entry`.
+2. El backend valida el token de entrada y el cliente crea o reanuda la sesión temporal.
+3. El recorrido pasa por `/intro`.
+4. Las estaciones 1 a 5 se resuelven con `/qr/:token`.
+5. La estación 5 habilita `/final`.
+6. Tras completar el primer paso, la revisita a estaciones ya visitadas queda libre.
 
-## 8. Primer commit recomendado
-
-Este paquete está diseñado para servir como **primer commit estructural** del proyecto.
-
-Sugerencia de mensaje:
-
-```bash
-git add .
-git commit -m "chore: initialize GVO repository structure and project governance"
-```
-
----
-
-## 9. Arranque técnico (scaffold v0.1)
+## 8. Stack actual
 
 ### Stack
 
@@ -251,8 +227,8 @@ Configurable en `apps/web/.env.local` mediante `VITE_APP_MODE`:
 
 | Valor | Comportamiento |
 | ----- | -------------- |
-| `lab` (por defecto) | El botón "Continuar sin QR" es visible en estaciones — permite navegar sin escanear QR físico |
-| `field` | El bypass manual queda oculto — el visitante debe escanear el QR de cada estación para avanzar |
+| `lab` (por defecto) | El botón "Continuar sin QR" es visible en estaciones y la bienvenida muestra acceso directo de desarrollo |
+| `field` | El bypass manual queda oculto en estaciones y la bienvenida solo instruye a escanear el QR de entrada |
 
 ```bash
 # apps/web/.env.local
@@ -305,19 +281,7 @@ content/stations/
 
 ### Assets visuales por estación (Ticket 0.7)
 
-Los assets estáticos (ilustraciones, diagramas, imágenes) se organizan por estación bajo `assets/stations/`:
-
-```
-assets/stations/
-├── intro/         ← assets de la introducción
-├── station-1/     ← assets de Estación I
-├── station-2/     ← assets de Estación II
-├── station-3/     ← assets de Estación III
-├── station-4/     ← assets de Estación IV
-└── station-5/     ← assets de Estación V
-```
-
-Actualmente todos los directorios contienen `.gitkeep` — son **estructura preparada, sin assets de producción todavía**.
+Los assets visuales actuales del cliente viven en `apps/web/src/assets/`. Hoy se usan PNG de Lía Andina y recursos de soporte para la experiencia.
 
 Cada estación puede declarar un hero visual en su campo `visual` dentro de `content/stations/station-N.ts`:
 
@@ -327,13 +291,13 @@ visual: {
     type: 'placeholder',   // 'placeholder' | 'image'
     label: '[ Señales bioeléctricas ]',
     caption: 'Lo que el sistema registra',
-    // src: 'stations/station-2/diagram.png'  ← cuando type='image'
+    // src: 'lia/lia-curious.png'  ← cuando type='image'
   },
   tone: 'cool',   // 'default' | 'warm' | 'cool' | 'cold' | 'neutral'
 }
 ```
 
-Para conectar una imagen real: coloca el archivo en `assets/stations/station-N/`, cambia `type` a `'image'` y añade `src` con la ruta relativa al directorio `assets/`. El componente `StationHero` en `apps/web/src/components/StationHero.tsx` maneja ambos modos sin cambios al código.
+Para conectar una imagen real: coloca el archivo en `apps/web/src/assets/`, cambia `type` a `'image'` y añade `src` con la ruta relativa desde el cliente web. El componente `StationHero` en `apps/web/src/components/StationHero.tsx` maneja ambos modos sin cambios al código.
 
 **Bloques de contenido (`ContentBlock`):**
 - `paragraph` — texto normal
@@ -353,7 +317,7 @@ El frontend carga el contenido desde `apps/web/src/lib/content.ts` vía el alias
 - Validación de secuencia en backend (intro → estaciones 1–5 → finalización).
 - Token de acceso inicial (`okua-entry`) con ruta `/entry/:token` y redirección inteligente.
 - Tokens QR por estación; flujo `/qr/:token` resuelve y registra avance real.
-- Modo de operación `lab`/`field` configurable vía `VITE_APP_MODE`; bypass visible solo en lab.
+- Modo de operación `lab`/`field` configurable vía `VITE_APP_MODE`; bypass visible solo en lab y bienvenida sin acceso directo en field.
 - Frontend integrado con API real; sin URLs dispersas (todas pasan por `api.ts`).
 - `VITE_API_BASE_URL` y `VITE_APP_MODE` consumidos activamente desde `config.ts`.
 - Rehidratación básica de sesión tras refresh de página.
@@ -361,7 +325,7 @@ El frontend carga el contenido desde `apps/web/src/lib/content.ts` vía el alias
 - Contrato de errores mutadores uniforme: todas las respuestas de error incluyen `ok: false`.
 - Contenido narrativo centralizado en `content/stations/` con tipos en `packages/shared/src/content.ts`.
 - Capa visual por estación: `StationHero` + modelo `StationVisual` + tono por estación.
-- Assets scaffolded en `assets/stations/` (estructura lista; imágenes/diagramas en tickets siguientes).
+- Assets del cliente organizados en `apps/web/src/assets/` con recursos actuales de Lía Andina.
 - Versionado alineado en todos los paquetes: `0.7.0`.
 
 ### Qué NO incluye todavía
