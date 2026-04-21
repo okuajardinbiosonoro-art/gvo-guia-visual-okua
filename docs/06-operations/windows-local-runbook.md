@@ -30,10 +30,16 @@ npm start
 O directamente:
 
 ```bash
-npm run start:local
+npm run start:windows
 ```
 
 Ambos ejecutan `scripts/start-gvo.ps1`, que valida el entorno, compila y luego levanta el backend en modo local con el frontend estático incluido.
+
+## Política local activa
+
+- CORS: `same-origin` por defecto en el arranque local del piloto.
+- Rate limit: `60 req/min` global por IP y `10 req/min` para `POST` del journey.
+- Log persistente: `logs/gvo-local.log`.
 
 ## Verificación básica
 
@@ -66,12 +72,13 @@ Ninguna debe devolver 404 cuando el backend está sirviendo `apps/web/dist`.
 - `Node.js no encontrado`: instalar Node y reiniciar la consola.
 - `npm run smoke:journey` falla por conexión: verificar que el backend realmente quedó arriba en `http://localhost:3001`.
 - Una ruta SPA devuelve 404: confirmar que el arranque usó el backend en modo local y que `GVO_SERVE_WEB=true` se activó mediante `npm run start:local`.
+- `429 rate_limit_exceeded`: se alcanzó el límite básico del piloto; esperar un minuto o reducir el ritmo de pruebas.
+- `logs/gvo-local.log` no aparece: confirmar que el arranque se hizo desde `scripts/start-gvo.ps1` o `npm run start:windows`.
 
 ## Limitaciones conocidas
 
 - Sesiones en memoria: reiniciar el backend limpia el estado.
-- Sin rate limiting.
-- Sin logging persistente a archivo.
+- Rate limiting básico sin política avanzada ni Redis.
+- Logging persistente simple, sin rotación avanzada todavía.
 - Sin HTTPS local.
 - Sin integración con QR físicos ni producción Windows final.
-

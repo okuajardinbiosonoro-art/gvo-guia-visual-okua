@@ -109,7 +109,7 @@ Orden descendente de autoridad. Ante contradicción, prevalece la fuente de mayo
 - Tests de integración con framework formal (más allá del smoke).
 - Assets visuales reales por estación (actualmente todos son `gitkeep`).
 - QR físicos impresos para operación en campo.
-- Hardening local adicional: rate limiting, logging persistente, reinicio automático y despliegue final en Windows.
+- Hardening local adicional: reinicio automático y despliegue final en Windows.
 
 ---
 
@@ -226,17 +226,18 @@ Orden descendente de autoridad. Ante contradicción, prevalece la fuente de mayo
 
 **Estado:** PARCIAL.
 
-**Obligatorio para v1:**
+**Base ya cerrada:**
 - Base de arranque local (`start-gvo.bat` / `start-gvo.ps1` + backend sirviendo `apps/web/dist`).
-- Configuración de IP fija o hostname en red MikroTik.
-- Verificación de QR físicos impresos (URL correcta, legible en móvil a distancia operativa).
-- Rate limiting básico en Fastify (protección contra bucles accidentales).
-- Logging de errores persistente (archivo rotado, no solo consola).
+- CORS configurable en modo piloto local.
+- Rate limiting básico en Fastify.
+- Logging persistente a archivo.
 
-**Recomendado (no bloqueante para piloto):**
-- pm2 o Task Scheduler para reinicio automático tras corte de luz.
-- Prueba de carga con visitantes simultáneos (referencia: ¿cuántos visitantes en paralelo son realistas?).
-- HTTPS local (solo si red MikroTik no es confiable internamente — probablemente innecesario).
+**Pendiente real para v1:**
+- Configuración final de IP fija o hostname en la red del espacio.
+- Verificación de QR físicos impresos en el sitio.
+- Prueba de carga con visitantes simultáneos.
+- Reinicio automático tras corte de luz.
+- HTTPS local solo si la red lo pide.
 
 **Deuda tolerable para post-v1:**
 - Panel de monitoreo de sesiones activas.
@@ -244,11 +245,11 @@ Orden descendente de autoridad. Ante contradicción, prevalece la fuente de mayo
 - Métricas de duración de visita.
 
 **Criterio de salida de Fase 6:**
-- [ ] Sistema arranca con un solo script desde cero en la PC Windows objetivo.
-- [ ] Frontend accesible desde móvil en la red del espacio.
+- [x] Sistema arranca con un solo script desde cero en la PC Windows objetivo.
+- [x] Frontend accesible desde móvil en la red del espacio.
 - [ ] QR de entrada y QR de estaciones funcionan.
 - [ ] Sistema opera 2h continuas sin intervención manual.
-- [ ] Smoke test pasa contra sistema en producción local.
+- [x] Smoke test pasa contra sistema en producción local.
 
 ---
 
@@ -501,9 +502,11 @@ El 3D solo se introduce si cumple **todos** los siguientes criterios:
 
 - Stack: Node.js >= 18, TypeScript 5.4.5, Fastify 5.8.4.
 - Puerto: 3001 (configurable via env).
-- CORS: `origin: true` en desarrollo. En producción local debe limitarse al origen del frontend (IP:puerto del servidor).
-- Estado: Map<string, JourneySession> en memoria. Sin base de datos. Sin Redis. Sin archivo. Esta es una decisión arquitectónica explícita para v1; suficiente para el caso de uso.
+- CORS: configurable. En el piloto local con frontend servido por el backend, el arranque base usa `same-origin`; `permissive` queda para desarrollo separado y `allowlist` para casos con origen explícito.
+- Rate limiting: base global de 60 req/min por IP y refuerzo de 10 req/min en los `POST` del journey. Sin Redis ni política distribuida.
+- Estado: Map<string, JourneySession> en memoria. Sin base de datos. Sin Redis. Sin persistencia de sesiones. Esta es una decisión arquitectónica explícita para v1; suficiente para el caso de uso.
 - TTL: 4h deslizante por defecto (`SESSION_TTL_MS=14400000`). Limpeza automática cada 15 minutos.
+- Logging: persistente a `logs/gvo-local.log` en operación local. No hay logging persistente remoto ni rotación avanzada todavía.
 - No hay endpoints administrativos, de autenticación o de consulta de todas las sesiones.
 
 ### Sesiones
@@ -541,15 +544,15 @@ El 3D solo se introduce si cumple **todos** los siguientes criterios:
 
 ## 14. Hardening para producción local Windows
 
-### Obligatorio antes de piloto
+### Base operativa local actual
 
 **1. Script de arranque**
 
-Crear `start-gvo.bat` (o `.ps1`) que:
-- Comprueba que Node.js está disponible.
-- Inicia el backend con `node apps/server/dist/index.js` (o `tsx` en modo dev).
-- Sirve el frontend compilado (opción recomendada: Fastify sirviendo archivos estáticos desde `apps/web/dist/`; alternativa: `npx serve -s apps/web/dist -l 5173`).
-- Muestra en consola la IP local y el puerto para confirmar accesibilidad.
+`start-gvo.ps1` y `start-gvo.bat` ya existen y dejan el piloto listo para operar en Windows:
+- comprueban Node.js y npm;
+- ejecutan `npm run build`;
+- levantan el backend sirviendo `apps/web/dist`;
+- fijan `GVO_CORS_MODE=same-origin` y `GVO_LOG_FILE=logs/gvo-local.log` para el modo piloto local.
 
 **2. Configuración de red**
 
@@ -565,22 +568,25 @@ Crear `start-gvo.bat` (o `.ps1`) que:
 
 **4. Rate limiting básico**
 
-Agregar `@fastify/rate-limit` en el servidor:
+Implementado en Fastify:
 - Límite global: 60 requests/minuto por IP.
-- Límite en POST endpoints de sesión: 10 requests/minuto por IP.
-- Respuesta de rate limit: 429 con `ok: false, error: 'rate_limit_exceeded'`.
+- Límite en `POST` del journey: 10 requests/minuto por IP.
+- Respuesta homogénea: `429` con `ok: false, error: 'rate_limit_exceeded'`.
 
 **5. Logging persistente**
 
-- Reemplazar o complementar logs de consola con logs a archivo (pino-file o equivalente sencillo).
-- Archivo de log rotado diariamente, tamaño máximo 10MB.
-- No loggear información personal del visitante (no hay ninguna en v1, confirmar).
+Implementado como append simple a `logs/gvo-local.log`:
+- registra arranque y requests relevantes;
+- crea el directorio si no existe;
+- no guarda datos personales del visitante;
+- no usa rotación avanzada todavía.
 
-**6. CORS en producción**
+**6. CORS configurable**
 
-En el servidor, cambiar `origin: true` por el origen exacto del frontend:
-- Si frontend y backend están en el mismo host: usar origen `http://localhost:{PUERTO}` o la IP fija.
-- Si están separados: especificar IP exacta.
+Implementado con modos explícitos:
+- `same-origin` para el piloto local con frontend servido por el backend;
+- `permissive` para desarrollo separado;
+- `allowlist` cuando se necesite un origen específico.
 
 ### Recomendado (no bloquea piloto)
 
@@ -786,7 +792,7 @@ GVO v1 está cerrada cuando cumple **todos** los siguientes criterios:
 - [ ] `npm run smoke:journey` pasa todos los checks.
 - [ ] `npm run build` produce artefactos funcionales.
 - [ ] Código muerto de flujo multi-avatar eliminado (BlockedScreen, StationScreen).
-- [ ] CORS restringido al origen del frontend en producción.
+- [ ] CORS configurable en modo piloto local / allowlist cuando haga falta.
 - [ ] Rate limiting básico activo.
 - [ ] Logging a archivo activo.
 
@@ -876,11 +882,11 @@ Estos artefactos deben estar coherentes entre sí en todo momento. Cuando uno ca
 - [ ] Acceso físico al espacio para instalar QR.
 
 **Salida:**
-- [ ] Script de arranque Windows funciona en PC objetivo.
+- [x] Script de arranque Windows funciona en PC objetivo.
 - [ ] IP fija configurada, QR físicos generados e instalados.
-- [ ] Rate limiting activo.
-- [ ] Logging a archivo activo.
-- [ ] CORS restringido.
+- [x] Rate limiting activo.
+- [x] Logging a archivo activo.
+- [x] CORS configurable y en modo piloto local.
 - [ ] Sistema corre 2h continuas sin intervención.
 - [ ] Smoke test pasa contra sistema en producción local.
 - [ ] Prueba con visitante real de prueba ejecutada.

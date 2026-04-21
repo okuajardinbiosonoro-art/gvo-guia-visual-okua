@@ -2,12 +2,21 @@ import type { FastifyPluginAsync } from 'fastify';
 import * as sessions from '../sessions';
 import { isValidEntryToken, resolveQrToken } from '@gvo/shared';
 
+const JOURNEY_POST_RATE_LIMIT = {
+  max: 10,
+  timeWindow: '1 minute' as const,
+};
+
 export const journeyRoutes: FastifyPluginAsync = async (fastify) => {
   // POST /api/journey/session — nueva sesión
-  fastify.post('/api/journey/session', async (_req, reply) => {
-    const session = sessions.createSession();
-    return reply.status(201).send({ session });
-  });
+  fastify.post(
+    '/api/journey/session',
+    { config: { rateLimit: JOURNEY_POST_RATE_LIMIT } },
+    async (_req, reply) => {
+      const session = sessions.createSession();
+      return reply.status(201).send({ session });
+    },
+  );
 
   // GET /api/journey/session/:sessionId — estado actual
   fastify.get<{ Params: { sessionId: string } }>(
@@ -22,6 +31,7 @@ export const journeyRoutes: FastifyPluginAsync = async (fastify) => {
   // POST /api/journey/session/:sessionId/intro
   fastify.post<{ Params: { sessionId: string } }>(
     '/api/journey/session/:sessionId/intro',
+    { config: { rateLimit: JOURNEY_POST_RATE_LIMIT } },
     async (req, reply) => {
       const result = sessions.visitIntro(req.params.sessionId);
       if (!result.ok) {
@@ -36,6 +46,7 @@ export const journeyRoutes: FastifyPluginAsync = async (fastify) => {
   // POST /api/journey/session/:sessionId/station/:stationId
   fastify.post<{ Params: { sessionId: string; stationId: string } }>(
     '/api/journey/session/:sessionId/station/:stationId',
+    { config: { rateLimit: JOURNEY_POST_RATE_LIMIT } },
     async (req, reply) => {
       const stationId = Number(req.params.stationId);
       if (!Number.isInteger(stationId)) {
@@ -54,6 +65,7 @@ export const journeyRoutes: FastifyPluginAsync = async (fastify) => {
   // POST /api/journey/session/:sessionId/finalize
   fastify.post<{ Params: { sessionId: string } }>(
     '/api/journey/session/:sessionId/finalize',
+    { config: { rateLimit: JOURNEY_POST_RATE_LIMIT } },
     async (req, reply) => {
       const result = sessions.finalizeSession(req.params.sessionId);
       if (!result.ok) {
@@ -71,6 +83,7 @@ export const journeyRoutes: FastifyPluginAsync = async (fastify) => {
   // permanece en el cliente (JourneyProvider).
   fastify.post<{ Params: { token: string } }>(
     '/api/journey/entry/:token',
+    { config: { rateLimit: JOURNEY_POST_RATE_LIMIT } },
     async (req, reply) => {
       const { token } = req.params;
       if (!isValidEntryToken(token)) {
@@ -84,6 +97,7 @@ export const journeyRoutes: FastifyPluginAsync = async (fastify) => {
   // Resuelve un token QR a una estación y registra el avance si la secuencia lo permite.
   fastify.post<{ Params: { sessionId: string; token: string } }>(
     '/api/journey/session/:sessionId/scan/:token',
+    { config: { rateLimit: JOURNEY_POST_RATE_LIMIT } },
     async (req, reply) => {
       const { sessionId, token } = req.params;
 

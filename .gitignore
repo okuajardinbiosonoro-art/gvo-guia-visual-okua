@@ -28,7 +28,8 @@ tmp/
 temp/
 
 # Logs
-logs/
+logs/*
+!logs/.gitkeep
 *.log
 
 # Env / secrets
