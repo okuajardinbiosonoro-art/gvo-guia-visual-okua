@@ -72,7 +72,7 @@ Orden descendente de autoridad. Ante contradicción, prevalece la fuente de mayo
 | 3 | Este documento (`metodologia-integral-gvo-v1.md`) | Metodología y reglas de trabajo |
 | 4 | `docs/00-master/gvo-master-summary-v1.md` | Problema que resuelve, qué es GVO, restricciones |
 | 5 | `docs/01-product/product-scope.md` | Qué está dentro y fuera de alcance v1 |
-| 6 | `docs/04-architecture/architecture-overview.md` | Visión arquitectónica |
+| 6 | `docs/04-architecture/architecture-overview.md` | Arquitectura vigente |
 | 7 | `CLAUDE.md` | Instrucciones operativas para agentes IA |
 | 8 | `AGENTS.md` | Reglas del equipo de trabajo |
 | 9 | `docs/02-script/` | Narrativa base de Frente C |
@@ -88,18 +88,17 @@ Orden descendente de autoridad. Ante contradicción, prevalece la fuente de mayo
 
 - `packages/shared/src/` — Tipos y funciones compartidas; fuente de verdad de contratos.
 - `apps/server/src/` — Backend completo y funcional.
-- `apps/web/src/` — Frontend completo y funcional (con código muerto menor).
+- `apps/web/src/` — Frontend completo y funcional.
+- `README.md` — Instrucciones de uso alineadas con el estado actual.
+- `docs/04-architecture/architecture-overview.md` — Arquitectura vigente y sincronizada.
 - `content/stations/` — Copy semilla funcional de Frente C (5 estaciones + intro).
 - `docs/05-adr/ADR-001-single-avatar-lia.md` — Decisión cerrada sobre avatar único.
 - `docs/avatars/lia-andina/` — Biblia visual de Lía: spec cerrada, assets de referencia.
 - `scripts/smoke-journey.mjs` — Smoke test de contratos API; confiable y actualizado.
 
-### 4.2 Artefactos con desfase conocido (requieren actualización)
+### 4.2 Artefactos sin desfase conocido
 
-- `README.md` — Parcialmente desactualizado; puede describir flujos o estructuras anteriores al ADR-001.
-- `docs/04-architecture/architecture-overview.md` — Escrito en fase inicial; puede no reflejar monorepo actual ni decisiones de sesión en memoria.
-- `apps/web/src/screens/BlockedScreen.tsx` (línea 10) — Referencia muerta a ruta `/guide` y validación de `session?.guide` que nunca es nula. Código muerto no bloqueante.
-- `apps/web/src/screens/StationScreen.tsx` (línea 32) — Caso de error `'guide_required'` en Set; nunca puede generarse hoy. Código muerto no bloqueante.
+- Ninguno actualmente; el material operativo se considera sincronizado con `main`.
 
 ### 4.3 Artefactos históricos (solo consulta)
 
@@ -107,37 +106,35 @@ Orden descendente de autoridad. Ante contradicción, prevalece la fuente de mayo
 
 ### 4.4 Artefactos pendientes de creación (deuda estructural)
 
-- Script de arranque Windows (`.bat` o `.ps1`).
-- Configuración de serve de producción (frontend como estático desde Fastify o `serve -s dist`).
 - Tests de integración con framework formal (más allá del smoke).
 - Assets visuales reales por estación (actualmente todos son `gitkeep`).
 - QR físicos impresos para operación en campo.
+- Hardening local adicional: rate limiting, logging persistente, reinicio automático y despliegue final en Windows.
 
 ---
 
 ## 5. Fases del proyecto
 
-### Fase 0 — Alineación (correctivo previo requerido)
+### Fase 0 — Alineación (correctivo cerrado)
 
-**Estado:** No ejecutada formalmente. Debe ejecutarse antes de avanzar en nuevas funcionalidades.
+**Estado:** COMPLETA.
 
-**Correctivos previos requeridos detectados en auditoría:**
+**Correctivos aplicados en main:**
 
-1. **Código muerto de flujo de selección de avatar:** `BlockedScreen.tsx` línea 10 referencia `/guide`; `StationScreen.tsx` línea 32 referencia `guide_required`. Ambos son residuos del flujo multi-avatar eliminado por ADR-001. Deben limpiarse para evitar confusión en mantenimiento futuro.
+1. **Código muerto de flujo de selección de avatar:** `BlockedScreen.tsx` línea 10 referenciaba `/guide`; `StationScreen.tsx` línea 32 referenciaba `guide_required`. Ambos residuos del flujo multi-avatar eliminado por ADR-001 ya fueron limpiados.
 
-2. **README desactualizado:** El README describe el proyecto en estado anterior. Debe reflejar: monorepo npm, stack actual, flujo de visitante real, instrucciones de arranque corregidas, estado de Lía Andina.
+2. **README sincronizado:** El README refleja monorepo npm, stack actual, flujo de visitante real, instrucciones de arranque corregidas y estado de Lía Andina.
 
-3. **docs/04-architecture/architecture-overview.md:** Revisar si describe correctamente la arquitectura actual (sesión en memoria, monorepo, tipos compartidos como workspace).
+3. **docs/04-architecture/architecture-overview.md:** Describe la arquitectura actual (sesión en memoria, monorepo, tipos compartidos como workspace).
 
-4. **Validar que el copy de Frente C no tiene referencias al flujo de selección de avatar eliminado:** Confirmar que intro y estaciones no mencionan "elige tu guía" ni variantes.
+4. **Validación de copy:** intro y estaciones no mencionan "elige tu guía" ni variantes.
 
-**Criterio de salida de Fase 0:**
-- [ ] Código muerto eliminado de BlockedScreen y StationScreen.
-- [ ] README actualizado y coherente con el estado real.
-- [ ] architecture-overview.md revisado o marcado como "en revisión".
-- [ ] Smoke test pasa sin errores (`npm run smoke:journey`).
-- [ ] `npm run typecheck` pasa sin errores.
-- [ ] Commit específico: `fix(alignment): phase-0 cleanup`.
+- [x] Código muerto eliminado de BlockedScreen y StationScreen.
+- [x] README actualizado y coherente con el estado real.
+- [x] architecture-overview.md revisado y vigente.
+- [x] Smoke test pasa sin errores (`npm run smoke:journey`).
+- [x] `npm run typecheck` pasa sin errores.
+- [x] Commit específico: `fix(alignment): phase-0 cleanup`.
 
 ---
 
@@ -148,14 +145,14 @@ Orden descendente de autoridad. Ante contradicción, prevalece la fuente de mayo
 **Artefactos entregados:**
 - `docs/00-master/gvo-master-summary-v1.md`
 - `docs/01-product/product-scope.md`
-- `docs/04-architecture/architecture-overview.md` (vigente con desfase menor)
+- `docs/04-architecture/architecture-overview.md` (vigente)
 - `docs/05-adr/ADR-001-single-avatar-lia.md`
 - `docs/06-operations/git-workflow-solo-dev.md`
 - `docs/07-testing/test-strategy.md`
 - `docs/avatars/lia-andina/lia-andina-spec.md` + assets de referencia
 - Templates de tickets, estaciones y notas de sesión
 
-**Deuda tolerable:** architecture-overview.md tiene desfase. Se agenda en Fase 0.
+**Deuda tolerable:** la operación Windows base y el hardening local adicional siguen en avance.
 
 ---
 
@@ -227,10 +224,10 @@ Orden descendente de autoridad. Ante contradicción, prevalece la fuente de mayo
 
 ### Fase 6 — Hardening local Windows
 
-**Estado:** NO INICIADA.
+**Estado:** PARCIAL.
 
 **Obligatorio para v1:**
-- Script de arranque (`start-gvo.bat` o `start-gvo.ps1`): arranca backend en :3001 + sirve frontend (Fastify estático o `serve -s dist`).
+- Base de arranque local (`start-gvo.bat` / `start-gvo.ps1` + backend sirviendo `apps/web/dist`).
 - Configuración de IP fija o hostname en red MikroTik.
 - Verificación de QR físicos impresos (URL correcta, legible en móvil a distancia operativa).
 - Rate limiting básico en Fastify (protección contra bucles accidentales).
@@ -257,7 +254,7 @@ Orden descendente de autoridad. Ante contradicción, prevalece la fuente de mayo
 
 ### Cierre de v1 estable
 
-**Estado:** Pendiente de Fases 0 + 5 (incompleto) + 6 (no iniciada).
+**Estado:** Pendiente de Fase 5 (parcial) + Fase 6 (parcial).
 
 Ver sección 18 para definición completa de "GVO v1 serio y estable".
 
@@ -805,8 +802,8 @@ GVO v1 está cerrada cuando cumple **todos** los siguientes criterios:
 ### Documentales
 
 - [ ] README actualizado con instrucciones correctas de arranque y descripción real del proyecto.
-- [ ] Este documento (`metodologia-integral-gvo-v1.md`) refleja el estado real del proyecto.
-- [ ] Todos los correctivos de Fase 0 completados.
+- [x] Este documento (`metodologia-integral-gvo-v1.md`) refleja el estado real del proyecto.
+- [x] Todos los correctivos de Fase 0 completados.
 
 ---
 
@@ -836,25 +833,25 @@ Estos artefactos deben estar coherentes entre sí en todo momento. Cuando uno ca
 ### Fase 0 — Alineación
 
 **Entrada:**
-- [ ] Repositorio en estado limpio (`git status` sin cambios no comprometidos).
-- [ ] `npm run typecheck` pasa (aunque sea con código muerto).
-- [ ] `npm run smoke:journey` pasa.
+- [x] Repositorio en estado limpio (`git status` sin cambios no comprometidos).
+- [x] `npm run typecheck` pasa (aunque sea con código muerto).
+- [x] `npm run smoke:journey` pasa.
 
 **Salida:**
-- [ ] Código muerto eliminado de BlockedScreen.tsx y StationScreen.tsx.
-- [ ] README actualizado: stack, rutas, instrucciones de arranque, Lía Andina.
-- [ ] architecture-overview.md revisado o marcado con nota de desfase.
-- [ ] `npm run typecheck` pasa sin errores.
-- [ ] `npm run smoke:journey` pasa todos los checks.
-- [ ] Commit: `fix(alignment): phase-0 cleanup`.
-- [ ] Tag: `v0.8-phase0-alignment`.
+- [x] Código muerto eliminado de BlockedScreen.tsx y StationScreen.tsx.
+- [x] README actualizado: stack, rutas, instrucciones de arranque, Lía Andina.
+- [x] architecture-overview.md revisado y vigente.
+- [x] `npm run typecheck` pasa sin errores.
+- [x] `npm run smoke:journey` pasa todos los checks.
+- [x] Commit: `fix(alignment): phase-0 cleanup`.
+- [x] Tag: `v0.8-phase0-alignment`.
 
 ---
 
 ### Fase 5 — UX diferenciada (completar la parcial)
 
 **Entrada:**
-- [ ] Fase 0 cerrada.
+- [x] Fase 0 cerrada.
 - [ ] Copy semilla de Frente C disponible (ya está).
 - [ ] Revisión unipersonal del copy realizada por el responsable principal.
 
@@ -908,7 +905,7 @@ Estos artefactos deben estar coherentes entre sí en todo momento. Cuando uno ca
 
 ## Apéndice A — Correctivos previos requeridos (resumen)
 
-Los siguientes correctivos deben ejecutarse en Fase 0 antes de avanzar:
+Los siguientes correctivos quedaron resueltos durante la alineación de C09-C11:
 
 | ID | Descripción | Archivo | Severidad |
 |----|-------------|---------|-----------|
