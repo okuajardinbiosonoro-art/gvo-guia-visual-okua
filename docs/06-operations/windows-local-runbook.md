@@ -41,6 +41,18 @@ Ambos ejecutan `scripts/start-gvo.ps1`, que valida el entorno, compila y luego l
 - Rate limit: `60 req/min` global por IP y `10 req/min` para `POST` del journey.
 - Log persistente: `logs/gvo-local.log`.
 
+## Generación de QR
+
+Antes de imprimir, generar los QR con la base URL final del piloto:
+
+```bash
+npm run qr:generate -- --base-url http://localhost:3001
+```
+
+Para el piloto de campo, sustituir `http://localhost:3001` por la IP o hostname final y revisar el manifiesto en `content/qr/generated/qr-manifest.md`.
+
+La lista operativa para validar antes de imprimir está en `docs/06-operations/field-preflight-checklist.md`.
+
 ## Verificación básica
 
 1. Abrir `http://localhost:3001/health`.
@@ -74,6 +86,7 @@ Ninguna debe devolver 404 cuando el backend está sirviendo `apps/web/dist`.
 - Una ruta SPA devuelve 404: confirmar que el arranque usó el backend en modo local y que `GVO_SERVE_WEB=true` se activó mediante `npm run start:local`.
 - `429 rate_limit_exceeded`: se alcanzó el límite básico del piloto; esperar un minuto o reducir el ritmo de pruebas.
 - `logs/gvo-local.log` no aparece: confirmar que el arranque se hizo desde `scripts/start-gvo.ps1` o `npm run start:windows`.
+- El manifiesto QR muestra URLs viejas: volver a ejecutar `npm run qr:generate` con la base URL correcta.
 
 ## Limitaciones conocidas
 

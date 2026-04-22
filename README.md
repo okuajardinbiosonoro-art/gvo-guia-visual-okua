@@ -198,7 +198,7 @@ El TTL de sesión es configurable con la variable de entorno `SESSION_TTL_MS` (p
 El QR de entrada del espacio apunta a la ruta `/entry/<token>`:
 
 ```text
-http://<ip-servidor>:5173/entry/okua-entry
+<BASE_URL>/entry/okua-entry
 ```
 
 - Token válido: redirige al siguiente paso pendiente del recorrido.
@@ -219,7 +219,7 @@ Los tokens están definidos en `packages/shared/src/qr.ts` y pueden cambiarse si
 | `okua-e4` | 4 — Operación técnica |
 | `okua-e5` | 5 — Estado actual |
 
-La URL de QR completa para imprimir en el espacio es: `http://<ip-servidor>:5173/qr/<token>`
+La URL de QR completa para imprimir en el espacio es: `<BASE_URL>/qr/<token>`
 
 ### Modo de operación: laboratorio vs campo
 
@@ -239,16 +239,16 @@ VITE_APP_MODE=field  # uso real en el espacio
 ### Prueba de acceso inicial (laboratorio)
 
 ```text
-http://localhost:5173/entry/okua-entry  → acceso válido, redirige al punto del recorrido
-http://localhost:5173/entry/invalido    → pantalla "Código no reconocido"
+http://localhost:3001/entry/okua-entry  → acceso válido, redirige al punto del recorrido
+http://localhost:3001/entry/invalido    → pantalla "Código no reconocido"
 ```
 
 ### Prueba de QR de estación sin cámara (laboratorio)
 
 ```text
-http://localhost:5173/qr/okua-e1   → desbloquea estación 1 (si la sesión está en orden)
-http://localhost:5173/qr/okua-e3   → sequence_violation si no se visitaron 1 y 2 antes
-http://localhost:5173/qr/invalido  → pantalla "Código no reconocido"
+http://localhost:3001/qr/okua-e1   → desbloquea estación 1 (si la sesión está en orden)
+http://localhost:3001/qr/okua-e3   → sequence_violation si no se visitaron 1 y 2 antes
+http://localhost:3001/qr/invalido  → pantalla "Código no reconocido"
 ```
 
 ### Persistencia de sesión y prueba de refresh

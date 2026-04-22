@@ -13,6 +13,7 @@
     "build": "npm run build --workspace=packages/shared && npm run build --workspace=apps/web && npm run build --workspace=apps/server",
     "typecheck": "npm run typecheck --workspace=packages/shared && npm run typecheck --workspace=apps/web && npm run typecheck --workspace=apps/server",
     "smoke:journey": "node scripts/smoke-journey.mjs",
+    "qr:generate": "node scripts/generate-qr-assets.mjs",
     "start": "npm run start:local",
     "start:local": "powershell -ExecutionPolicy Bypass -File scripts/start-gvo.ps1",
     "start:windows": "npm run start:local"
@@ -21,6 +22,7 @@
     "node": ">=18"
   },
   "devDependencies": {
-    "concurrently": "^9.2.1"
+    "concurrently": "^9.2.1",
+    "qrcode": "^1.5.4"
   }
 }

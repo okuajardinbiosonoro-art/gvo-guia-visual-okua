@@ -92,6 +92,7 @@ Orden descendente de autoridad. Ante contradicción, prevalece la fuente de mayo
 - `README.md` — Instrucciones de uso alineadas con el estado actual.
 - `docs/04-architecture/architecture-overview.md` — Arquitectura vigente y sincronizada.
 - `content/stations/` — Copy semilla funcional de Frente C (5 estaciones + intro).
+- `content/qr/` — Manifiestos y artefactos QR del piloto, generables desde repo.
 - `docs/05-adr/ADR-001-single-avatar-lia.md` — Decisión cerrada sobre avatar único.
 - `docs/avatars/lia-andina/` — Biblia visual de Lía: spec cerrada, assets de referencia.
 - `scripts/smoke-journey.mjs` — Smoke test de contratos API; confiable y actualizado.
@@ -553,6 +554,7 @@ El 3D solo se introduce si cumple **todos** los siguientes criterios:
 - ejecutan `npm run build`;
 - levantan el backend sirviendo `apps/web/dist`;
 - fijan `GVO_CORS_MODE=same-origin` y `GVO_LOG_FILE=logs/gvo-local.log` para el modo piloto local.
+- el repo también incluye un generador de QR con manifiesto (`npm run qr:generate`).
 
 **2. Configuración de red**
 

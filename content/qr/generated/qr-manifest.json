@@ -1,0 +1,54 @@
+{
+  "baseUrl": "http://localhost:3001",
+  "generatedAt": "2026-04-22T13:27:51.867Z",
+  "items": [
+    {
+      "kind": "entry",
+      "logicalName": "Entrada",
+      "stationId": null,
+      "token": "okua-entry",
+      "url": "http://localhost:3001/entry/okua-entry",
+      "fileName": "entry-okua-entry.svg"
+    },
+    {
+      "kind": "station",
+      "logicalName": "Estación 1",
+      "stationId": 1,
+      "token": "okua-e1",
+      "url": "http://localhost:3001/qr/okua-e1",
+      "fileName": "station-1-okua-e1.svg"
+    },
+    {
+      "kind": "station",
+      "logicalName": "Estación 2",
+      "stationId": 2,
+      "token": "okua-e2",
+      "url": "http://localhost:3001/qr/okua-e2",
+      "fileName": "station-2-okua-e2.svg"
+    },
+    {
+      "kind": "station",
+      "logicalName": "Estación 3",
+      "stationId": 3,
+      "token": "okua-e3",
+      "url": "http://localhost:3001/qr/okua-e3",
+      "fileName": "station-3-okua-e3.svg"
+    },
+    {
+      "kind": "station",
+      "logicalName": "Estación 4",
+      "stationId": 4,
+      "token": "okua-e4",
+      "url": "http://localhost:3001/qr/okua-e4",
+      "fileName": "station-4-okua-e4.svg"
+    },
+    {
+      "kind": "station",
+      "logicalName": "Estación 5",
+      "stationId": 5,
+      "token": "okua-e5",
+      "url": "http://localhost:3001/qr/okua-e5",
+      "fileName": "station-5-okua-e5.svg"
+    }
+  ]
+}
