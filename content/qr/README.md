@@ -5,7 +5,7 @@ Esta carpeta contiene la fuente operativa de los QR del piloto GVO.
 ## Qué vive aquí
 
 - `qr-base-url.example.txt`: ejemplo del valor base que debe usar el operador para generar QR.
-- `generated/`: salida regenerable del script de QR.
+- `generated/`: baseline/sample versionada del resultado del generador QR.
 
 ## Qué se genera automáticamente
 
@@ -13,6 +13,17 @@ Esta carpeta contiene la fuente operativa de los QR del piloto GVO.
 - SVG de los QR de estación 1 a 5.
 - `qr-manifest.md` con URLs finales y archivos generados.
 - `qr-manifest.json` con el mismo inventario en formato máquina.
+
+## Política de versionado
+
+Los artefactos que viven en `generated/` se conservan como baseline de referencia del estado actual del repo. Sirven para comparar la salida del generador y para revisar el contrato de URLs del piloto.
+
+No deben confundirse con el paquete final de impresión para campo:
+
+- antes de imprimir, siempre regenera con la base URL final del espacio;
+- no asumas que el manifiesto sample es el manifiesto final;
+- si la URL cambia, el output de `generated/` debe volver a producirse y revisarse;
+- los SVG y manifiestos versionados aquí son referencia baseline, no sustituto de la validación de campo.
 
 ## Cómo regenerar
 

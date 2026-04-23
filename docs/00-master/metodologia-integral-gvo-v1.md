@@ -93,6 +93,7 @@ Orden descendente de autoridad. Ante contradicción, prevalece la fuente de mayo
 - `docs/04-architecture/architecture-overview.md` — Arquitectura vigente y sincronizada.
 - `content/stations/` — Copy semilla funcional de Frente C (5 estaciones + intro).
 - `content/qr/` — Manifiestos y artefactos QR del piloto, generables desde repo.
+- `reports/pilot-validation/` — Reportes de validación de laboratorio; no son fuente de verdad del producto.
 - `docs/05-adr/ADR-001-single-avatar-lia.md` — Decisión cerrada sobre avatar único.
 - `docs/avatars/lia-andina/` — Biblia visual de Lía: spec cerrada, assets de referencia.
 - `scripts/smoke-journey.mjs` — Smoke test de contratos API; confiable y actualizado.
@@ -111,6 +112,7 @@ Orden descendente de autoridad. Ante contradicción, prevalece la fuente de mayo
 - Assets visuales reales por estación (actualmente todos son `gitkeep`).
 - QR físicos impresos para operación en campo.
 - Hardening local adicional: reinicio automático y despliegue final en Windows.
+- Kit de validación de laboratorio: soak, concurrencia y reporte reproducible.
 
 ---
 
@@ -232,6 +234,7 @@ Orden descendente de autoridad. Ante contradicción, prevalece la fuente de mayo
 - CORS configurable en modo piloto local.
 - Rate limiting básico en Fastify.
 - Logging persistente a archivo.
+- Validación de laboratorio con soak y concurrencia básica.
 
 **Pendiente real para v1:**
 - Configuración final de IP fija o hostname en la red del espacio.
@@ -239,6 +242,7 @@ Orden descendente de autoridad. Ante contradicción, prevalece la fuente de mayo
 - Prueba de carga con visitantes simultáneos.
 - Reinicio automático tras corte de luz.
 - HTTPS local solo si la red lo pide.
+- Prueba real de campo con reporte firmado por el responsable.
 
 **Deuda tolerable para post-v1:**
 - Panel de monitoreo de sesiones activas.

@@ -32,6 +32,13 @@ logs/*
 !logs/.gitkeep
 *.log
 
+# Pilot validation reports
+reports/*
+!reports/.gitkeep
+!reports/pilot-validation/
+reports/pilot-validation/*
+!reports/pilot-validation/.gitkeep
+
 # Env / secrets
 .env
 .env.*

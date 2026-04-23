@@ -52,6 +52,18 @@ npm run qr:generate -- --base-url http://localhost:3001
 Para el piloto de campo, sustituir `http://localhost:3001` por la IP o hostname final y revisar el manifiesto en `content/qr/generated/qr-manifest.md`.
 
 La lista operativa para validar antes de imprimir está en `docs/06-operations/field-preflight-checklist.md`.
+La interpretación del paquete de QR sample vs final está en `content/qr/README.md`.
+
+## Validación de laboratorio
+
+Antes de acercarte a campo, usa el kit de validación reproducible:
+
+```bash
+npm run pilot:soak -- --base-url http://localhost:3001 --minutes 1
+npm run pilot:concurrency -- --base-url http://localhost:3001 --sessions 3
+```
+
+Los resultados se escriben en `reports/pilot-validation/` y el formato de cierre está en `docs/templates/PILOT_VALIDATION_REPORT_TEMPLATE.md`.
 
 ## Verificación básica
 
@@ -87,6 +99,7 @@ Ninguna debe devolver 404 cuando el backend está sirviendo `apps/web/dist`.
 - `429 rate_limit_exceeded`: se alcanzó el límite básico del piloto; esperar un minuto o reducir el ritmo de pruebas.
 - `logs/gvo-local.log` no aparece: confirmar que el arranque se hizo desde `scripts/start-gvo.ps1` o `npm run start:windows`.
 - El manifiesto QR muestra URLs viejas: volver a ejecutar `npm run qr:generate` con la base URL correcta.
+- El soak o la concurrencia fallan: revisar `reports/pilot-validation/` y reintentar con el backend arriba en `http://localhost:3001`.
 
 ## Limitaciones conocidas
 
@@ -95,3 +108,4 @@ Ninguna debe devolver 404 cuando el backend está sirviendo `apps/web/dist`.
 - Logging persistente simple, sin rotación avanzada todavía.
 - Sin HTTPS local.
 - Sin integración con QR físicos ni producción Windows final.
+- El kit de validación de laboratorio no reemplaza la prueba real en el espacio.
