@@ -16,6 +16,9 @@
     "qr:generate": "node scripts/generate-qr-assets.mjs",
     "pilot:soak": "node scripts/pilot-soak-test.mjs",
     "pilot:concurrency": "node scripts/pilot-concurrency-probe.mjs",
+    "autostart:install": "powershell -ExecutionPolicy Bypass -File scripts/install-gvo-autostart.ps1",
+    "autostart:remove": "powershell -ExecutionPolicy Bypass -File scripts/uninstall-gvo-autostart.ps1",
+    "verify:local": "powershell -ExecutionPolicy Bypass -File scripts/verify-gvo-local.ps1",
     "start": "npm run start:local",
     "start:local": "powershell -ExecutionPolicy Bypass -File scripts/start-gvo.ps1",
     "start:windows": "npm run start:local"

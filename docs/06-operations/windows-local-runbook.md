@@ -35,6 +35,30 @@ npm run start:windows
 
 Ambos ejecutan `scripts/start-gvo.ps1`, que valida el entorno, compila y luego levanta el backend en modo local con el frontend estático incluido.
 
+## Autoarranque y recuperación básica
+
+Si quieres que GVO vuelva a levantarse de forma automática al iniciar sesión en Windows, instala la tarea programada:
+
+```bash
+npm run autostart:install
+```
+
+La tarea creada se llama `GVO Local Autostart` y usa el contexto del usuario actual.
+
+Para eliminarla:
+
+```bash
+npm run autostart:remove
+```
+
+Para comprobar rápidamente que el entorno local quedó arriba después de un reinicio o una instalación:
+
+```bash
+npm run verify:local
+```
+
+El verificador consulta `/health`, `/api/meta` y `/` y resume el resultado en consola.
+
 ## Política local activa
 
 - CORS: `same-origin` por defecto en el arranque local del piloto.
@@ -106,6 +130,7 @@ Ninguna debe devolver 404 cuando el backend está sirviendo `apps/web/dist`.
 - Sesiones en memoria: reiniciar el backend limpia el estado.
 - Rate limiting básico sin política avanzada ni Redis.
 - Logging persistente simple, sin rotación avanzada todavía.
+- Autoarranque basado en Scheduled Task de inicio de sesión del usuario actual; no es un Windows Service nativo.
 - Sin HTTPS local.
 - Sin integración con QR físicos ni producción Windows final.
 - El kit de validación de laboratorio no reemplaza la prueba real en el espacio.

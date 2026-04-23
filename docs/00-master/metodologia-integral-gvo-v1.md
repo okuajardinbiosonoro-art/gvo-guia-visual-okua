@@ -2,7 +2,7 @@
 
 **Documento:** metodologia-integral-gvo-v1.md  
 **Versión del producto:** 0.7.0 → v1 estable  
-**Fecha de redacción:** 2026-04-21  
+**Fecha de redacción:** 2026-04-23  
 **Rama:** main  
 **Autor:** José David (responsable principal, solo dev) + Claude Code (asistente)  
 **Estado:** Vigente — fuente de verdad metodológica del proyecto
@@ -231,6 +231,7 @@ Orden descendente de autoridad. Ante contradicción, prevalece la fuente de mayo
 
 **Base ya cerrada:**
 - Base de arranque local (`start-gvo.bat` / `start-gvo.ps1` + backend sirviendo `apps/web/dist`).
+- Autoarranque básico por Scheduled Task y verificación rápida post-arranque.
 - CORS configurable en modo piloto local.
 - Rate limiting básico en Fastify.
 - Logging persistente a archivo.
@@ -240,7 +241,7 @@ Orden descendente de autoridad. Ante contradicción, prevalece la fuente de mayo
 - Configuración final de IP fija o hostname en la red del espacio.
 - Verificación de QR físicos impresos en el sitio.
 - Prueba de carga con visitantes simultáneos.
-- Reinicio automático tras corte de luz.
+- Recuperación automática tras corte de luz con la estabilidad que solo el entorno real confirme.
 - HTTPS local solo si la red lo pide.
 - Prueba real de campo con reporte firmado por el responsable.
 
@@ -251,6 +252,7 @@ Orden descendente de autoridad. Ante contradicción, prevalece la fuente de mayo
 
 **Criterio de salida de Fase 6:**
 - [x] Sistema arranca con un solo script desde cero en la PC Windows objetivo.
+- [x] Autoarranque básico por Scheduled Task documentado y verificable.
 - [x] Frontend accesible desde móvil en la red del espacio.
 - [ ] QR de entrada y QR de estaciones funcionan.
 - [ ] Sistema opera 2h continuas sin intervención manual.
@@ -560,6 +562,12 @@ El 3D solo se introduce si cumple **todos** los siguientes criterios:
 - fijan `GVO_CORS_MODE=same-origin` y `GVO_LOG_FILE=logs/gvo-local.log` para el modo piloto local.
 - el repo también incluye un generador de QR con manifiesto (`npm run qr:generate`).
 
+**1b. Autoarranque y verificación**
+
+- `scripts/install-gvo-autostart.ps1` registra una Scheduled Task de inicio de sesión para el usuario actual.
+- `scripts/uninstall-gvo-autostart.ps1` remueve esa tarea sin romper si ya no existía.
+- `scripts/verify-gvo-local.ps1` comprueba `GET /health`, `GET /api/meta` y `/` después de un reinicio o instalación.
+
 **2. Configuración de red**
 
 - IP fija en la PC Windows en la red MikroTik (reserva DHCP por MAC o IP estática).
@@ -596,9 +604,9 @@ Implementado con modos explícitos:
 
 ### Recomendado (no bloquea piloto)
 
-- pm2 o Task Scheduler para reinicio automático del proceso Node.js tras corte de luz.
 - Prueba de carga manual: 3-5 visitantes simultáneos, verificar que sesiones no interfieren.
 - Mensaje de mantenimiento configurable (banner en frontend cuando el servidor está arrancando).
+- Revisión ocasional de la tarea programada y del verificador rápido después de reinicios reales.
 
 ### Deuda tolerable post-v1
 
