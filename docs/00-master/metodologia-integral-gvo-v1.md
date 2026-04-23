@@ -1,7 +1,7 @@
 # Metodología Integral GVO v1
 
 **Documento:** metodologia-integral-gvo-v1.md  
-**Versión del producto:** 0.7.0 → v1 estable  
+**Versión del producto:** 0.9.0-rc.1 → v1 estable  
 **Fecha de redacción:** 2026-04-23  
 **Rama:** main  
 **Autor:** José David (responsable principal, solo dev) + Claude Code (asistente)  
@@ -36,7 +36,7 @@
 
 ## 1. Propósito del documento
 
-Este documento establece las reglas operativas, decisiones cerradas y criterios de avance del proyecto GVO — Guía Visual OKÚA desde su estado actual (v0.7.0) hasta el cierre de v1 estable.
+Este documento establece las reglas operativas, decisiones cerradas y criterios de avance del proyecto GVO — Guía Visual OKÚA desde su estado actual (v0.9.0-rc.1) hasta el cierre de v1 estable.
 
 No es un documento conceptual ni motivacional. Es una referencia de trabajo que responde preguntas concretas: qué hacer, en qué orden, qué no abrir, cómo verificar que algo está terminado y qué constituye deuda tolerable vs bloqueante.
 
@@ -47,7 +47,7 @@ Este documento toma como insumo el estado real del repositorio al 2026-04-21, lo
 ## 2. Alcance y objetivo de la metodología
 
 **Alcance:**  
-- Proyecto GVO desde v0.7.0 hasta el cierre de v1 estable apto para piloto en campo.
+- Proyecto GVO desde v0.9.0-rc.1 hasta el cierre de v1 estable apto para piloto en campo.
 - Incluye: frontend, backend, tipos compartidos, contenido narrativo, sistema visual, operaciones locales Windows y documentación viva.
 - Excluye: versiones post-v1, CMS completo, sincronización externa, módulos de administración, análisis de datos de visitantes.
 
@@ -236,6 +236,7 @@ Orden descendente de autoridad. Ante contradicción, prevalece la fuente de mayo
 - Rate limiting básico en Fastify.
 - Logging persistente a archivo.
 - Validación de laboratorio con soak y concurrencia básica.
+- Release candidate reproducible para campo a partir de perfil declarativo.
 
 **Pendiente real para v1:**
 - Configuración final de IP fija o hostname en la red del espacio.
@@ -951,5 +952,5 @@ Los siguientes correctivos quedaron resueltos durante la alineación de C09-C11:
 
 ---
 
-*Documento generado el 2026-04-21 a partir del estado real del repositorio GVO v0.7.0.*  
+*Documento generado el 2026-04-23 a partir del estado real del repositorio GVO v0.9.0-rc.1.*  
 *Actualizar este documento al cerrar cada fase si alguna sección quedó desactualizada.*

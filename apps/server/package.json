@@ -1,6 +1,6 @@
 {
   "name": "@gvo/server",
-  "version": "0.7.0",
+  "version": "0.9.0-rc.1",
   "private": true,
   "scripts": {
     "dev": "tsx watch src/index.ts",

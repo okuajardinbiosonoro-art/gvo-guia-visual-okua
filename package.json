@@ -1,7 +1,7 @@
 {
   "name": "gvo-guia-visual-okua",
   "private": true,
-  "version": "0.7.0",
+  "version": "0.9.0-rc.1",
   "workspaces": [
     "apps/*",
     "packages/*"
@@ -16,6 +16,7 @@
     "qr:generate": "node scripts/generate-qr-assets.mjs",
     "pilot:soak": "node scripts/pilot-soak-test.mjs",
     "pilot:concurrency": "node scripts/pilot-concurrency-probe.mjs",
+    "prepare:field-release": "node scripts/prepare-field-release.mjs",
     "autostart:install": "powershell -ExecutionPolicy Bypass -File scripts/install-gvo-autostart.ps1",
     "autostart:remove": "powershell -ExecutionPolicy Bypass -File scripts/uninstall-gvo-autostart.ps1",
     "verify:local": "powershell -ExecutionPolicy Bypass -File scripts/verify-gvo-local.ps1",

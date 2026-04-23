@@ -1,0 +1,12 @@
+{
+  "releaseLabel": "gvo-field-rc-0.9.0-rc.1",
+  "baseUrl": "http://localhost:3001",
+  "appMode": "field",
+  "corsMode": "same-origin",
+  "allowedOrigin": "",
+  "notes": [
+    "Reemplazar baseUrl por la IP o hostname final antes de imprimir QR.",
+    "Si corsMode cambia a allowlist, completar allowedOrigin con el origen final.",
+    "Volver a ejecutar la preparación del release cada vez que cambie la base URL."
+  ]
+}

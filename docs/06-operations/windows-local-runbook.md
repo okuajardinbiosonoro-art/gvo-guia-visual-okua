@@ -78,6 +78,21 @@ Para el piloto de campo, sustituir `http://localhost:3001` por la IP o hostname 
 La lista operativa para validar antes de imprimir está en `docs/06-operations/field-preflight-checklist.md`.
 La interpretación del paquete de QR sample vs final está en `content/qr/README.md`.
 
+## Corte de release candidate de campo
+
+Antes de imprimir QR finales o mover el bundle a la PC de campo, prepara el release candidate con el perfil field:
+
+```bash
+npm run prepare:field-release -- --profile deploy/field-profile.example.json
+```
+
+Ese corte:
+
+- valida que la versión visible y la metadata pública estén sincronizadas;
+- regenera los QR finales usando la `baseUrl` del perfil;
+- deja un manifiesto reproducible en `deploy/field-release-candidate/`;
+- sirve como entrada directa al preflight de campo.
+
 ## Validación de laboratorio
 
 Antes de acercarte a campo, usa el kit de validación reproducible:
@@ -123,6 +138,7 @@ Ninguna debe devolver 404 cuando el backend está sirviendo `apps/web/dist`.
 - `429 rate_limit_exceeded`: se alcanzó el límite básico del piloto; esperar un minuto o reducir el ritmo de pruebas.
 - `logs/gvo-local.log` no aparece: confirmar que el arranque se hizo desde `scripts/start-gvo.ps1` o `npm run start:windows`.
 - El manifiesto QR muestra URLs viejas: volver a ejecutar `npm run qr:generate` con la base URL correcta.
+- El release candidate de campo queda desalineado: volver a ejecutar `npm run prepare:field-release -- --profile deploy/field-profile.example.json`.
 - El soak o la concurrencia fallan: revisar `reports/pilot-validation/` y reintentar con el backend arriba en `http://localhost:3001`.
 
 ## Limitaciones conocidas

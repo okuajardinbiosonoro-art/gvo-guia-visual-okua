@@ -326,7 +326,7 @@ El frontend carga el contenido desde `apps/web/src/lib/content.ts` vía el alias
 - Contenido narrativo centralizado en `content/stations/` con tipos en `packages/shared/src/content.ts`.
 - Capa visual por estación: `StationHero` + modelo `StationVisual` + tono por estación.
 - Assets del cliente organizados en `apps/web/src/assets/` con recursos actuales de Lía Andina.
-- Versionado alineado en todos los paquetes: `0.7.0`.
+- Versionado alineado en todos los paquetes: `0.9.0-rc.1`.
 
 ### Qué NO incluye todavía
 

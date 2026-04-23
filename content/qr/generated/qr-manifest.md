@@ -1,7 +1,7 @@
 # Manifiesto QR del piloto
 
 - Base URL: `http://localhost:3001`
-- Generado: `2026-04-22T13:27:51.867Z`
+- Generado: `2026-04-23T22:44:31.489Z`
 
 | Tipo | Nombre | Token | URL | Archivo |
 | --- | --- | --- | --- | --- |

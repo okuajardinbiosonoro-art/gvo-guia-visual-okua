@@ -10,12 +10,15 @@
 ## Checklist
 
 - [ ] Confirmar IP fija o hostname final definido.
+- [ ] Preparar el release candidate con `npm run prepare:field-release -- --profile deploy/field-profile.example.json`.
 - [ ] Generar QR con la base URL final desde `npm run qr:generate -- --base-url <BASE_URL>`.
 - [ ] Verificar el manifiesto generado en `content/qr/generated/qr-manifest.md`.
+- [ ] Verificar el manifiesto de release en `deploy/field-release-candidate/field-release-candidate.md`.
 - [ ] Revisar la política sample vs final en `content/qr/README.md`.
 - [ ] Si se requiere evidencia de laboratorio, correr `node scripts/pilot-soak-test.mjs --base-url <BASE_URL> --minutes 1`.
 - [ ] Si se requiere evidencia de laboratorio, correr `node scripts/pilot-concurrency-probe.mjs --base-url <BASE_URL> --sessions 3`.
 - [ ] Completar el reporte con la plantilla `docs/templates/PILOT_VALIDATION_REPORT_TEMPLATE.md`.
+- [ ] Confirmar que la versión visible y la metadata pública coinciden con el release candidate preparado.
 - [ ] Probar el QR de entrada con móvil real.
 - [ ] Probar al menos un QR de estación con móvil real.
 - [ ] Confirmar `GET /health` responde `200`.

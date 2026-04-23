@@ -35,6 +35,18 @@ npm run qr:generate -- --base-url http://localhost:3001
 
 Para el piloto de campo, reemplaza la base URL por la IP o hostname final antes de imprimir.
 
+## Relación con el release candidate
+
+El corte de campo se prepara con el perfil declarativo en `deploy/field-profile.example.json` y el script `npm run prepare:field-release -- --profile deploy/field-profile.example.json`.
+
+Ese paso:
+
+- valida la versión visible y la metadata;
+- regenera los QR finales;
+- escribe un manifiesto reproducible en `deploy/field-release-candidate/`.
+
+Si cambia la base URL o cualquier dato del perfil, vuelve a preparar el release antes de imprimir.
+
 ## Qué no editar a mano
 
 - Los SVG dentro de `generated/`.
