@@ -567,6 +567,13 @@ body {
   background-color: var(--color-surface);
 }
 
+.station-hero--diagram .station-hero-caption {
+  text-align: left;
+  padding: var(--space-xs) var(--space-sm);
+  word-break: break-word;
+  hyphens: auto;
+}
+
 /* Tono visual: borde superior de color por estación */
 .station-hero--tone-default { border-top: 3px solid var(--color-accent); }
 .station-hero--tone-warm    { border-top: 3px solid #c8856e; }
