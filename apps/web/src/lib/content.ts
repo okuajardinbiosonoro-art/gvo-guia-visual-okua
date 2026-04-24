@@ -20,12 +20,17 @@ export type { IntroContent, StationContent };
 
 // ─── Overrides de hero.src por estación ──────────────────────────────────────
 //
-// Cuando un asset real esté listo:
-//   1. Importarlo aquí: import heroStation2 from '../assets/stations/station-2/diagram-bioelectric-chain.svg';
-//   2. Asignarlo al id correspondiente: 2: heroStation2
+// Assets integrados en esta versión:
+//   station-2 → diagram-bioelectric-chain.svg  ✓  F8-02
 //
-// Los overrides solo aplican a estaciones con hero.type === 'image'.
-// Station IV (type:'diagram') queda protegida — no recibe src por este mapa.
+// Próximos assets a integrar:
+//   5: heroStation5 → cuando el asset de Estación V esté aprobado
+//
+// Patrón para agregar un asset nuevo:
+//   1. import heroStationN from '../assets/stations/station-N/nombre-asset.svg';
+//   2. Agregar N: heroStationN al mapa stationHeroSrc.
+//   3. Cambiar hero.type a 'image' en content/stations/station-N.ts.
+//   4. npm run typecheck && npm run build.
 
 const stationHeroSrc: Partial<Record<number, string>> = {
   2: heroStation2,

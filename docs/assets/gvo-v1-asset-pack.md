@@ -39,7 +39,7 @@ Ejemplo correcto para Estación II:
 
 ```ts
 // En apps/web/src/lib/content.ts:
-import heroStation2 from '../assets/stations/station-2/diagram-bioelectric-chain.webp';
+import heroStation2 from '../assets/stations/station-2/diagram-bioelectric-chain.svg';
 
 const stationHeroSrc: Partial<Record<number, string>> = {
   2: heroStation2,
@@ -74,6 +74,8 @@ Los 4 PNG son usables para v1 sin producción adicional. La spec completa está 
 | Cierre / Final | ninguno | Sin asset nuevo. Usar `lia-calm.png` existente. | no aplica | `apps/web/src/assets/lia/lia-calm.png` | PNG existente | no aplica | cubierto | no aplica | existente |
 
 Nota para Estación I: F7-04 ya agregó `visual: { hero: { type: 'placeholder', ... }, tone: 'warm' }`.
+
+Nota para Estación II: SVG integrado en F8-02 y aprobado visualmente en F8-02R por el responsable principal.
 
 Nota para Estación IV: `SignalFlowDiagram.tsx` fue implementado en F7-05.
 

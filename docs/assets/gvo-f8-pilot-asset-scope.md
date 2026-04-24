@@ -16,6 +16,7 @@ Complementa `gvo-v1-asset-pack.md` (especificaciones técnicas) y `gvo-v1-experi
 Intro, Estación I y Estación III no están en esta lista. Sus assets son deseables, pero no bloqueantes para v1 completa si existe una decisión explícita de alcance.
 
 Estación II ya quedó completada e integrada en runtime; no depende de placeholder en piloto.
+Aprobación visual: aprobada por el responsable principal en F8-02R.
 
 ## 3. Assets aceptables como placeholder en piloto mínimo
 
@@ -55,7 +56,7 @@ Regla no negociable: los imports binarios viven en `apps/web/src/lib/content.ts`
 CORRECTO — importar binarios en `apps/web/src/lib/content.ts`:
 
 ```ts
-import heroStation2 from '../assets/stations/station-2/diagram-bioelectric-chain.webp';
+import heroStation2 from '../assets/stations/station-2/diagram-bioelectric-chain.svg';
 
 const stationHeroSrc: Partial<Record<number, string>> = {
   2: heroStation2,
