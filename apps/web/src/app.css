@@ -459,6 +459,96 @@ body {
   width: 100%;
 }
 
+/* ─── SignalFlowDiagram ──────────────────────────────────────── */
+.signal-flow-diagram {
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.signal-flow-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  justify-content: center;
+}
+
+.signal-flow-step-btn {
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.signal-flow-step-btn-active {
+  border-color: var(--color-accent);
+  background-color: var(--color-bg);
+  color: var(--color-accent);
+}
+
+.signal-flow-detail {
+  text-align: center;
+  padding: var(--space-sm) 0;
+}
+
+.signal-flow-symbol {
+  font-size: 2rem;
+  color: var(--color-accent);
+  display: block;
+  margin-bottom: var(--space-xs);
+}
+
+.signal-flow-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-xs);
+}
+
+.signal-flow-description {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+.signal-flow-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.signal-flow-nav-btn {
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.signal-flow-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.signal-flow-progress {
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  color: var(--color-text-muted);
+}
+
 .station-hero-label {
   font-size: 0.72rem;
   font-family: var(--font-mono);
