@@ -43,9 +43,10 @@ export const station4: StationContent = {
   qrHint: 'Escanea el QR de la estación V para continuar.',
   visual: {
     hero: {
-      type: 'placeholder',
-      label: '[ Operación técnica ]',
-      caption: 'Cómo funciona el sistema actual',
+      type: 'diagram',
+      diagramId: 'signal-flow',
+      label: 'Cadena técnica del sistema',
+      caption: 'Planta → bionosificador → ESP32 → MIDI → Wi-Fi/UDP → router → sistema central → sonido',
     },
     tone: 'cold',
   },

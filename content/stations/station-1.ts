@@ -33,4 +33,12 @@ export const station1: StationContent = {
   ],
   cta: 'Continuar',
   qrHint: 'Escanea el QR de la estación II para continuar.',
+  visual: {
+    hero: {
+      type: 'placeholder',
+      label: '[ Origen y propósito ]',
+      caption: 'Por qué valía la pena construirla',
+    },
+    tone: 'warm',
+  },
 };

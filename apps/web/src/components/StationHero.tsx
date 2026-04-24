@@ -19,6 +19,11 @@ export const StationHero: FC<Props> = ({ visual }) => {
       {hero.type === 'image' && hero.src && (
         <img src={hero.src} alt={hero.label} className="station-hero-image" />
       )}
+      {hero.type === 'diagram' && (
+        <div className="station-hero-inner station-hero-diagram-placeholder">
+          <span className="station-hero-label">{hero.label}</span>
+        </div>
+      )}
       {hero.caption && (
         <p className="station-hero-caption">{hero.caption}</p>
       )}

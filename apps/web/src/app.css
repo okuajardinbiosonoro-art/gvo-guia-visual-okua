@@ -444,6 +444,21 @@ body {
   display: block;
 }
 
+.station-hero--diagram .station-hero-inner {
+  min-height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-surface);
+  border: 1px dashed var(--color-border);
+}
+
+.station-hero-diagram-placeholder {
+  padding: var(--space-md);
+  text-align: center;
+  width: 100%;
+}
+
 .station-hero-label {
   font-size: 0.72rem;
   font-family: var(--font-mono);

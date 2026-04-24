@@ -12,12 +12,14 @@ export type VisualTone = 'default' | 'warm' | 'cool' | 'cold' | 'neutral';
 
 /** Hero visual de una estación o de la introducción */
 export interface VisualHero {
-  /** 'placeholder' = panel CSS; 'image' = imagen desde /assets */
-  type: 'placeholder' | 'image';
+  /** 'placeholder' = panel CSS; 'image' = imagen desde /assets; 'diagram' = componente delegado por diagramId */
+  type: 'placeholder' | 'image' | 'diagram';
   /** Texto visible en el placeholder o alt text de la imagen */
   label: string;
   /** Ruta relativa al directorio /assets cuando type='image' */
   src?: string;
+  /** Identificador del diagrama cuando type='diagram', ej. 'signal-flow' */
+  diagramId?: string;
   /** Leyenda opcional bajo el hero */
   caption?: string;
 }
