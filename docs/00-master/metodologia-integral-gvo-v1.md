@@ -261,6 +261,37 @@ Orden descendente de autoridad. Ante contradicción, prevalece la fuente de mayo
 
 ---
 
+### Fase 7 — Definición e infraestructura visual/interactiva v1 (extendida)
+
+**Estado:** COMPLETA.
+
+**Nota:** Fase no prevista en el plan original. Emergió al detectar que la brecha real era de definición e infraestructura visual, no de operación.
+
+**Artefactos entregados:**
+- `docs/01-product/gvo-v1-experience-matrix.md`
+- `docs/05-adr/ADR-002-v1-visual-scope-3d-ar-scanner.md`
+- `docs/assets/gvo-v1-asset-pack.md`
+- `VisualHero type:'diagram'` y `diagramId?: string` en `packages/shared`
+- `apps/web/src/components/SignalFlowDiagram.tsx` — 8 pasos de cadena técnica
+- Visual warm para Estación I; slot diagram para Estación IV
+- Estructura `apps/web/src/assets/stations/` + staging `assets/stations/`
+- Capa de override de assets en `apps/web/src/lib/content.ts`
+- Handoff: `docs/00-master/gvo-phase-handoff-2026-04-24.md`
+
+---
+
+### Fase 8 — Producción e integración de assets 2D v1/piloto (extendida)
+
+**Estado:** EN PROGRESO.
+
+**Nota:** Fase no prevista en el plan original. Foco en cerrar la brecha entre la infraestructura visual preparada en F7 y la integración de assets reales para el primer piloto de campo.
+
+**Objetivo:** Integrar assets obligatorios (Estación II y V como mínimo), aprobar copy para piloto y documentar placeholders permitidos.
+
+**Referencia:** `docs/assets/gvo-f8-pilot-asset-scope.md`
+
+---
+
 ### Cierre de v1 estable
 
 **Estado:** Pendiente de Fase 5 (parcial) + Fase 6 (parcial).

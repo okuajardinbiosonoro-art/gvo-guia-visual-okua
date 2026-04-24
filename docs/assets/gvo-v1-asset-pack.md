@@ -4,7 +4,7 @@
 
 Este documento convierte las decisiones de la matriz visual v1 (`docs/01-product/gvo-v1-experience-matrix.md`) en un inventario concreto de assets: qué se necesita, dónde vivirá, en qué formato, con qué peso máximo, cuál es obligatorio y cuál puede seguir como placeholder.
 
-Alimenta directamente F7-04 (extensión de `StationHero` y rutas) y F7-05 (implementación de `SignalFlowDiagram.tsx` para Estación IV).
+Fue base para F7-04 (extensión de `StationHero` y rutas) y F7-05 (implementación de `SignalFlowDiagram.tsx` para Estación IV). Desde F8 se complementa con `docs/assets/gvo-f8-pilot-asset-scope.md`.
 
 ## 1. Premisas de producción visual
 
@@ -27,27 +27,28 @@ Propósito: almacenamiento de assets en producción antes de integración. Los a
 
 Propósito: assets listos para ser referenciados en runtime por `VisualHero`. Funciona porque Vite empaqueta todo lo que esté bajo `apps/web/src/`. Es equivalente al patrón donde ya viven los PNGs de Lía (`apps/web/src/assets/lia/`).
 
-Decisión: `hero.src` en `VisualHero` es un string que Vite necesita poder resolver. La manera más simple y consistente con el patrón ya usado para los PNGs de Lía es mantener los assets aprobados en `apps/web/src/assets/stations/station-X/` e importarlos como módulos desde el archivo de contenido de la estación.
+Decisión: `hero.src` en `VisualHero` es un string que Vite necesita poder resolver. La manera más simple y consistente con la arquitectura cerrada en F7-07/F7-08 es mantener los assets aprobados en `apps/web/src/assets/stations/station-X/` e importarlos como módulos desde `apps/web/src/lib/content.ts`.
 
 Flujo de un asset desde producción hasta integración:
 
 1. El asset se produce y revisa en `assets/stations/station-X/` (staging).
 2. Una vez aprobado, se copia a `apps/web/src/assets/stations/station-X/`.
-3. El archivo `content/stations/station-X.ts` importa el asset como módulo y lo pasa como `hero.src`.
+3. El archivo `apps/web/src/lib/content.ts` importa el asset como módulo ES y lo asigna al mapa `stationHeroSrc[id]`.
 
-Ejemplo esperado para `station-2.ts` cuando tenga su hero real:
+Ejemplo correcto para Estación II:
 
 ```ts
-import heroChain from '../../apps/web/src/assets/stations/station-2/diagram-bioelectric-chain.webp';
+// En apps/web/src/lib/content.ts:
+import heroStation2 from '../assets/stations/station-2/diagram-bioelectric-chain.webp';
 
-// y en la propiedad visual:
-visual: {
-  hero: { type: 'image', src: heroChain, label: 'Cadena de mediación bioeléctrica' },
-  tone: 'cool',
-}
+const stationHeroSrc: Partial<Record<number, string>> = {
+  2: heroStation2,
+};
 ```
 
-F7-04 deberá verificar que este patrón de import funciona con el alias `@content` ya configurado en `apps/web/vite.config.ts` y ajustar si hace falta.
+El archivo `content/stations/station-2.ts` solo actualiza `hero.type` de `'placeholder'` a `'image'`. No importa binarios directamente.
+
+Ver `docs/assets/gvo-f8-pilot-asset-scope.md` sección 6 para la regla completa de arquitectura de imports.
 
 ## 3. Inventario de assets existentes
 
@@ -72,9 +73,9 @@ Los 4 PNG son usables para v1 sin producción adicional. La spec completa está 
 | Estación V — Estado actual | `station-5-hero-current` | Fotografía o composición visual del montaje real OKÚA. Planta conectada, sistema visible, espacio físico real. Es la única estación que puede usar foto real del lugar. | `assets/stations/station-5/hero-current-montage.webp` | `apps/web/src/assets/stations/station-5/hero-current-montage.webp` | WebP (fotografía) | 300 KB | sí — sin foto del montaje real, Estación V pierde su función | solo en piloto mínimo | pendiente |
 | Cierre / Final | ninguno | Sin asset nuevo. Usar `lia-calm.png` existente. | no aplica | `apps/web/src/assets/lia/lia-calm.png` | PNG existente | no aplica | cubierto | no aplica | existente |
 
-Nota para Estación I: esta es la única estación sin `visual` declarado en `station-1.ts`. F7-04 debe agregar `visual: { hero: { type: 'placeholder', ... }, tone: 'warm' }`.
+Nota para Estación I: F7-04 ya agregó `visual: { hero: { type: 'placeholder', ... }, tone: 'warm' }`.
 
-Nota para Estación IV: `SignalFlowDiagram.tsx` se implementa en F7-05, no aquí.
+Nota para Estación IV: `SignalFlowDiagram.tsx` fue implementado en F7-05.
 
 ## 5. Criterios de formato, peso y tamaño
 
@@ -100,7 +101,7 @@ Valores posibles para la columna Estado en la tabla de assets:
 - `placeholder-ok`: el placeholder CSS cubre la función para piloto.
 - `obligatorio-pendiente`: debe existir antes de v1 completa; sin él la pantalla no cumple su función narrativa.
 - `aprobado`: producido y revisado, pendiente de integración.
-- `integrado`: en `apps/web/src/assets/`, referenciado en `content/*.ts`.
+- `integrado`: en `apps/web/src/assets/`, referenciado desde `apps/web/src/lib/content.ts`.
 
 ## 7. Reglas narrativas para assets
 
@@ -112,21 +113,20 @@ Estas reglas aplican a todos los assets. Ninguno puede violarlas:
 4. Evitar saturar todas las estaciones con la misma densidad visual. El recorrido debe tener respiración: estaciones más ligeras (I, III) y estaciones con mayor carga (II, IV).
 5. Los iconos de Estación IV deben ser legibles en móvil a 32–48 px. Sin detalles decorativos que no aporten a la identificación del nodo.
 
-## 8. Relación con próximos tickets
+## 8. Relación con tickets y fases
 
-F7-04:
+**F7 (subfase cerrada):**
 
-- Usará este documento para preparar las rutas de assets en `StationHero`.
-- Extenderá `VisualHero` con `type: 'diagram'` y `diagramId?: string`.
-- Corregirá `station-1.ts` para agregar la propiedad visual faltante.
-- Verificará que el patrón de import de assets desde `content/*.ts` funciona con `apps/web/vite.config.ts` (alias `@content`).
+- F7-04: extendió `VisualHero` con `type:'diagram'` y `diagramId?: string`. Corrigió `station-1.ts` con visual warm. ✓ Cerrado.
+- F7-05: implementó `SignalFlowDiagram.tsx` con 8 nodos de cadena técnica. ✓ Cerrado.
+- F7-07/08: estableció arquitectura de imports en `lib/content.ts`. ✓ Cerrado.
 
-F7-05:
+**F8 (fase activa):**
 
-- Usará los iconos SVG de Estación IV definidos aquí para construir `SignalFlowDiagram.tsx`.
-- Implementará el diagrama interactivo tap-a-tap de la cadena técnica.
+- F8-01: formaliza alcance de piloto y corrige inconsistencias pre-asset (este ticket).
+- F8-02: integra asset real de Estación II.
+- F8-03: integra asset real de Estación V.
+- F8-04: aprueba copy y cierra placeholders del piloto.
+- F8-05 (opcional): mejora iconografía SVG de Estación IV.
 
-Ticket de integración de assets posterior a F7-05:
-
-- Moverá assets aprobados desde `assets/stations/` (staging) a `apps/web/src/assets/stations/` (app) y actualizará `content/*.ts`.
-- No es parte de F7-04 ni F7-05.
+Referencia completa de reglas de integración: `docs/assets/gvo-f8-pilot-asset-scope.md`.

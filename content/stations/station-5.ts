@@ -38,6 +38,6 @@ export const station5: StationContent = {
       label: '[ Estado actual ]',
       caption: 'Qué significa este montaje hoy',
     },
-    tone: 'default',
+    tone: 'warm',
   },
 };

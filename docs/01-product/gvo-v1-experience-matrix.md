@@ -110,16 +110,16 @@ Ningún asset visual puede sugerir causalidad directa planta → música. La med
 | Campo | Decisión |
 |---|---|
 | Pantalla | Estación IV |
-| Función narrativa | El visitante entiende con precisión cómo opera el sistema completo hoy: 7 nodos de transformación |
+| Función narrativa | El visitante entiende con precisión cómo opera el sistema completo hoy: 8 nodos de la cadena técnica |
 | Tipo de hero visual | **diagrama interactivo** — cadena revelable tap-a-tap (OPCIÓN A) |
 | Interacción | tap para revelar cada nodo de la cadena en secuencia |
 | Estado de Lía | `curious` — explicación técnica central, la más activa del recorrido |
 | Tono visual CSS | `cold` — técnico-preciso, operación actual (mantener) |
-| Assets necesarios | Componente `SignalFlowDiagram.tsx` con 7 nodos; iconografía mínima SVG por nodo |
+| Assets necesarios | Componente `SignalFlowDiagram.tsx` con 8 nodos; iconografía mínima SVG por nodo |
 | ¿Requiere tipo nuevo? | **sí** — `type: 'diagram'` en `VisualHero`; componente `SignalFlowDiagram.tsx` nuevo |
 | Estado v1 | **incluido** — única estación con interacción avanzada en v1 |
 
-**Justificación — por qué OPCIÓN A:** La cadena `planta → bionosificador → ESP32 → MIDI → Wi-Fi/UDP → router → sistema central → sonido` tiene 7 nodos con lógica de transformación diferente en cada salto. Una ilustración estática de 7 pasos en pantalla móvil comprime los conceptos — el visitante la lee como bloque, no como proceso. El tap-a-tap permite seguir el flujo al propio ritmo, anclar cada nodo antes del siguiente, y hace visible que cada paso es una transformación distinta. Esta es la estación más técnica del recorrido: la interacción no es decorativa, resuelve un problema real de comprensión en pantalla pequeña. **Esta es la única estación con diagrama interactivo en v1.** Implementación en F7-05.
+**Justificación — por qué OPCIÓN A:** La cadena `planta → bionosificador → ESP32 → MIDI → Wi-Fi/UDP → router → sistema central → sonido` tiene 8 nodos, con 7 transformaciones entre ellos; cada salto implica una lógica diferente. Una ilustración estática de 8 nodos en pantalla móvil comprime los conceptos — el visitante la lee como bloque, no como proceso. El tap-a-tap permite seguir el flujo al propio ritmo, anclar cada nodo antes del siguiente, y hace visible que cada paso es una transformación distinta. Esta es la estación más técnica del recorrido: la interacción no es decorativa, resuelve un problema real de comprensión en pantalla pequeña. **Esta es la única estación con diagrama interactivo en v1.** Implementación en F7-05.
 
 ---
 
@@ -167,7 +167,7 @@ Ningún asset visual puede sugerir causalidad directa planta → música. La med
 | Estación I | imagen hero 2D | Planta viva en espacio real OKÚA, encuadre íntimo | PNG/WebP | 250 KB | deseable | pendiente |
 | Estación II | ilustración 2D | Cadena: planta → señal → captura → acondicionamiento → mapeo → música | PNG/WebP 800×400 | 250 KB | **obligatorio** | pendiente |
 | Estación III | composición 2D | Línea de tiempo: proto cableado → inalámbrico → versión actual | PNG/WebP 800×300 | 200 KB | deseable | pendiente |
-| Estación IV | componente interactivo | `SignalFlowDiagram.tsx` — 7 nodos tap-a-tap con iconografía SVG | JSX/SVG | — | **obligatorio** | pendiente |
+| Estación IV | componente interactivo | `SignalFlowDiagram.tsx` — 8 nodos tap-a-tap con iconografía SVG | JSX/SVG | — | **obligatorio** | pendiente |
 | Estación V | fotografía | Montaje real OKÚA: plantas conectadas + sistema visible | PNG/WebP | 300 KB | **obligatorio** | pendiente |
 | Cierre | — | Sin hero nuevo | — | — | — | **listo** |
 | Todas | avatar Lía (4 estados) | `lia-idle`, `lia-calm`, `lia-curious`, `lia-three-quarter` — PNG con fondo transparente | PNG | — | incluido | **listo** |
@@ -224,7 +224,7 @@ interface VisualHero {
 Implementar en F7-04 junto con la extensión de StationHero.
 
 **C. Componentes nuevos requeridos:**
-- `SignalFlowDiagram.tsx` — diagrama de cadena técnica con 7 nodos revelables tap-a-tap para Estación IV. Implementar en F7-05. No implementar en tickets anteriores.
+- `SignalFlowDiagram.tsx` — diagrama de cadena técnica con 8 nodos revelables tap-a-tap para Estación IV. Implementar en F7-05. No implementar en tickets anteriores.
 
 **D. Criterio formal de uso de estados de Lía:**
 
