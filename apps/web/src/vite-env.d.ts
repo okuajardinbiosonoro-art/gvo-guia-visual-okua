@@ -1,5 +1,8 @@
 /// <reference types="vite/client" />
 
-// Nota F7-04: antes de integrar imports binarios desde content/stations/*.ts,
-// verificar si conviene declarar módulos *.webp/*.png en un .d.ts compartido
-// o mover esos imports a wrappers dentro de apps/web/src/.
+// Arquitectura de integración de assets (decisión F7-07):
+// Los imports binarios (.webp, .png, .svg) ocurren únicamente dentro de
+// apps/web/src/, no en content/stations/*.ts.
+// vite/client ya declara *.webp, *.png y *.svg como string para todo el
+// scope de este proyecto.
+// Ver apps/web/src/assets/stations/README.md para el flujo completo.
