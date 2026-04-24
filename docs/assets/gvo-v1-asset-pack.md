@@ -77,8 +77,8 @@ Nota para Estación I: F7-04 ya agregó `visual: { hero: { type: 'placeholder', 
 
 Nota para Estación II: SVG integrado en F8-02 y aprobado visualmente en F8-02R por el responsable principal.
 Nota para Estación V: hero real del montaje integrado y aprobado visualmente en F8-03 por el responsable principal.
-
-Nota para Estación IV: `SignalFlowDiagram.tsx` fue implementado en F7-05.
+Nota para Estación IV: `SignalFlowDiagram.tsx` fue implementado en F7-05; la iconografía SVG sigue diferida y no bloquea el piloto mínimo porque `SignalFlowDiagram` ya funciona con fallback textual/simbólico.
+Ver `docs/02-script/gvo-f8-pilot-copy-microcopy-approval.md` para el estado de aprobación de copy y microcopy.
 
 ## 5. Criterios de formato, peso y tamaño
 

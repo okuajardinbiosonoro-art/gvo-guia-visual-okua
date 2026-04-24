@@ -19,6 +19,7 @@ Estación II ya quedó completada e integrada en runtime; no depende de placehol
 Aprobación visual: aprobada por el responsable principal en F8-02R.
 Estación V ya quedó completada e integrada en runtime; no depende de placeholder en piloto.
 Aprobación visual: aprobada por el responsable principal en F8-03.
+Ver `docs/02-script/gvo-f8-pilot-copy-microcopy-approval.md` para el estado de aprobación de copy.
 
 ## 3. Assets aceptables como placeholder en piloto mínimo
 
@@ -32,6 +33,7 @@ Aprobación visual: aprobada por el responsable principal en F8-03.
 | Estación V | No | Ya está integrada; no necesita placeholder. |
 
 Los placeholders de piloto no son deuda accidental. Son una decisión explícita de alcance. Esta tabla es la fuente de verdad para esa decisión.
+Ver `docs/02-script/gvo-f8-pilot-copy-microcopy-approval.md` para el estado de aprobación de copy y microcopy.
 
 ## 4. Criterios de aprobación visual
 

@@ -109,7 +109,7 @@ Orden descendente de autoridad. Ante contradicción, prevalece la fuente de mayo
 ### 4.4 Artefactos pendientes de creación (deuda estructural)
 
 - Tests de integración con framework formal (más allá del smoke).
-- Assets visuales reales por estación (actualmente todos son `gitkeep`).
+- Assets visuales reales por estación. Estación II y Estación V ya tienen asset real integrado; Intro, Estación I y Estación III siguen con placeholder CSS aceptable para piloto.
 - QR físicos impresos para operación en campo.
 - Hardening local adicional: reinicio automático y despliegue final en Windows.
 - Kit de validación de laboratorio: soak, concurrencia y reporte reproducible.
@@ -211,7 +211,7 @@ Orden descendente de autoridad. Ante contradicción, prevalece la fuente de mayo
 - StationHero con tono visual por estación (warm/cool/neutral/cold/default).
 
 **Pendiente (obligatorio para v1):**
-- Assets visuales reales por estación (actualmente `assets/stations/*/` están vacíos con `.gitkeep`).
+- Assets visuales reales por estación. Estación II y Estación V ya tienen asset real integrado. Intro, Estación I y Estación III siguen con placeholder CSS aceptable para piloto.
 - Revisión y aprobación del guion de Frente C por el responsable principal del proyecto OKÚA (el copy actual es semilla funcional, no versión de producción).
 - Validación de microcopy (CTAs, hints, mensajes de espera, blocked, final) contra experiencia real de visitante.
 - Posiblemente: uso de `lia-three-quarter.png` en alguna pantalla (actualmente sin asignar).
@@ -456,17 +456,25 @@ QR entrada → /entry/okua-entry
 ### Jerarquía de assets
 
 1. **Crítico:** Lía Andina (4 estados PNG, integrados en bundle Vite). Ya en producción.
-2. **Importante:** Assets visuales por estación en `assets/stations/`. Actualmente vacíos.
+2. **Importante:** Assets visuales por estación en `assets/stations/`. Estación II (SVG) y Estación V (WebP) integrados. Resto en placeholder para piloto.
 3. **Futuro:** Render 3D de Lía (pipeline pendiente). No bloquea v1.
 
 ### Reglas para reemplazo de placeholders
 
 - Los placeholders CSS en StationHero **son aceptables para piloto en campo** si los assets reales no están listos. No bloquean la experiencia narrativa.
 - Para reemplazar un placeholder por imagen real:
-  1. Colocar archivo en `assets/stations/station-{n}/` (WebP preferido, PNG aceptable).
-  2. Actualizar la propiedad `visual.hero` en `content/stations/station-{n}.ts`: cambiar `type: 'placeholder'` a `type: 'image'`, agregar `src` y `caption`.
-  3. Verificar que StationHero renderiza correctamente en móvil (no crops no deseados).
-  4. No agregar imágenes que pesen más de 500 KB sin optimización previa (WebP, calidad 85).
+  1. Colocar archivo aprobado en `assets/stations/station-{n}/` (WebP para fotos, SVG para ilustraciones técnicas).
+  2. Copiar a `apps/web/src/assets/stations/station-{n}/`.
+  3. Importar en `apps/web/src/lib/content.ts` y asignar en `stationHeroSrc[id]`.
+  4. En `content/stations/station-{n}.ts` cambiar solo `hero.type` a `'image'` y ajustar `label`/`caption` si aplica. **Mantener `src` fuera de `content/stations/*.ts`.**
+  5. Validar typecheck, build, smoke y prueba visual móvil.
+
+  Límites de peso vigentes (del asset pack v1):
+  - Hero de pantalla móvil: 300 KB
+  - Ilustración técnica 2D: 250 KB
+  - Línea de tiempo: 200 KB
+  - Hero intro con Lía: 200 KB
+  - Icono SVG individual: 15 KB
 
 ### Reglas para sistema visual
 
