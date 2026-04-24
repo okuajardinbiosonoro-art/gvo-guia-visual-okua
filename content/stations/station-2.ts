@@ -35,9 +35,9 @@ export const station2: StationContent = {
   qrHint: 'Escanea el QR de la estación III para continuar.',
   visual: {
     hero: {
-      type: 'placeholder',
-      label: '[ Señales bioeléctricas ]',
-      caption: 'Lo que el sistema registra',
+      type: 'image',
+      label: 'Cadena de mediación bioeléctrica',
+      caption: 'De la señal vegetal al resultado musical mediado',
     },
     tone: 'cool',
   },

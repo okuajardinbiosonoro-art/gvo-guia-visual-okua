@@ -14,20 +14,21 @@ import {
   station4,
   station5,
 } from '@content/stations';
+import heroStation2 from '../assets/stations/station-2/diagram-bioelectric-chain.svg';
 
 export type { IntroContent, StationContent };
 
 // ─── Overrides de hero.src por estación ──────────────────────────────────────
 //
 // Cuando un asset real esté listo:
-//   1. Importarlo aquí: import heroStation2 from '../assets/stations/station-2/diagram-bioelectric-chain.webp';
+//   1. Importarlo aquí: import heroStation2 from '../assets/stations/station-2/diagram-bioelectric-chain.svg';
 //   2. Asignarlo al id correspondiente: 2: heroStation2
 //
 // Los overrides solo aplican a estaciones con hero.type === 'image'.
 // Station IV (type:'diagram') queda protegida — no recibe src por este mapa.
 
 const stationHeroSrc: Partial<Record<number, string>> = {
-  // 2: heroStation2,
+  2: heroStation2,
   // 5: heroStation5,
 };
 

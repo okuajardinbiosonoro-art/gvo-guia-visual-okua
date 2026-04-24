@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" role="img" aria-labelledby="title desc">
+  <title id="title">Cadena de mediación bioeléctrica</title>
+  <desc id="desc">Diagrama técnico de seis nodos que muestra la cadena de mediación desde planta hasta sonido mediado.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#555" />
+    </marker>
+    <style>
+      .card { fill: #f7fbfd; stroke: #b5cad8; stroke-width: 1.5; }
+      .icon-bg { fill: #e7f0f6; stroke: #4a7c9e; stroke-width: 1.5; }
+      .icon { fill: none; stroke: #4a7c9e; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+      .line { stroke: #555; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+      .title { fill: #111; font: 700 26px Arial, Helvetica, sans-serif; }
+      .subtitle { fill: #444; font: 400 14px Arial, Helvetica, sans-serif; }
+      .label { fill: #111; font: 700 18px Arial, Helvetica, sans-serif; }
+      .small { fill: #111; font: 700 16px Arial, Helvetica, sans-serif; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="800" height="400" fill="transparent" />
+
+  <text x="400" y="40" text-anchor="middle" class="title">Cadena de mediación bioeléctrica</text>
+  <text x="400" y="63" text-anchor="middle" class="subtitle">De la señal vegetal al resultado musical mediado</text>
+
+  <path class="line" d="M132 200 L150 200" />
+  <path class="line" d="M266 200 L284 200" />
+  <path class="line" d="M400 200 L418 200" />
+  <path class="line" d="M534 200 L552 200" />
+  <path class="line" d="M668 200 L686 200" />
+
+  <g transform="translate(18 115)">
+    <rect class="card" width="114" height="170" rx="20" />
+    <circle class="icon-bg" cx="57" cy="54" r="26" />
+    <path class="icon" d="M50 60 C60 44, 71 41, 74 52 C77 64, 64 74, 53 68 C46 64, 45 58, 50 60 Z" />
+    <path class="icon" d="M57 76 L57 58" />
+    <text x="57" y="126" text-anchor="middle" class="label">Planta</text>
+  </g>
+
+  <g transform="translate(152 115)">
+    <rect class="card" width="114" height="170" rx="20" />
+    <circle class="icon-bg" cx="57" cy="54" r="26" />
+    <path class="icon" d="M43 54 C48 46, 50 46, 55 54 C60 62, 62 62, 67 54 C72 46, 74 46, 79 54" />
+    <path class="icon" d="M43 63 C48 55, 50 55, 55 63 C60 71, 62 71, 67 63 C72 55, 74 55, 79 63" />
+    <text x="57" y="126" text-anchor="middle" class="label">Señal</text>
+  </g>
+
+  <g transform="translate(286 115)">
+    <rect class="card" width="114" height="170" rx="20" />
+    <circle class="icon-bg" cx="57" cy="54" r="26" />
+    <rect class="icon" x="43" y="42" width="28" height="24" rx="5" />
+    <path class="icon" d="M46 46 L46 62" />
+    <path class="icon" d="M68 46 L68 62" />
+    <path class="icon" d="M43 54 L71 54" />
+    <text x="57" y="126" text-anchor="middle" class="label">Captura</text>
+  </g>
+
+  <g transform="translate(420 115)">
+    <rect class="card" width="114" height="170" rx="20" />
+    <circle class="icon-bg" cx="57" cy="54" r="26" />
+    <path class="icon" d="M47 45 H67" />
+    <path class="icon" d="M47 54 H67" />
+    <path class="icon" d="M47 63 H67" />
+    <circle cx="56" cy="45" r="3" fill="#4a7c9e" />
+    <circle cx="61" cy="54" r="3" fill="#4a7c9e" />
+    <circle cx="52" cy="63" r="3" fill="#4a7c9e" />
+    <text x="57" y="121" text-anchor="middle" class="small">Acond.</text>
+  </g>
+
+  <g transform="translate(554 115)">
+    <rect class="card" width="114" height="170" rx="20" />
+    <circle class="icon-bg" cx="57" cy="54" r="26" />
+    <circle cx="45" cy="50" r="4" fill="#4a7c9e" />
+    <circle cx="69" cy="50" r="4" fill="#4a7c9e" />
+    <circle cx="57" cy="67" r="4" fill="#4a7c9e" />
+    <path class="icon" d="M49 52 L53 55" />
+    <path class="icon" d="M61 55 L65 52" />
+    <path class="icon" d="M57 56 L57 63" />
+    <text x="57" y="126" text-anchor="middle" class="label">Mapeo</text>
+  </g>
+
+  <g transform="translate(688 115)">
+    <rect class="card" width="114" height="170" rx="20" />
+    <circle class="icon-bg" cx="57" cy="54" r="26" />
+    <path class="icon" d="M46 49 L58 49 L66 41 L66 67 L58 59 L46 59 Z" />
+    <path class="icon" d="M72 49 C77 53, 77 59, 72 63" />
+    <path class="icon" d="M76 44 C84 52, 84 60, 76 68" />
+    <text x="57" y="120" text-anchor="middle" class="small">Sonido</text>
+    <text x="57" y="139" text-anchor="middle" class="small">mediado</text>
+  </g>
+</svg>

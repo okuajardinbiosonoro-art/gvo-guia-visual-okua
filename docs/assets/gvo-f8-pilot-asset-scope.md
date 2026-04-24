@@ -10,10 +10,12 @@ Complementa `gvo-v1-asset-pack.md` (especificaciones técnicas) y `gvo-v1-experi
 
 | Pantalla | Asset ID | Descripción breve | Por qué obligatorio |
 |---|---|---|---|
-| Estación II | `station-2-diagram-chain` | Ilustración 2D de cadena bioeléctrica: planta, señal, captura, acondicionamiento, mapeo y resultado musical mediado. | Sin esto la pantalla más crítica para la línea roja narrativa sigue con placeholder. |
+| Estación II | `station-2-diagram-chain` | Ilustración 2D de cadena bioeléctrica integrada: planta, señal, captura, acondicionamiento, mapeo y resultado musical mediado. | Sin esto la pantalla más crítica para la línea roja narrativa sigue con placeholder. |
 | Estación V | `station-5-hero-current` | Fotografía del montaje real OKÚA: plantas conectadas, sistema visible y espacio físico reconocible. | Sin esto la estación de cierre no aterriza en el espacio físico real. |
 
 Intro, Estación I y Estación III no están en esta lista. Sus assets son deseables, pero no bloqueantes para v1 completa si existe una decisión explícita de alcance.
+
+Estación II ya quedó completada e integrada en runtime; no depende de placeholder en piloto.
 
 ## 3. Assets aceptables como placeholder en piloto mínimo
 
@@ -21,7 +23,7 @@ Intro, Estación I y Estación III no están en esta lista. Sus assets son desea
 |---|---|---|
 | Intro | Sí | El visual de bienvenida no es narrativamente crítico para el primer piloto. |
 | Estación I | Sí | Su función motivacional queda cubierta por el placeholder warm. |
-| Estación II | Sí, solo piloto mínimo | No es aceptable para v1 completa. |
+| Estación II | No | Ya está integrada; no necesita placeholder. |
 | Estación III | Sí | Su función histórica puede sostenerse con placeholder. |
 | Estación IV | Sí para iconografía SVG | `SignalFlowDiagram` ya funciona; los SVG de iconos son mejora opcional. |
 | Estación V | Sí, solo piloto mínimo | No es aceptable para v1 completa. |
