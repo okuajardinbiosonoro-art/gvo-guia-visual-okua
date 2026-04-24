@@ -46,6 +46,7 @@ reports/pilot-validation/*
 
 # Claude local / credentials
 CLAUDE.local.md
+.claude/settings.local.json
 .claude/.credentials.json
 .claude/credentials.json
 *.pem
