@@ -450,7 +450,7 @@ QR entrada → /entry/okua-entry
 
 - Paleta completa definida en `apps/web/src/app.css` con custom properties CSS.
 - Todos los tokens de color cumplen WCAG AA+ (texto principal: ratio 11:1; texto muted: ratio 5.5:1).
-- Tono por estación asignado: warm (I), cool (II), neutral (III), cold (IV), default (V).
+- Tono por estación asignado: warm (I), cool (II), neutral (III), cold (IV), warm (V).
 - Los placeholders CSS actuales en StationHero son funcionales y coherentes visualmente.
 
 ### Jerarquía de assets

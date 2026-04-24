@@ -15,6 +15,7 @@ import {
   station5,
 } from '@content/stations';
 import heroStation2 from '../assets/stations/station-2/diagram-bioelectric-chain.svg';
+import heroStation5 from '../assets/stations/station-5/hero-current-montage.webp';
 
 export type { IntroContent, StationContent };
 
@@ -22,9 +23,7 @@ export type { IntroContent, StationContent };
 //
 // Assets integrados en esta versión:
 //   station-2 → diagram-bioelectric-chain.svg  ✓  F8-02
-//
-// Próximos assets a integrar:
-//   5: heroStation5 → cuando el asset de Estación V esté aprobado
+//   station-5 → hero-current-montage.webp      ✓  F8-03
 //
 // Patrón para agregar un asset nuevo:
 //   1. import heroStationN from '../assets/stations/station-N/nombre-asset.svg';
@@ -34,7 +33,7 @@ export type { IntroContent, StationContent };
 
 const stationHeroSrc: Partial<Record<number, string>> = {
   2: heroStation2,
-  // 5: heroStation5,
+  5: heroStation5,
 };
 
 // Para intro: asignar directamente cuando el asset exista.

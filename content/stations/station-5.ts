@@ -34,9 +34,9 @@ export const station5: StationContent = {
   cta: 'Ir al cierre',
   visual: {
     hero: {
-      type: 'placeholder',
-      label: '[ Estado actual ]',
-      caption: 'Qué significa este montaje hoy',
+      type: 'image',
+      label: 'Montaje actual OKÚA',
+      caption: 'Plantas conectadas, mediación técnica y espacio real',
     },
     tone: 'warm',
   },

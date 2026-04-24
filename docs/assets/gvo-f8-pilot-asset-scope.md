@@ -17,6 +17,8 @@ Intro, Estación I y Estación III no están en esta lista. Sus assets son desea
 
 Estación II ya quedó completada e integrada en runtime; no depende de placeholder en piloto.
 Aprobación visual: aprobada por el responsable principal en F8-02R.
+Estación V ya quedó completada e integrada en runtime; no depende de placeholder en piloto.
+Aprobación visual: aprobada por el responsable principal en F8-03.
 
 ## 3. Assets aceptables como placeholder en piloto mínimo
 
@@ -27,7 +29,7 @@ Aprobación visual: aprobada por el responsable principal en F8-02R.
 | Estación II | No | Ya está integrada; no necesita placeholder. |
 | Estación III | Sí | Su función histórica puede sostenerse con placeholder. |
 | Estación IV | Sí para iconografía SVG | `SignalFlowDiagram` ya funciona; los SVG de iconos son mejora opcional. |
-| Estación V | Sí, solo piloto mínimo | No es aceptable para v1 completa. |
+| Estación V | No | Ya está integrada; no necesita placeholder. |
 
 Los placeholders de piloto no son deuda accidental. Son una decisión explícita de alcance. Esta tabla es la fuente de verdad para esa decisión.
 

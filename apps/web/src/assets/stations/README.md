@@ -19,13 +19,17 @@ El flujo correcto es:
 5. Pasar como hero.src al     contenido correspondiente.
 ```
 
-Ejemplo de cómo quedará lib/content.ts cuando haya un asset real:
+Ejemplo de cómo queda `lib/content.ts` cuando hay assets reales:
 
 ```ts
-import heroStation2 from '../assets/stations/station-2/diagram-bioelectric-chain.webp';
+// En apps/web/src/lib/content.ts:
+import heroStation2 from '../assets/stations/station-2/diagram-bioelectric-chain.svg';
+import heroStation5 from '../assets/stations/station-5/hero-current-montage.webp';
 
-// Y en el objeto de contenido correspondiente:
-// station2.visual.hero.src = heroStation2
+const stationHeroSrc: Partial<Record<number, string>> = {
+  2: heroStation2, // station-2 ✓ F8-02
+  5: heroStation5, // station-5 ✓ F8-03
+};
 ```
 
 Los archivos `content/stations/station-X.ts` NO importan binarios.
@@ -44,8 +48,9 @@ de `lib/content.ts` dentro del scope de `apps/web/src/`.
 
 ## Formatos
 
-- WebP para heroes e ilustraciones.
+- WebP para fotografías y heroes de pantalla.
 - PNG solo si se necesita canal alfa no comprimible en WebP.
+- SVG para ilustraciones técnicas 2D y diagramas como Estación II.
 - SVG para iconografía del diagrama de Estación IV.
 
 ## Reglas narrativas
