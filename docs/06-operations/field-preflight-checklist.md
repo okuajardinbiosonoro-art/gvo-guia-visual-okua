@@ -29,6 +29,7 @@ Si cualquier criterio bloqueante falla, no se avanza a campo ni se imprimen QR f
   - [ ] generados nuevos
   - [ ] impresos existentes
   - [ ] sample/baseline del repo, solo para prueba
+  - [ ] QR Wi-Fi MikroTik, si aplica
 
 ## 3. Preparación del release candidate
 
@@ -100,6 +101,7 @@ Origen verificado de `VITE_APP_MODE=field`:
 - Confirmar que el QR de entrada abre desde móvil real.
 - Confirmar que al menos un QR de estación abre desde móvil real.
 - Confirmar que los QR sample/baseline no se confunden con QR finales de campo.
+- Si la red del espacio usa MikroTik, confirmar también que el QR Wi-Fi es un artefacto distinto del QR de recorrido. Ver `docs/06-operations/gvo-f9-03-mobile-network-qa-plan.md`.
 
 ## 7. Arranque local
 
@@ -208,6 +210,7 @@ Registrar como evidencia:
 - Resultado de `/api/meta`.
 - Resultado del QR de entrada.
 - Resultado del QR de estación.
+- Resultado del QR Wi-Fi MikroTik, si aplica.
 - Resultado del recorrido completo.
 - Resultado de soak.
 - Resultado de concurrencia.
@@ -246,4 +249,3 @@ Bloquean el avance a campo:
 - Correctivos requeridos:
 - Responsable de aprobar:
 - Fecha:
-

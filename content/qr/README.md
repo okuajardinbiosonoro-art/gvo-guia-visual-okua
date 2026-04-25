@@ -2,6 +2,8 @@
 
 Esta carpeta contiene la fuente operativa de los QR del piloto GVO.
 
+Si el espacio usa Wi-Fi MikroTik, el QR de red Wi-Fi es un artefacto distinto del QR de recorrido GVO. El primero conecta al visitante a la red; el segundo abre la app del recorrido.
+
 ## Qué vive aquí
 
 - `qr-base-url.example.txt`: ejemplo del valor base que debe usar el operador para generar QR.

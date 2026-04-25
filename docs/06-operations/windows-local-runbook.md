@@ -75,6 +75,8 @@ npm run qr:generate -- --base-url http://localhost:3001
 
 Para el piloto de campo, sustituir `http://localhost:3001` por la IP o hostname final y revisar el manifiesto en `content/qr/generated/qr-manifest.md`.
 
+Si el acceso de visitantes depende de Wi-Fi MikroTik, la URL del QR de recorrido debe usar una IP o hostname accesible desde esa red, no `localhost`. El QR Wi-Fi de red es un artefacto separado del QR de recorrido GVO.
+
 La lista operativa para validar antes de imprimir está en `docs/06-operations/field-preflight-checklist.md`.
 La interpretación del paquete de QR sample vs final está en `content/qr/README.md`.
 
