@@ -37,8 +37,61 @@ export interface JourneyContextValue {
 
 const JourneyContext = createContext<JourneyContextValue | null>(null);
 
+function readStoredSessionId(): string | null {
+  if (typeof window === 'undefined') return null;
+
+  // El recorrido QR externo puede abrirse en otra pestaña o contexto del navegador
+  // al volver desde la cámara del móvil; por eso se prioriza un almacenamiento
+  // compartido entre pestañas antes que el estado efímero de una sola pestaña.
+  try {
+    const local = window.localStorage.getItem(SESSION_STORAGE_KEY);
+    if (local) return local;
+  } catch {
+    // Si localStorage está bloqueado, seguimos con sessionStorage.
+  }
+
+  try {
+    const session = window.sessionStorage.getItem(SESSION_STORAGE_KEY);
+    return session || null;
+  } catch {
+    return null;
+  }
+}
+
+function writeStoredSessionId(sessionId: string): void {
+  if (typeof window === 'undefined') return;
+
+  try {
+    window.localStorage.setItem(SESSION_STORAGE_KEY, sessionId);
+  } catch {
+    // Ignorar si el navegador bloquea localStorage.
+  }
+
+  try {
+    window.sessionStorage.setItem(SESSION_STORAGE_KEY, sessionId);
+  } catch {
+    // Ignorar si el navegador bloquea sessionStorage.
+  }
+}
+
+function clearStoredSessionId(): void {
+  if (typeof window === 'undefined') return;
+
+  try {
+    window.localStorage.removeItem(SESSION_STORAGE_KEY);
+  } catch {
+    // Ignorar si el navegador bloquea localStorage.
+  }
+
+  try {
+    window.sessionStorage.removeItem(SESSION_STORAGE_KEY);
+  } catch {
+    // Ignorar si el navegador bloquea sessionStorage.
+  }
+}
+
 async function resolveSession(): Promise<JourneySession> {
-  const stored = sessionStorage.getItem(SESSION_STORAGE_KEY);
+  const stored = readStoredSessionId();
   if (stored) {
     try {
       const { session } = await journeyApi.getSession(stored);
@@ -46,7 +99,7 @@ async function resolveSession(): Promise<JourneySession> {
     } catch (err: unknown) {
       const e = err as { status?: number };
       if (e.status === 404) {
-        sessionStorage.removeItem(SESSION_STORAGE_KEY);
+        clearStoredSessionId();
         // La sesión expiró o no existe — crear una nueva
       } else {
         throw err; // error de red — propagar
@@ -54,7 +107,7 @@ async function resolveSession(): Promise<JourneySession> {
     }
   }
   const { session } = await journeyApi.createSession();
-  sessionStorage.setItem(SESSION_STORAGE_KEY, session.sessionId);
+  writeStoredSessionId(session.sessionId);
   return session;
 }
 
