@@ -77,6 +77,8 @@ Para el piloto de campo, sustituir `http://localhost:3001` por la IP o hostname 
 
 Si el acceso de visitantes depende de Wi-Fi MikroTik, la URL del QR de recorrido debe usar una IP o hostname accesible desde esa red, no `localhost`. El QR Wi-Fi de red es un artefacto separado del QR de recorrido GVO.
 
+Para laboratorio usa `deploy/lab-profile.example.json`; para campo usa `deploy/field-profile.okua.example.json`. No versiones contraseñas Wi-Fi ni secretos operativos en Markdown, y valida siempre desde un móvil conectado a la red local correspondiente.
+
 La lista operativa para validar antes de imprimir está en `docs/06-operations/field-preflight-checklist.md`.
 La interpretación del paquete de QR sample vs final está en `content/qr/README.md`.
 

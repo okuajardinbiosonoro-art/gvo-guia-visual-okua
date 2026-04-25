@@ -43,6 +43,7 @@ reports/pilot-validation/*
 .env
 .env.*
 !.env.example
+deploy/*.local.json
 
 # Claude local / credentials
 CLAUDE.local.md

@@ -194,7 +194,11 @@ Referencias:
 - `docs/templates/PILOT_VALIDATION_REPORT_TEMPLATE.md`
 - `docs/templates/FIELD_PILOT_REPORT_TEMPLATE.md`
 
+Perfiles operativos relacionados:
+
+- `deploy/lab-profile.example.json`
+- `deploy/field-profile.okua.example.json`
+
 Aclaración:
 
 F9-03 no reemplaza el reporte final de piloto. Solo prepara o ejecuta QA móvil multibrowser y conectividad.
-

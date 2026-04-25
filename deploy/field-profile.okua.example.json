@@ -1,0 +1,16 @@
+{
+  "releaseLabel": "gvo-field-okua",
+  "baseUrl": "http://192.168.88.251:3001",
+  "appMode": "field",
+  "corsMode": "same-origin",
+  "allowedOrigin": "",
+  "notes": [
+    "Perfil de campo para OKUA.",
+    "La IP 192.168.88.251 corresponde al PC servidor por Ethernet en campo.",
+    "La red Wi-Fi MikroTik debe permitir que los móviles visitantes alcancen esta IP y el puerto 3001.",
+    "El QR Wi-Fi MikroTik conecta al visitante a la red; los QR GVO abren rutas del recorrido.",
+    "No versionar contraseñas Wi-Fi.",
+    "No escribir secretos operativos en Markdown.",
+    "No usar Tailscale como URL de visitante."
+  ]
+}

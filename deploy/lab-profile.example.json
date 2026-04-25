@@ -1,0 +1,15 @@
+{
+  "releaseLabel": "gvo-lab-qa",
+  "baseUrl": "http://192.168.1.74:3001",
+  "appMode": "field",
+  "corsMode": "same-origin",
+  "allowedOrigin": "",
+  "notes": [
+    "Perfil de laboratorio para QA movil local.",
+    "Alternar baseUrl a http://192.168.1.72:3001 si esa es la IP activa del PC servidor.",
+    "Usar la red Wi-Fi de laboratorio aprobada por el responsable humano.",
+    "No versionar contraseñas Wi-Fi.",
+    "No escribir secretos operativos en Markdown.",
+    "No usar Tailscale como URL de visitante."
+  ]
+}
