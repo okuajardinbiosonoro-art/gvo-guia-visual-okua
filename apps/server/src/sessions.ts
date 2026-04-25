@@ -30,19 +30,6 @@ function getHighestVisitedStation(session: JourneySession): number {
   return stationVisits.length > 0 ? Math.max(...stationVisits) : 0;
 }
 
-function getExpectedQrStation(session: JourneySession): number | null {
-  if (session.completed) {
-    return null;
-  }
-
-  if (!session.visitedSteps.includes(0)) {
-    return 1;
-  }
-
-  const nextStation = getHighestVisitedStation(session) + 1;
-  return nextStation <= 5 ? nextStation : null;
-}
-
 export type StepResult =
   | { ok: true; session: JourneySession }
   | { ok: false; error: string; session?: JourneySession };
@@ -128,8 +115,8 @@ export function scanStation(sessionId: string, stationId: number): StepResult {
     return { ok: false, error: 'intro_required', session: snapshot(session) };
   }
 
-  const expectedStation = getExpectedQrStation(session);
-  if (expectedStation === null || stationId !== expectedStation) {
+  const highestVisitedStation = getHighestVisitedStation(session);
+  if (stationId > highestVisitedStation + 1) {
     return { ok: false, error: 'sequence_violation', session: snapshot(session) };
   }
 

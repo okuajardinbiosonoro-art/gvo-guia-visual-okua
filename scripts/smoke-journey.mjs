@@ -153,7 +153,17 @@ let sessionId;
   );
 }
 
-// 8. POST …/scan/okua-e3 fuera de secuencia (estación 2 no visitada)
+// 8. POST …/scan/okua-e1 repetido en la estación actual
+{
+  const { status, body } = await POST(`/api/journey/session/${sessionId}/scan/okua-e1`);
+  check(
+    'POST …/scan/okua-e1 repetido → 200, ok:true, stationId:1',
+    status === 200 && body.ok === true && body.stationId === 1,
+    `status=${status} body=${JSON.stringify(body)}`,
+  );
+}
+
+// 9. POST …/scan/okua-e3 fuera de secuencia (estación 2 no visitada)
 {
   const { status, body } = await POST(`/api/journey/session/${sessionId}/scan/okua-e3`);
   check(
@@ -163,7 +173,37 @@ let sessionId;
   );
 }
 
-// 9. Contratos de error — ok:false + error string en respuestas de error
+// 10. POST …/scan/okua-e2 (siguiente estación correcta)
+{
+  const { status, body } = await POST(`/api/journey/session/${sessionId}/scan/okua-e2`);
+  check(
+    'POST …/scan/okua-e2 (siguiente estación) → 200, ok:true, stationId:2',
+    status === 200 && body.ok === true && body.stationId === 2,
+    `status=${status} body=${JSON.stringify(body)}`,
+  );
+}
+
+// 11. POST …/scan/okua-e2 repetido en la estación actual
+{
+  const { status, body } = await POST(`/api/journey/session/${sessionId}/scan/okua-e2`);
+  check(
+    'POST …/scan/okua-e2 repetido → 200, ok:true, stationId:2',
+    status === 200 && body.ok === true && body.stationId === 2,
+    `status=${status} body=${JSON.stringify(body)}`,
+  );
+}
+
+// 12. POST …/scan/okua-e1 desde estación 2 (revisita permitida)
+{
+  const { status, body } = await POST(`/api/journey/session/${sessionId}/scan/okua-e1`);
+  check(
+    'POST …/scan/okua-e1 desde estación 2 → 200, ok:true, stationId:1',
+    status === 200 && body.ok === true && body.stationId === 1,
+    `status=${status} body=${JSON.stringify(body)}`,
+  );
+}
+
+// 13. Contratos de error — ok:false + error string en respuestas de error
 {
   const [r1, r2] = await Promise.all([
     POST('/api/journey/entry/x'),
