@@ -106,7 +106,7 @@ export const journeyRoutes: FastifyPluginAsync = async (fastify) => {
         return reply.status(400).send({ ok: false, error: 'invalid_token' });
       }
 
-      const result = sessions.visitStation(sessionId, stationId);
+      const result = sessions.scanStation(sessionId, stationId);
       if (!result.ok) {
         return reply
           .status(result.error === 'session_not_found' ? 404 : 400)

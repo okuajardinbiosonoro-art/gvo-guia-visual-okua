@@ -25,6 +25,24 @@ function snapshot(session: JourneySession): JourneySession {
   return { ...session, visitedSteps: [...session.visitedSteps] };
 }
 
+function getHighestVisitedStation(session: JourneySession): number {
+  const stationVisits = session.visitedSteps.filter((step) => step > 0);
+  return stationVisits.length > 0 ? Math.max(...stationVisits) : 0;
+}
+
+function getExpectedQrStation(session: JourneySession): number | null {
+  if (session.completed) {
+    return null;
+  }
+
+  if (!session.visitedSteps.includes(0)) {
+    return 1;
+  }
+
+  const nextStation = getHighestVisitedStation(session) + 1;
+  return nextStation <= 5 ? nextStation : null;
+}
+
 export type StepResult =
   | { ok: true; session: JourneySession }
   | { ok: false; error: string; session?: JourneySession };
@@ -92,6 +110,30 @@ export function visitStation(sessionId: string, stationId: number): StepResult {
   }
   touch(session);
   return { ok: true, session: snapshot(session) };
+}
+
+export function scanStation(sessionId: string, stationId: number): StepResult {
+  const session = store.get(sessionId);
+  if (!session || session.expiresAt < Date.now()) {
+    return { ok: false, error: 'session_not_found' };
+  }
+  if (stationId < 1 || stationId > 5) {
+    return { ok: false, error: 'invalid_station', session: snapshot(session) };
+  }
+  if (session.completed) {
+    return visitStation(sessionId, stationId);
+  }
+
+  if (!session.visitedSteps.includes(0)) {
+    return { ok: false, error: 'intro_required', session: snapshot(session) };
+  }
+
+  const expectedStation = getExpectedQrStation(session);
+  if (expectedStation === null || stationId !== expectedStation) {
+    return { ok: false, error: 'sequence_violation', session: snapshot(session) };
+  }
+
+  return visitStation(sessionId, stationId);
 }
 
 export function finalizeSession(sessionId: string): StepResult {

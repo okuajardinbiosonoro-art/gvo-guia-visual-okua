@@ -1,22 +1,6 @@
 import { type FC, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import type { JourneySession } from '@gvo/shared';
 import { useJourney } from '../state/JourneyProvider';
-
-/**
- * Calcula en qué punto del flujo debe continuar una sesión existente.
- * - Sin intro → pantalla de introducción
- * - Estaciones pendientes → próxima estación no visitada
- * - Recorrido completo o finalizado → pantalla de bienvenida (revisión libre)
- */
-function resumeRoute(session: JourneySession): string {
-  if (!session.visitedSteps.includes(0)) return '/intro';
-  const nextStation = ([1, 2, 3, 4, 5] as const).find(
-    (n) => !session.visitedSteps.includes(n),
-  );
-  if (nextStation) return `/station/${nextStation}`;
-  return '/';
-}
 
 type EntryPhase =
   | 'resolving'
@@ -51,9 +35,9 @@ export const EntryScreen: FC = () => {
         );
         return;
       }
-      // Token válido: redirigir al punto correcto del recorrido
+      // Token válido: abrir la introducción. El progreso activo vive en la sesión.
       setPhase('resuming');
-      navigate(resumeRoute(session), { replace: true });
+      navigate('/intro', { replace: true });
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

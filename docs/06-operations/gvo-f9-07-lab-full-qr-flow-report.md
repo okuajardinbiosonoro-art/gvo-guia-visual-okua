@@ -177,7 +177,8 @@ Causa probable:
 Observación técnica del cierre:
 
 - se ajustó la persistencia del `sessionId` para compartir estado entre pestañas/contextos del navegador mediante almacenamiento compartido con fallback.
-- este ticket queda bloqueado hasta retest físico para confirmar que la corrección resuelve el flujo QR externo.
+- se ajustó la validación QR para que el backend compare el QR escaneado contra la estación esperada, y no trate cualquier QR válido como avance genérico.
+- este ticket queda bloqueado hasta retest físico para confirmar que la corrección resuelve el flujo QR externo en la cámara móvil.
 
 ## 12. Decisión de F9-07
 
@@ -208,4 +209,3 @@ El flujo QR completo con cámara móvil no quedó validado como recorrido contin
   - `.agents/`
   - `.claude/settings.json`
   - `GVO_ESTADO_TECNICO_*.txt`
-
