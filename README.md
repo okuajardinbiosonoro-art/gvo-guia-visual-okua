@@ -279,25 +279,36 @@ content/stations/
 
 **Para editar el guion:** modifica el archivo de la estación correspondiente. Cada archivo exporta un objeto `StationContent` (tipos en `packages/shared/src/content.ts`) con campos: `title`, `subtitle`, `blocks`, `cta`, `qrHint`, `visual`.
 
-### Assets visuales por estación (Ticket 0.7)
+### Assets visuales por estación
 
-Los assets visuales actuales del cliente viven en `apps/web/src/assets/`. Hoy se usan PNG de Lía Andina y recursos de soporte para la experiencia.
+Los assets visuales runtime viven en `apps/web/src/assets/stations/`.
+El staging editorial vive en `assets/stations/`.
 
-Cada estación puede declarar un hero visual en su campo `visual` dentro de `content/stations/station-N.ts`:
+**Estado F8:**
 
-```typescript
-visual: {
-  hero: {
-    type: 'placeholder',   // 'placeholder' | 'image'
-    label: '[ Señales bioeléctricas ]',
-    caption: 'Lo que el sistema registra',
-    // src: 'lia/lia-curious.png'  ← cuando type='image'
-  },
-  tone: 'cool',   // 'default' | 'warm' | 'cool' | 'cold' | 'neutral'
-}
-```
+- Estación II: ilustración SVG técnica integrada y aprobada.
+  `apps/web/src/assets/stations/station-2/diagram-bioelectric-chain.svg`
 
-Para conectar una imagen real: coloca el archivo en `apps/web/src/assets/`, cambia `type` a `'image'` y añade `src` con la ruta relativa desde el cliente web. El componente `StationHero` en `apps/web/src/components/StationHero.tsx` maneja ambos modos sin cambios al código.
+- Estación V: fotografía del montaje real integrada y aprobada.
+  `apps/web/src/assets/stations/station-5/hero-current-montage.webp`
+
+- Estación IV: usa `SignalFlowDiagram` con `hero.type:'diagram'`
+  y `diagramId:'signal-flow'`.
+
+- Intro, Estación I y Estación III: placeholders CSS aceptados para piloto.
+
+**Patrón correcto de integración de assets:**
+
+1. Producir/revisar asset en `assets/stations/station-N/`.
+2. Copiar a `apps/web/src/assets/stations/station-N/`.
+3. Importar en `apps/web/src/lib/content.ts` como módulo ES.
+4. Asignar en `stationHeroSrc[id]` o `introHeroSrc`.
+5. En `content/stations/station-N.ts`, cambiar `hero.type` a `'image'`
+   y ajustar `label`/`caption` si aplica.
+6. **Mantener `src` fuera de `content/stations/*.ts`.** El campo `src` lo inyecta
+   `withStationHero()` desde `lib/content.ts`.
+
+**Tipos vigentes de `VisualHero`:** `'placeholder'` | `'image'` | `'diagram'`
 
 **Bloques de contenido (`ContentBlock`):**
 - `paragraph` — texto normal
@@ -305,11 +316,11 @@ Para conectar una imagen real: coloca el archivo en `apps/web/src/assets/`, camb
 - `hint` — instrucción contextual (texto muted)
 - `heading` — encabezado dentro de la estación
 
-El contenido de esta versión es **semilla funcional**, alineado con la narrativa base del proyecto. El guion final se afina en tickets posteriores sin tocar la lógica de sesión o QR.
+El frontend carga el contenido desde `apps/web/src/lib/content.ts` vía el alias
+`@content` (configurado en `vite.config.ts` y `tsconfig.json`). La lógica de
+sesión y secuencia no toca este módulo.
 
-El frontend carga el contenido desde `apps/web/src/lib/content.ts` vía el alias `@content` (configurado en `vite.config.ts` y `tsconfig.json`). La lógica de sesión y secuencia no toca este módulo.
-
-### Qué incluye el estado actual (Tickets 0.1 – 0.5)
+### Qué incluye el estado actual (v0.9.0-rc.1 — F8 cerrada)
 
 - Workspace npm con `apps/web`, `apps/server`, `packages/shared`.
 - Shell funcional del recorrido (bienvenida, intro, 5 estaciones, cierre) con Lía Andina como avatar-guía único.
@@ -330,8 +341,16 @@ El frontend carga el contenido desde `apps/web/src/lib/content.ts` vía el alias
 
 ### Qué NO incluye todavía
 
-- Escaneo de QR por cámara dentro del navegador.
-- Estaciones con contenido narrativo y visual final.
-- Avatar-guía Lía Andina con producción visual definitiva y sistema animado por estación (actualmente integrada con PNG de transición mientras se implementa el pipeline 3D).
+- Assets visuales finales para Intro, Estación I y Estación III
+  (placeholders CSS aceptados para piloto por decisión explícita).
+- Iconografía SVG final para Estación IV
+  (diferida; `SignalFlowDiagram` funciona con fallback simbólico).
+- Validación con visitantes reales en campo (piloto pendiente).
+- QR físicos finales impresos y verificados contra host/IP de campo.
+- Prueba de red local completa con dispositivos móviles reales.
+- Escaneo de QR por cámara dentro del navegador
+  (decisión cerrada por ADR-002 para v1; revisable solo en v2+ con evidencia).
+- Lía Andina en 3D runtime
+  (decisión cerrada por ADR-002 para v1; pipeline no iniciado).
 - Base de datos, autenticación, panel administrativo.
 - Docker, despliegue en producción.

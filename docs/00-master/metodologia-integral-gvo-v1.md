@@ -282,11 +282,13 @@ Orden descendente de autoridad. Ante contradicción, prevalece la fuente de mayo
 
 ### Fase 8 — Producción e integración de assets 2D v1/piloto (extendida)
 
-**Estado:** EN PROGRESO.
+**Estado:** COMPLETA.
 
 **Nota:** Fase no prevista en el plan original. Foco en cerrar la brecha entre la infraestructura visual preparada en F7 y la integración de assets reales para el primer piloto de campo.
 
 **Objetivo:** Integrar assets obligatorios (Estación II y V como mínimo), aprobar copy para piloto y documentar placeholders permitidos.
+
+**Cierre F8:** Estación II y Estación V integradas y aprobadas. Copy/microcopy aprobado para piloto. Placeholders restantes documentados como decisión explícita de alcance. Metodología de assets corregida. README raíz alineado. Ver: `docs/00-master/gvo-phase-handoff-2026-04-24-f8-to-f9.md`.
 
 **Referencia:** `docs/assets/gvo-f8-pilot-asset-scope.md`
 
