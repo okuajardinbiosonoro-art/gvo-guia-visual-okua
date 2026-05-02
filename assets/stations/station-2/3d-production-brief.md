@@ -4,14 +4,14 @@
 `station-2-bioelectric-mediation.glb`
 
 ## 2. Objetivo visual
-Mostrar la mediacion entre senal bioelectrica vegetal y representacion sonora mediada por tecnologia.
+Mostrar la mediación entre señal bioeléctrica vegetal y representación sonora mediada por tecnología.
 La escena debe expresar 6 capas funcionales revelables.
 
 ## 3. Elementos de la escena
 - Planta simplificada.
-- Senal bioelectrica como dato visual.
-- Bionosificador o modulo de captura.
-- Flujo de mediacion por capas.
+- Señal bioeléctrica como dato visual.
+- Bionosificador o módulo de captura.
+- Flujo de mediación por capas.
 - Fondo sobrio.
 
 ## 4. Restricciones narrativas
@@ -19,27 +19,27 @@ La escena debe expresar 6 capas funcionales revelables.
 - No planta tocando instrumentos.
 - No notas musicales saliendo directamente de la planta.
 - No antropomorfizar la planta.
-- No aura magica.
+- No aura mágica.
 - No magia visual.
 
 ## 5. Restricciones técnicas
 - Formato: `.glb`.
 - Peso objetivo: < 1.5 MB.
-- Peso maximo: < 3 MB.
+- Peso máximo: < 3 MB.
 - Texturas: WebP o PNG, max 1024 x 1024.
 - Sin audio.
 - Sin dependencias externas.
-- Legible en iPhone SE de segunda generacion.
+- Legible en iPhone SE de segunda generación.
 
 ## 6. Animaciones permitidas
-- Pulso de senal lento.
+- Pulso de señal lento.
 - Revelado de capas.
-- Vibracion sutil de dato.
+- Vibración sutil de dato.
 
 NO:
-- animaciones rapidas;
+- animaciones rápidas;
 - explosiones;
-- particulas densas;
+- partículas densas;
 - magia visual.
 
 ## 7. Entregables
@@ -49,11 +49,11 @@ NO:
 - Preview PNG/WebP.
 - Nota de peso.
 - Nota de texturas.
-- Confirmacion de escala movil.
+- Confirmación de escala móvil.
 
 ## 8. Criterio de listo para CODEX
-- [ ] GLB existe y esta aprobado visualmente.
-- [ ] Peso dentro del limite.
+- [ ] GLB existe y está aprobado visualmente.
+- [ ] Peso dentro del límite.
 - [ ] Fallback SVG conservado.
-- [ ] No hay lectura planta -> musica directa.
+- [ ] No hay lectura planta -> música directa.
 - [ ] Asset probado en visor GLB antes de React.
