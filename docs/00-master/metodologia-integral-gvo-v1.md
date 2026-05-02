@@ -315,6 +315,21 @@ No se deben abrir en campo:
 
 ---
 
+### Regla de experiencia completa antes de empaquetado
+
+La capa operativa (flujo QR, sesiones, secuencia, hardening) puede validarse independientemente de la capa de experiencia. Pero el empaquetado final (F-packaging) solo puede iniciarse cuando ambas capas estén completas.
+
+La capa de experiencia incluye:
+- Lía como guía activa con presencia dinámica y diálogos por pantalla.
+- Interacciones diferenciadas por estación (no solo Estación IV).
+- Copy/guion final aprobado (no solo semilla de piloto).
+- Estrategia de animación definida e implementada.
+- Todos los assets finales o decisión documentada de placeholder definitivo.
+
+Campo recibe una aplicación terminada. No descubre features en sitio.
+
+---
+
 ### Fase 9 — Validación operativa de laboratorio y cierre pre-campo (extendida)
 
 **Estado:** COMPLETA A NIVEL LABORATORIO.
@@ -340,9 +355,11 @@ No se deben abrir en campo:
 
 ### Fase 10 — Paquete field-ready y congelamiento pre-campo (extendida)
 
-**Estado:** RECOMENDADA / SIGUIENTE FASE.
+**Estado:** SUPEDITADA AL CIERRE DE FASES DE EXPERIENCIA.
 
 **Nota:** Fase no prevista en el plan original. Su propósito es que el despliegue de campo sea una operación controlada, no una fase de desarrollo.
+
+**Nota de reencuadre (2026-05-02):** F10 (packaging) no puede iniciarse hasta que la capa de experiencia esté completa: Lía activa, interacciones por estación, copy final y animaciones. El siguiente chat de fase definirá las fases intermedias necesarias entre F9 y F10. Ver: `docs/00-master/gvo-experience-reframe-2026-05-02.md`.
 
 **Objetivo:**
 preparar todo lo necesario para que campo reciba un paquete completo, documentado y probado.
@@ -361,7 +378,7 @@ preparar todo lo necesario para que campo reciba un paquete completo, documentad
 
 ### Fase 11 — Despliegue y pruebas de campo (futura)
 
-**Estado:** FUTURA / FASE FINAL DE ACEPTACIÓN OPERATIVA.
+**Estado:** SUPEDITADA AL CIERRE DE F10.
 
 **Objetivo:**
 instalar el paquete field-ready en el PC de campo, configurar red final, verificar QR finales, probar móviles reales en sitio y emitir decisión de piloto.
