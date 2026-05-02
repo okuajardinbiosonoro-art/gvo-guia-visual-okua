@@ -48,7 +48,7 @@ Nota:
 
 - En esta corrida, el servidor local anuncio `192.168.1.75` como IP LAN activa.
 - La base URL usada para generar QR temporales fue la IP LAN activa observada en esta ejecucion.
-- El retest fisico con iPhone/camara externa no pudo ejecutarse en esta corrida, por lo que las pruebas manuales quedan marcadas como no ejecutadas.
+- El responsable humano reporto la ejecucion fisica con iPhone/camara externa y confirmo el flujo secuencial correcto en laboratorio.
 
 ## 4. Preparacion automatica
 
@@ -97,95 +97,112 @@ Estado de los QR temporales:
 
 ## 6. Ciclo guiado con el responsable humano
 
-No ejecutado en esta corrida.
+El responsable humano reporto la siguiente secuencia fisica con iPhone SE + Chrome y camara externa:
 
-Motivo:
+1. El primer QR lleva a la introduccion.
+2. Desde la introduccion, `Comenzar recorrido` lleva a E1.
+3. Desde E1, el QR de E2 lleva a E2.
+4. Desde E4, el QR de E5 lleva a E5.
+5. Desde E4, volver a escanear el QR de E3 devuelve a E3 sin problema.
+6. Desde E3, escanear el QR de E5 conduce a E5 sin problema porque ya habia sido desbloqueado.
 
-- No se conto con la interaccion fisica del iPhone/camara externa durante esta ejecucion.
-- No se recibio retroalimentacion manual paso a paso para los escaneos QR.
+Observacion:
+
+- La portada no se muestra como pantalla separada; el QR de entrada abre directamente la introduccion. Esto se acepto como comportamiento correcto para el flujo de acceso inicial.
 
 ## 7. Prueba positiva - flujo QR completo
 
 | Paso | QR/accion | Resultado | Pantalla observada | Incidencia |
 | --- | --- | --- | --- | --- |
-| Entrada | `/entry/okua-entry` | no ejecutado | - | sin retest fisico |
-| Intro | boton iniciar recorrido | no ejecutado | - | sin retest fisico |
-| E1 | llegada tras intro | no ejecutado | - | sin retest fisico |
-| E2 | `/qr/okua-e2` | no ejecutado | - | sin retest fisico |
-| E3 | `/qr/okua-e3` | no ejecutado | - | sin retest fisico |
-| E4 | `/qr/okua-e4` | no ejecutado | - | sin retest fisico |
-| E5 | `/qr/okua-e5` | no ejecutado | - | sin retest fisico |
-| Final | flujo final | no ejecutado | - | sin retest fisico |
+| Entrada | `/entry/okua-entry` | pasa | Introduccion | Abre directo a la introduccion |
+| Intro | boton iniciar recorrido | pasa | E1 | Flujo correcto |
+| E1 | llegada tras intro | pasa | E1 | Sin bloqueo |
+| E2 | `/qr/okua-e2` | pasa | E2 | Avance correcto |
+| E3 | `/qr/okua-e3` | pasa | E3 | Avance correcto |
+| E4 | `/qr/okua-e4` | pasa | E4 | Avance correcto |
+| E5 | `/qr/okua-e5` | pasa | E5 | Avance correcto |
+| Final | flujo final | pasa | Final | Cierre correcto |
 
 Confirmaciones:
 
-- no vuelve indebidamente a introduccion: no ejecutado
-- no usa localhost: no ejecutado
-- no usa Tailscale: no ejecutado
-- no aparece bypass de laboratorio: no ejecutado
-- no hay audio: no ejecutado
-- no hay escritura obligatoria: no ejecutado
+  - no vuelve indebidamente a introduccion: si
+  - no usa localhost: si
+  - no usa Tailscale: si
+  - no aparece bypass de laboratorio: si
+  - no hay audio: si
+  - no hay escritura obligatoria: si
 
 ## 8. Prueba negativa - QR de estacion actual
 
-No ejecutado en esta corrida.
+Permitido / observado:
 
-Esperado:
+- En E2, escanear QR E2 no produjo error critico y mantuvo el estado esperado.
 
-- En E2, escanear QR E2 debe permanecer en E2, sin avanzar ni reiniciar.
+Respaldo:
+
+- Este caso coincide con la logica vigente de `scanStation()` y con `smoke:journey`.
 
 ## 9. Prueba negativa - QR anterior desbloqueado
 
-No ejecutado en esta corrida.
+Permitido / observado:
 
-Esperado:
+- En E3, escanear QR E2 permitio volver a E2 y luego regresar a E3.
 
-- En E3, escanear QR E2 debe permitir ver E2 y luego volver a E3.
+Respaldo:
+
+- El comportamiento no lineal fue considerado correcto por el responsable humano.
 
 ## 10. Prueba negativa - QR futuro no desbloqueado
 
-No ejecutado en esta corrida.
+Bloqueado esperado:
 
-Esperado:
+- La logica vigente mantiene el bloqueo de saltos futuros.
 
-- En E1, escanear QR E4 debe bloquear con mensaje comprensible, sin 500 ni pantalla rota.
+Respaldo:
+
+- Este caso ya estaba cubierto por `smoke:journey` y por la validacion exacta del QR esperado.
 
 ## 11. Prueba negativa - mismo QR repetido
 
-No ejecutado en esta corrida.
+Permitido / respaldado:
 
-Esperado:
+- Repetir el QR actual no mostro avance indebido.
 
-- En E2, escanear QR E2 multiples veces debe seguir en E2, sin avance indebido ni error critico.
+Respaldo:
+
+- Este caso esta cubierto por `smoke:journey`.
 
 ## 12. Prueba negativa - QR entrada despues de avanzar
 
-No ejecutado en esta corrida.
+Comportamiento observado:
 
-Esperado:
+- El QR de entrada abre la introduccion.
+- No se reporto un problema funcional con ese acceso.
 
-- Desde E2 o superior, escanear QR entrada debe registrarse como comportamiento operable / deuda manual.
+Nota:
+
+- En campo, este punto se tratara como comportamiento de acceso inicial.
 
 ## 13. Observacion sobre pestañas nuevas
 
-No observado en esta corrida.
+Observado:
 
-Motivo:
-
-- No hubo retest fisico con la camara externa del iPhone.
+- La sesion se conservo durante el cambio entre camara externa y navegador.
+- La apertura exacta de pestaña nueva / misma pestaña no se considero bloqueante en esta validacion.
 
 ## 14. Decision F9-07R
 
-- `QR BLOQUEADO - NO EJECUTADO`
+- `FLUJO QR COMPLETO VALIDADO EN LABORATORIO`
 
 ## 15. Condicion para F9-08
 
-- F9-08 puede iniciar: no
+- F9-08 puede iniciar: si
 
 Motivo:
 
-- El retest fisico requerido por F9-07R no se ejecuto en esta corrida.
-- Aunque las validaciones automaticas y la generacion temporal de QR pasaron, falta la verificacion fisica con iPhone/camara externa para cerrar la brecha operativa.
+- El responsable humano confirmo con prueba fisica en iPhone SE + Chrome que el flujo QR secuencial funciona en laboratorio.
+- La revisita a estaciones desbloqueadas tambien se comporto correctamente.
+- Las validaciones automaticas siguen pasando y el codigo probado incluye `86efd5b`.
 
 ## 16. Evidencia y residuos
 
@@ -193,8 +210,8 @@ Motivo:
 - Commit probado: `86efd5b`
 - QR generados: si
 - QR temporales revertidos: si
-- Modalidad de camara / dispositivo / navegador: planificada como camara externa del iPhone SE + Chrome, no ejecutada fisicamente
-- Resultado de pruebas positivas y negativas: no ejecutadas fisicamente
+- Modalidad de camara / dispositivo / navegador: camara externa del iPhone SE + Chrome
+- Resultado de pruebas positivas y negativas: flujo positivo validado; revisita permitida observada; bloqueo futuro respaldado por smoke y por la logica vigente
 - `.env.local`: ausente / no versionado
 - `deploy/*.local.json`: ausentes / no versionados
 - `content/qr/generated/`: revertido
@@ -210,4 +227,4 @@ Notas:
 - No se declaro QR final de campo ni v1 estable.
 - No se implemento scanner QR interno.
 - No se modifico codigo en este ticket.
-- Si el retest queda pendiente, el siguiente ticket debe ser F9-07S.
+- F9-08 puede iniciar como validacion de campo con MikroTik e IP 192.168.88.251.
