@@ -21,7 +21,7 @@
 8. Reglas para copy, narrativa y microcopy
 9. Reglas para UX, flujo, first pass y revisita libre
 10. Reglas para sistema visual, assets y reemplazo de placeholders
-11. Estrategia para Lía Andina 2D (ahora) y pipeline 3D (futuro)
+11. Estrategia para Lía Andina 2D (fallback) y pipeline 3D habilitado
 12. Criterios para introducir 3D
 13. Backend, sesiones, QR, tipos compartidos, field mode y lab mode
 14. Hardening para producción local Windows
@@ -326,7 +326,10 @@ La capa de experiencia incluye:
 - Estrategia de animación definida e implementada.
 - Todos los assets finales o decisión documentada de placeholder definitivo.
 
+Con ADR-003, esa capa de experiencia incluye tambien el pipeline 3D profesional de Lía y los elementos 3D por estacion definidos para cada fase.
+
 Campo recibe una aplicación terminada. No descubre features en sitio.
+Tambien implica: campo no descubrira si la experiencia 3D funciona bien; eso lo valida el laboratorio. Campo solo recibe la version terminada.
 
 ---
 
@@ -355,11 +358,11 @@ Campo recibe una aplicación terminada. No descubre features en sitio.
 
 ### Fase 10 — Paquete field-ready y congelamiento pre-campo (extendida)
 
-**Estado:** SUPEDITADA AL CIERRE DE FASES DE EXPERIENCIA.
+**Estado:** SUPEDITADA AL CIERRE DE FASES DE EXPERIENCIA 3D.
 
 **Nota:** Fase no prevista en el plan original. Su propósito es que el despliegue de campo sea una operación controlada, no una fase de desarrollo.
 
-**Nota de reencuadre (2026-05-02):** F10 (packaging) no puede iniciarse hasta que la capa de experiencia esté completa: Lía activa, interacciones por estación, copy final y animaciones. El siguiente chat de fase definirá las fases intermedias necesarias entre F9 y F10. Ver: `docs/00-master/gvo-experience-reframe-2026-05-02.md`.
+**Nota (2026-05-02, revisada):** La decision del responsable abre el pipeline 3D profesional. ADR-003 formaliza esta decision. F10 (packaging) no puede iniciarse hasta que Lía este terminada como guia 3D animada, todas las estaciones tengan sus experiencias interactivas 3D completas, el copy final este aprobado y la validacion de laboratorio este completada. Ver: `docs/05-adr/ADR-003-v1-3d-experience-pipeline.md` y `docs/00-master/gvo-3d-pipeline-contract.md`.
 
 **Objetivo:**
 preparar todo lo necesario para que campo reciba un paquete completo, documentado y probado.
@@ -578,7 +581,7 @@ QR entrada → /entry/okua-entry
 
 ---
 
-## 11. Estrategia para Lía Andina 2D (ahora) y pipeline 3D (futuro)
+## 11. Estrategia para Lía Andina 2D (fallback) y pipeline 3D habilitado
 
 ### Estado actual (2D funcional)
 
@@ -598,7 +601,7 @@ Los 4 assets PNG de Lía (`lia-idle.png`, `lia-three-quarter.png`, `lia-calm.png
 - `lia-three-quarter.png` está disponible pero sin pantalla asignada. Se puede usar en una pantalla de transición o mantenerse en reserva.
 - Si se necesita un quinto estado emocional, debe definirse primero en `docs/avatars/lia-andina/lia-andina-spec.md` antes de crear el asset.
 
-### Pipeline 3D (futuro — no bloquea v1)
+### Pipeline 3D (habilitado por ADR-003)
 
 Estado del checklist 3D:
 - [x] Referencia original consolidada
@@ -614,25 +617,27 @@ Estado del checklist 3D:
 - [ ] Animaciones idle (ciclo de 2-3 segundos, flotación suave)
 - [ ] Integración en app (reemplazar `<img>` por `<canvas>` o componente 3D)
 
-**Regla:** El pipeline 3D no se inicia hasta que:
-1. v1 esté en piloto estable.
-2. Exista decisión explícita del equipo sobre prioridad.
-3. Haya un ticket de planificación que defina el alcance técnico (Three.js vs Babylon.js vs React Three Fiber, etc.).
+**Regla:** El pipeline 3D está habilitado por ADR-003 y se trabaja por estaciones.
+1. Cada pieza o estación 3D debe partir de un ticket de definición completa.
+2. Cada entregable 3D debe validarse en laboratorio antes de pasar al siguiente.
+3. Los PNG actuales siguen siendo fallback mientras exista una pieza 3D pendiente.
+4. No se espera a v1 estable para arrancar el pipeline; se espera a la definición de la pieza y a la validación de laboratorio de esa pieza.
 
 ---
 
 ## 12. Criterios para introducir 3D
 
-El 3D solo se introduce si cumple **todos** los siguientes criterios:
+El 3D se introduce por piezas si cumple **todos** los siguientes criterios:
 
-1. **Aporta comprensión real:** El visitante entiende mejor algo del proyecto OKÚA porque Lía se presenta en 3D. No es decoración.
-2. **No degrada el rendimiento en móvil de gama media:** El render 3D corre a ≥ 30fps en un teléfono de 2020 con WebGL disponible.
+1. **Aporta comprensión real:** El visitante entiende mejor algo del proyecto OKÚA porque Lía o la estación se presenta en 3D. No es decoración.
+2. **No degrada el rendimiento en movil de gama media:** El render 3D corre a ≥ 30fps en un telefono de 2020 con WebGL disponible.
 3. **No introduce dependencia de Internet:** Los assets 3D se sirven localmente.
-4. **No requiere plugins o apps adicionales del visitante:** Solo navegador estándar.
-5. **v1 está cerrada y en producción:** El 3D es una mejora de v1, no una feature de v1.
-6. **Existe fallback 2D:** Si WebGL no está disponible, el sistema cae silenciosamente a los PNG actuales.
+4. **No requiere plugins o apps adicionales del visitante:** Solo navegador estandar.
+5. **Existe definicion completa por estacion:** cada pieza 3D nace de un ticket de definicion, se implementa, y se valida en laboratorio antes de pasar a la siguiente.
+6. **Existe fallback 2D:** Si WebGL no esta disponible, el sistema cae silenciosamente a los PNG actuales.
+7. **No viola la linea roja narrativa:** la mediacion tecnica sigue visible y no se sugiere magia.
 
-**Si algún criterio no se cumple:** Posponer. Los PNG actuales son suficientes para comunicar la identidad de Lía.
+**Si algun criterio no se cumple:** Posponer esa pieza concreta. Los PNG actuales siguen siendo suficientes para comunicar la identidad de Lía mientras la pieza 3D no este lista.
 
 ---
 
