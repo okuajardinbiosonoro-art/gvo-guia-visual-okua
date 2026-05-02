@@ -6,9 +6,7 @@ type Props = {
   scene?: ReactNode;
 };
 
-const Station3DHost: FC<Props> = ({ stationId, fallback, scene }) => {
-  void stationId;
-
+const Station3DHost: FC<Props> = ({ fallback, scene }) => {
   if (!scene) return <>{fallback}</>;
 
   return <>{scene}</>;
