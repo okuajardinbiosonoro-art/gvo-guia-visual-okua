@@ -294,6 +294,80 @@ Orden descendente de autoridad. Ante contradicción, prevalece la fuente de mayo
 
 ---
 
+### Regla de campo como fase final
+
+El campo no se usa como entorno de desarrollo iterativo.
+
+Antes de campo, toda la aplicación debe estar completa, validada en laboratorio, empaquetada, documentada y congelada.
+
+En campo solo se permite:
+- copiar/instalar el paquete preparado en el PC de campo;
+- ajustar variables finales de red previstas (como IP/host);
+- generar/verificar QR finales de campo;
+- correr validaciones de aceptación;
+- registrar incidencias;
+- emitir go/no-go.
+
+No se deben abrir en campo:
+- nuevos assets, rediseño de flujo, cambios de arquitectura;
+- cambios de copy/microcopy salvo error crítico;
+- nuevos modos, scanner QR interno, AR, audio, multiavatar, Lía 3D runtime.
+
+---
+
+### Fase 9 — Validación operativa de laboratorio y cierre pre-campo (extendida)
+
+**Estado:** COMPLETA A NIVEL LABORATORIO.
+
+**Nota:** Fase no prevista en el plan original. Foco en preparar y validar operativamente el sistema antes de ir a campo.
+
+**Cierre demostrado:**
+- checklist operativo reproducible (F9-01);
+- QA móvil real con iPhone SE + Chrome (F9-03T);
+- recorrido completo en laboratorio (F9-04);
+- concurrencia y soak (F9-05);
+- go/no-go de laboratorio: GO LABORATORIO, NO-GO CAMPO, NO V1 ESTABLE (F9-06);
+- flujo QR completo de laboratorio con cámara móvil: VALIDADO (F9-07R).
+
+**No declara:**
+- campo ejecutado;
+- QR finales de campo probados;
+- v1 estable.
+
+**Referencia:** `docs/00-master/gvo-phase-handoff-2026-05-02-f9-to-f10.md`
+
+---
+
+### Fase 10 — Paquete field-ready y congelamiento pre-campo (extendida)
+
+**Estado:** RECOMENDADA / SIGUIENTE FASE.
+
+**Nota:** Fase no prevista en el plan original. Su propósito es que el despliegue de campo sea una operación controlada, no una fase de desarrollo.
+
+**Objetivo:**
+preparar todo lo necesario para que campo reciba un paquete completo, documentado y probado.
+
+**Entregables mínimos:**
+- paquete reproducible para PC de campo;
+- perfil de campo definitivo o plantilla final validada;
+- runbook de instalación/copia en PC de campo;
+- checklist de archivos requeridos;
+- procedimiento de rollback;
+- procedimiento de generación/verificación de QR finales;
+- criterio de congelamiento;
+- go/no-go para entrar a campo.
+
+---
+
+### Fase 11 — Despliegue y pruebas de campo (futura)
+
+**Estado:** FUTURA / FASE FINAL DE ACEPTACIÓN OPERATIVA.
+
+**Objetivo:**
+instalar el paquete field-ready en el PC de campo, configurar red final, verificar QR finales, probar móviles reales en sitio y emitir decisión de piloto.
+
+Esta fase es la última fase de aceptación operativa antes de v1 estable.
+
 ### Cierre de v1 estable
 
 **Estado:** Pendiente de Fase 5 (parcial) + Fase 6 (parcial).
